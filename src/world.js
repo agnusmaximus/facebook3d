@@ -165,7 +165,7 @@ function House(x,y,z,height,flipped) {
 		var pyramidGeometry = new THREE.CylinderGeometry(0, 144.96, height*3/4, 4, false); 
 
 		ceilingMesh = new THREE.Mesh(pyramidGeometry, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
-		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+40,this.zPos);
+		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+38,this.zPos);
 		ceilingMesh.rotation.y = Math.PI/4;
 		//ceilingMesh.rotation.x = Math.PI/2;
 
