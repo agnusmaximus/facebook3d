@@ -233,18 +233,18 @@ function ProfilePicReceived(picURL) {
 
 
 function HouseManager() {
-    var housesLeft, housesRight;
+    var this.housesLeft, this.housesRight;
 }
 
 HouseManager.prototype.init = function() {
-    housesLeft = new Array();
-    housesRight = new Array();
+    this.housesLeft = new Array();
+    this.housesRight = new Array();
     
     for (var i = 0; i < 50; i++) {
-        housesLeft[i] = new House();
-        housesLeft[i].create(300, 0, -400 * i);
-        housesRight[i] = new House();
-        housesRight[i].create(-300, 0, -400 * i);
+        this.housesLeft[i] = new House();
+        this.housesLeft[i].create(300, 0, -400 * i);
+        this.housesRight[i] = new House();
+        this.housesRight[i].create(-300, 0, -400 * i);
     }
 };
 
