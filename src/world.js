@@ -438,7 +438,7 @@ function animate() {
 
 	}
 
-	updateStatusWall( Date.now() - time);
+	//updateStatusWall( Date.now() - time);
 
 	controls.update( Date.now() - time );
 
