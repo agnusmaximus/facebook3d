@@ -150,7 +150,7 @@ function House(x,y,z,height,flipped) {
 		var rightWallRight = new THREE.CubeGeometry( 80, height , 5);
 
 		rightWallRightMesh = new THREE.Mesh(rightWallRight, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
-		rightWallRightMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height,this.zPos + 45/2+40);
+		rightWallRightMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos + 45/2+40);
 		rightWallRightMesh.rotation.y = -Math.PI/2;
 
 		scene.add( rightWallRightMesh );
