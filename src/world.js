@@ -125,6 +125,59 @@ function init() {
 
 	document.body.appendChild( renderer.domElement );
 
+	// ROOM
+
+	geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
+	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
+
+	material = new THREE.MeshBasicMaterial( {color : 0xC0C0C0} );
+
+	mesh = new THREE.Mesh( geometry, material );
+	scene.add( mesh );
+
+	var backWall = new THREE.PlaneGeometry( 201, 60 );
+
+	backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+	backWallMesh.position = new THREE.Vector3(0,30,-100);
+
+	scene.add( backWallMesh );
+
+
+	var frontWall = new THREE.PlaneGeometry( 201, 60 );
+
+	frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
+	frontWallMesh.position = new THREE.Vector3(0,30,100);
+	frontWallMesh.rotation.x = 3.14;
+
+	scene.add( frontWallMesh );
+
+
+	var leftWall = new THREE.PlaneGeometry( 201, 60 );
+
+	leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAA00AA} ));
+	leftWallMesh.position = new THREE.Vector3(-100,30,0);
+	leftWallMesh.rotation.y = 1.57;
+
+	scene.add( leftWallMesh );
+
+
+	var rightWall = new THREE.PlaneGeometry( 201, 60 );
+
+	rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0x00AAAA} ));
+	rightWallMesh.position = new THREE.Vector3(100,30,0);
+	rightWallMesh.rotation.y = -1.57;
+
+	scene.add( rightWallMesh );
+
+
+	var ceiling = new THREE.PlaneGeometry( 201, 201 );
+
+	ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x555555} ));
+	ceilingMesh.position = new THREE.Vector3(0,60,0);
+	ceilingMesh.rotation.x = 1.57;
+
+	scene.add( ceilingMesh );
+
 	//
 
 	window.addEventListener( 'resize', onWindowResize, false );
