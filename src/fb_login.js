@@ -14,11 +14,21 @@ Array.prototype.shuffle = function() {
 friends = new Array();
 
 function get_single_status(user, callback) {
+    //if (!user) return;
     friend_id = user.id;
     FB.api('/'+friend_id+'/feed', function(response) {
-	story = response.data[0].story.toLowerCase();
-	story = '"' + story + '"';
-	callback(story);
+	if (response && response.data.length > 0) {
+	    for (i = 0; i < response.data.length; i++) {
+		//console.log(response.data[i]);
+		//if (response.data[i].status_type == "post") {
+		    story = response.data[i].story.toLowerCase();
+		    story = '"' + story + '"';
+		    callback(story);
+		//console.log(story + " " + response.data[i].story_type);
+		return;
+	    //}
+	    }
+	}
     });
 }
 
