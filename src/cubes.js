@@ -8,6 +8,9 @@ var totalTime = 0;
 var switchPicTimer = 0;
 var switchPicInterval = 1500;
 
+init();
+animate();
+
 function init() {
 
 	renderer = new THREE.WebGLRenderer();
@@ -25,7 +28,7 @@ function init() {
 	//get_all_friends(findFriends);
 
 
-	makeCubeWall(100,10,5,new THREE.Vector3(100,0,-50));
+	makeCubeWall(7,7,80,new THREE.Vector3(100,0,-50));
 
 	window.addEventListener( 'resize', onWindowResize, false );
 
