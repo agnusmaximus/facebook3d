@@ -312,7 +312,6 @@ function updateStatusWall(t) {
 
 var userPhotos = null;
 var photoCascade = new Object();
-photoCascade.user = get_self();
 photoCascade.curt = 0;
 photoCascade.interval = 3000;
 photoCascade.canRun = false;
@@ -341,6 +340,10 @@ function updatePhotoCascade(t) {
 function setPhotosArray(photos) {
 	userPhotos = photos;
 	photoCascade.canRun = true;
+}
+
+function getCurrentUser(user) {
+	get_friend_photos(user, setPhotosArray);
 }
 
 
@@ -486,7 +489,7 @@ function init() {
     scene.add( skyboxMesh );*/
 
 
-    get_friend_photos(photoCascade.user, setPhotosArray);
+    get_self(getCurrentUser);
 
 
     /*initStatusWall();
