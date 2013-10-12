@@ -162,7 +162,7 @@ function House(x,y,z,height,flipped) {
 
 		//var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
 
-		var pyramidGeometry = new THREE.CylinderGeometry(0, 289.91, height*3/4, 4, false); 
+		var pyramidGeometry = new THREE.CylinderGeometry(0, 144.96, height*3/4, 4, false); 
 
 		ceilingMesh = new THREE.Mesh(pyramidGeometry, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
 		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+15,this.zPos);
