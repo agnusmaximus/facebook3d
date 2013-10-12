@@ -18,14 +18,13 @@ function get_single_status(user_id, callback) {
     friend_id = user_id;
     c = 0;
 
-    FB.api('/'+friend_id+'/posts', function(response) {
+    FB.api('/'+friend_id+'/statuses', function(response) {
 	console.log(response);
 	if (response && response.data && response.data.length && response.data.length > 0) {
 	    chosen = "   ";
 	    for (i = 0; i < response.data.length; i++) {
-		//if (response.data[i].status_type == "wall_post") {
-		    if (response.data[i].story) {
-			story = response.data[i].story.toLowerCase();
+		    if (response.data[i].message) {
+			story = response.data[i].message.toLowerCase();
 			story = '"' + story + '"';
 			if (Math.floor(Math.random() * 100) % (c + 1) == 0)
 			    chosen = story;
@@ -34,7 +33,6 @@ function get_single_status(user_id, callback) {
 		    else {
 			story = "";
 		    }		   
-	    //}
 	    }
 	    console.log(chosen + " " + chosen);
 	    callback(chosen);
