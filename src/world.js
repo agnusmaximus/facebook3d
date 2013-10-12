@@ -221,24 +221,24 @@ function newStatusWall(user) {
     statuses.user = user;
     statuses.interval = 2500;
     statuses.curt = 0;
-    //get_single_status(statuses.user, getNextStatus);
-    get_friend_photos(statuses.user, setPics);
+    get_single_status(statuses.user, getNextStatus);
+    //get_friend_photos(statuses.user, setPics);
     
 }
 
 // called at the very beginning
 function initStatusWall() {
     statuses = new Object();
-    /*statuses.mesh = new THREE.Mesh(); 
+    statuses.mesh = new THREE.Mesh(); 
     statuses.mesh.geometry.dynamic = true;
-    scene.add(statuses.mesh);*/
+    scene.add(statuses.mesh);
     
-    statuses.photo = new THREE.Mesh();
-    statuses.photo.geometry.dynamic = true;
-    scene.add(statuses.photo);
+    //statuses.photo = new THREE.Mesh();
+    //statuses.photo.geometry.dynamic = true;
+    //scene.add(statuses.photo);
 }
 
-function getNextStatus(status, picurl) { 
+function getNextStatus(status) { 
 	//scene.remove(statuses.mesh);
 	console.log("STATUS:"+status);
     var textGeo = new THREE.TextGeometry( status, {
@@ -254,6 +254,16 @@ function getNextStatus(status, picurl) {
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
+    statuses.mesh.geometry.verticesNeedUpdate = true;
+    statuses.mesh.geometry.elementsNeedUpdate = true;
+    statuses.mesh.geometry.morphTargetsNeedUpdate = true;
+    statuses.mesh.geometry.uvsNeedUpdate = true;
+    statuses.mesh.geometry.normalsNeedUpdate = true;
+    statuses.mesh.geometry.colorsNeedUpdate = true;
+    statuses.mesh.geometry.tangentsNeedUpdate = true;
+    statuses.mesh.position.x = 0;
+    statuses.mesh.position.y = 20;
+    statuses.mesh.position.z = 0;
     //scene.add(statuses.mesh);
 }
 
@@ -302,10 +312,10 @@ function updateStatusWall(t) {
     statuses.curt += t;
     if (statuses.curt > statuses.interval) {
         statuses.curt = 0;
-        //get_single_status(statuses.user, getNextStatus);
+        get_single_status(statuses.user, getNextStatus);
         //get_friend_photos(statuses.user, getPic);
-        getPic(picind);
-        picind = (picind + 1) % (pics.length - 1);
+        //getPic(picind);
+        //picind = (picind + 1) % (pics.length - 1);
     }
 }
 
@@ -322,7 +332,7 @@ function updatePhotoCascade(t) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-	    	
+
 			var photoMaterial = new THREE.MeshBasicMaterial({
 				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
 			});
@@ -493,9 +503,9 @@ function init() {
     get_self(getCurrentUser);
 
 
-    /*initStatusWall();
+    initStatusWall();
 
-    get_self(testingStatuses);*/
+    //get_self(testingStatuses);
     
     get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
