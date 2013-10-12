@@ -395,7 +395,7 @@ function init() {
 	geometry = new THREE.PlaneGeometry( 20000000, 20000000, 100, 100 );
 	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-	material = new THREE.MeshBasicMaterial( {color : 0xC2C4C8} );
+	material = new THREE.MeshBasicMaterial( {color : 0xC0C0C0} );
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
@@ -430,7 +430,7 @@ function init() {
 
     get_self(testingStatuses);
     
-    get_user_picture(ProfilePicReceived);
+    //get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
     window.addEventListener( 'resize', onWindowResize, false );
 }
