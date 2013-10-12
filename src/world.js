@@ -98,9 +98,10 @@ if ( havePointerLock ) {
 
 }
 
-function House(fb_user) {
-    this.fb_user = fb_user;
+function House() {
 }
+
+House.prototype.fb_user = null;
 
 House.prototype.create = function(x, y, z) {
 	this.xPos = x;
