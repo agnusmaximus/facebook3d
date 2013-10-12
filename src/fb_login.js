@@ -16,11 +16,6 @@ function get_friend_profile_pic(user, callback) {
 }
 
 function get_friend_albums(user, callback) {
-	var payload = {
-		message: 'fooo',
-		photo: '...',
-		link
-	}
     friend_id = user.id;
     FB.api(friend_id+'/albums', function(response) {
 	callback(response.data);
