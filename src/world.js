@@ -149,7 +149,22 @@ House.prototype.create = function(x, y, z) {
 	ceilingMesh.rotation.x = Math.PI/2;
 
 	scene.add( ceilingMesh );
+
+
 };
+
+function ProfilePicReceived(picURL) {
+	var photoMaterial = new THREE.MeshBasicMaterial({
+		map : THREE.ImageUtils.loadTexture(picURL)
+    });
+
+
+    // plane
+    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
+    photo.position.y = 30;
+
+    scene.add(photo);
+}
 
 
 function HouseManager() {
@@ -227,6 +242,8 @@ function init() {
     skyboxMesh    = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000, 1, 1, 1, null, true ), material );
     // add it to the scene
     scene.add( skyboxMesh );*/
+
+    get_user_picture(ProfilePicReceived);
         
 	window.addEventListener( 'resize', onWindowResize, false );
 }
