@@ -205,9 +205,10 @@ function initStatusWall() {
 }
 
 function getNextStatus(status) { 
+	scene.remove(statuses.mesh);
 	console.log("STATUS:"+status);
     var textGeo = new THREE.TextGeometry( status, {
-        size: 100,
+        size: 15,
         height: 50,
         curveSegments: 0,
 
@@ -219,6 +220,7 @@ function getNextStatus(status) {
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
+    scene.add(statuses.mesh);
 }
 
 function updateStatusWall(t) {
