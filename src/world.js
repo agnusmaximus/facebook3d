@@ -160,11 +160,11 @@ function loadProfilePic(picURL, position) {
     
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), photoMaterial);
-    photo.position.x = position.x + 102.6*position.y;
+    photo.position.x = position.x - 102.6*position.y;
     photo.position.y = 30;
-    photo.position.z = position.z - (50 * position.y);
+    photo.position.z = position.z + (50 * position.y);
 
-    photo.rotation.y = Math.PI/2 * position.y;
+    photo.rotation.y = Math.PI/2 * -1*position.y;
 
     scene.add(photo);
 };
