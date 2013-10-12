@@ -29,8 +29,9 @@ function get_friend_profile_pic(user, callback, data) {
     });
 }
 
-function get_self(user, callback) {
+function get_self(callback) {
     FB.api('/me', function(response) {
+	console.log(response);
 	callback(response);
     });
 }
@@ -93,7 +94,7 @@ function initialize() {
 
 	init();
 	animate();
-
+	
 	get_all_friends(function(response){friends=response});
     });
 }
