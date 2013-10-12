@@ -3,7 +3,7 @@ function get_profile_pic(user, callback) {
     console.log(user);
     friend_id = user.id;
     FB.api('/'+friend_id+'/picture', function(response) {
-	console.log(response.data.url);
+	callback(response.data.url);
     });
 }
 
