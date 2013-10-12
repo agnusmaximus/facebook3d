@@ -67,7 +67,7 @@ function get_friend_albums(user_id, callback) {
 
 function get_friend_photos(user_id, callback) {
     console.log("USER");
-    console.log(user);
+    console.log(user_id);
     get_friend_albums(user_id, function(albums) {
 	console.log(albums);
 	if (albums.length > 0) {
@@ -172,9 +172,8 @@ window.fbAsyncInit = function() {
 	    // The response object is returned with a status field that lets the app know the current
 	    // login status of the person. In this case, we're handling the situation where they 
 	    // have logged in to the app.
-	    
-	    initialize();
 
+	    initialize();
 	} else if (response.status === 'not_authorized') {
 	    // In this case, the person is logged into Facebook, but not into the app, so we call
 	    // FB.login() to prompt them to do so. 

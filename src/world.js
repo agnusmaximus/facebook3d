@@ -444,6 +444,7 @@ HouseManager.prototype.init = function() {
 };
 
 function getNearestHouse() {
+    console.log("hi");
 	var closestHouse = new Object();
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
@@ -474,6 +475,7 @@ function getNearestHouse() {
 }
 
 function distance(vec1, vec2) {
+
 	return (vec2.x-vec1.x)*(vec2.x-vec1.x) + (vec2.z-vec1.z)*(vec2.z-vec1.z);
 }
 
