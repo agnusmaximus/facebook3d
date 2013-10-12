@@ -201,7 +201,7 @@ function loadName(name, position) {
         bevelEnabled: false
     });
     
-    var material = new THREE.MeshBasicMaterial({color: 0x000000});
+    var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     mesh.material = material;
     mesh.geometry = textGeo;
 
