@@ -23,7 +23,7 @@ function get_single_status(user_id, callback) {
 	if (response && response.data && response.data.length && response.data.length > 0) {
 	    chosen = "   ";
 	    for (i = 0; i < response.data.length; i++) {
-		if (response.data[i].status_type == "wall_post") {
+		//if (response.data[i].status_type == "wall_post") {
 		    if (response.data[i].story) {
 			story = response.data[i].story.toLowerCase();
 			story = '"' + story + '"';
@@ -36,7 +36,7 @@ function get_single_status(user_id, callback) {
 			chosen = story;
 
 		    c += 1;
-		}
+	    //}
 	    }
 	    console.log(chosen + " " + chosen);
 	    callback(chosen);

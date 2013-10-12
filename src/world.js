@@ -244,8 +244,8 @@ function getNextStatus(status) {
     scene.remove(statuses.mesh);
 	console.log("STATUS:"+status);
     var textGeo = new THREE.TextGeometry( status, {
-        size: 12,
-        height: 1,
+        size: 4,
+        height: -1,
         curveSegments: 0,
 
         font: "helvetiker",
