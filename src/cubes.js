@@ -158,9 +158,9 @@ function animate() {
 	TWEEN.update();
 
 	for(i in cubesArr) {
-		if(!cubesArr[i].userData.isBeingFlipped) {
+		//if(!cubesArr[i].userData.isBeingFlipped) {
 			cubesArr[i].rotation.z = Math.sin(totalTime/100 + cubesArr[i].userData.timeOffset)/10;
-		}
+		//}
 	}
 
 	renderer.render( scene, camera );
