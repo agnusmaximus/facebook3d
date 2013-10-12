@@ -160,7 +160,8 @@ function loadProfilePic(picURL, position) {
 		map : THREE.ImageUtils.loadTexture(picURL)
     });
 
-
+    
+    console.log(this.fb_user);
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
     photo.position.x = position.x + -110*position.y;
