@@ -100,11 +100,9 @@ if ( havePointerLock ) {
 
 function House(x,y,z) {
 	this.fb_user = null;
-	//console.log(z);
 	this.xPos = x;
 	this.yPos = y;
 	this.zPos = z;
-	console.log(this.zPos);
 
 	this.create = function() {
 	    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
@@ -154,23 +152,22 @@ function House(x,y,z) {
 
 		scene.add( ceilingMesh );
 	};
-
-	this.loadProfilePic = function(picURL) {
-		var photoMaterial = new THREE.MeshBasicMaterial({
-			map : THREE.ImageUtils.loadTexture(picURL)
-	    });
-
-
-	    // plane
-	    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
-	    console.log(xPos + " " + zPos);
-	    photo.position.x = Math.random()*100;
-	    photo.position.y = Math.random()*100;
-	    photo.position.z = -50;
-
-	    scene.add(photo);
-	};
 }
+
+function loadProfilePic(picURL, position) {
+	var photoMaterial = new THREE.MeshBasicMaterial({
+		map : THREE.ImageUtils.loadTexture(picURL)
+    });
+
+
+    // plane
+    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
+    photo.position.x = position.x;
+    photo.position.y = 80;
+    photo.position.z = position.z;
+
+    scene.add(photo);
+};
 
 function Status(x, y, text) {
     this.x = x;
@@ -213,7 +210,7 @@ function allFriendsReceived(friends) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
 		console.log(house.zPos);
-		get_friend_profile_pic(house.fb_user,house.loadProfilePic)
+		get_friend_profile_pic(house.fb_user,house.loadProfilePic,new THREE.Vector3(house.xPos, house.yPos, house.zPos));
 		index+=1;
 	}
 }
