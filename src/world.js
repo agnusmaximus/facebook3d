@@ -552,7 +552,7 @@ function init() {
 
     get_self(startPhotosForUser);
 
-    var bottomWall = new THREE.CubeGeometry( 195, 10005 , 1);
+    var bottomWall = new THREE.CubeGeometry( 400, 40005 , 1);
     
     bottomMesh = new THREE.Mesh(bottomWall, new THREE.MeshBasicMaterial( {color : 0xc0c0c0} ));
     bottomMesh.position = new THREE.Vector3(this.xPos,this.yPos,this.zPos);
