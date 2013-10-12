@@ -312,7 +312,7 @@ function updateStatusWall(t) {
 
 var userPhotos = null;
 var photoCascade = new Object();
-photoCascade.user = get_self;
+photoCascade.user = get_self();
 photoCascade.curt = 0;
 photoCascade.interval = 3000;
 photoCascade.canRun = false;
