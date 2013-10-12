@@ -163,8 +163,8 @@ function loadProfilePic(picURL, position) {
     
     console.log(this.fb_user);
     // plane
-    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
-    photo.position.x = position.x + 105*position.y;
+    var photo = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), photoMaterial);
+    photo.position.x = position.x + 100*position.y;
     photo.rotation.y = Math.PI/2 * position.y;
     photo.position.y = 30;
     photo.position.z = position.z;
