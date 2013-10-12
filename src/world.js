@@ -167,8 +167,9 @@ function House(x,y,z,height,flipped) {
 		ceilingMesh.rotation.x = Math.PI/2;
 
 		scene.add( ceilingMesh );
+		
 
-	        var bottomWall = new THREE.CubeGeometry( 195, 205 , 1);
+	    var bottomWall = new THREE.CubeGeometry( 195, 205 , 1);
 
 	    bottomMesh = new THREE.Mesh(bottomWall, new THREE.MeshBasicMaterial( {color : 0xc0c0c0} ));
 	    bottomMesh.position = new THREE.Vector3(this.xPos,this.yPos,this.zPos);
