@@ -322,6 +322,7 @@ function updatePhotoCascade(t) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
+
 		console.log("HI");
 		console.log(pics);
 		var image = 0
@@ -330,8 +331,10 @@ function updatePhotoCascade(t) {
 
 			var texture = new THREE.Texture( image );
 			texture.needsUpdate = true;
+	    	
+
 			var photoMaterial = new THREE.MeshBasicMaterial({
-				map : THREE.ImageUtils.loadTexture(texture)
+				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
 		    photo.position.x = Math.random()*100;
