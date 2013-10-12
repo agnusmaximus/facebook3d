@@ -187,7 +187,32 @@ function loadProfilePic(picURL, position) {
     scene.add(photo);
 };
 
+function loadName(name, position) {
 
+    var mesh = new THREE.Mesh();
+
+    var textGeo = new THREE.TextGeometry( name, {
+        size: 20,
+        height: 10,
+        curveSegments: 0,
+
+        font: "helvetiker",
+
+        bevelEnabled: false
+    });
+    
+    var material = new THREE.MeshBasicMaterial({color: 0x000000});
+    mesh.material = material;
+    mesh.geometry = textGeo;
+
+    mesh.position.x = position.x - 102.6*position.y;
+    mesh.position.y = 30;
+    mesh.position.z = position.z + (50 * position.y);
+
+    photo.rotation.y = Math.PI/2 * -1*position.y;
+
+    scene.add(mesh);
+}
 
 // called everytime you change houses
 function newStatusWall(user) {
@@ -257,6 +282,7 @@ function allFriendsReceived(friends) {
 	for(i in houseManager.housesLeft) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
+		loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
 		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
 		index+=1;
 	}
@@ -264,6 +290,7 @@ function allFriendsReceived(friends) {
 	for(i in houseManager.housesRight) {
 		house = houseManager.housesRight[i];
 		house.fb_user = friends[index];
+		loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
 		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
 		index+=1;
 	}
