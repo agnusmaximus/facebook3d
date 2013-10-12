@@ -25,7 +25,7 @@ function init() {
 	get_all_friends(findFriends);
 
 
-	makeCubeWall(10,6,70,new THREE.Vector3(100,0,-50));
+	makeCubeWall(1,1,70,new THREE.Vector3(100,0,-50));
 
 	window.addEventListener( 'resize', onWindowResize, false );
 
