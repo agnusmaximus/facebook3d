@@ -283,6 +283,7 @@ function allFriendsReceived(friends) {
 	for(i in houseManager.housesLeft) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
+		console.log(index+" " + friends[index].name);
 		loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
 		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
 		index+=1;
