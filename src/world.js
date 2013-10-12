@@ -315,7 +315,6 @@ var photoCascade = new Object();
 photoCascade.user = get_self;
 photoCascade.curt = 0;
 photoCascade.interval = 3000;
-photoCascade.photos = new Array();
 photoCascade.canRun = false;
 
 //PATRICK'S CODE
@@ -340,7 +339,7 @@ function updatePhotoCascade(t) {
 }
 
 function setPhotosArray(photos) {
-	photoCascade.photos = photos;
+	userPhotos = photos;
 	photoCascade.canRun = true;
 }
 
