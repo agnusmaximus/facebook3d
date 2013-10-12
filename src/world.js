@@ -255,12 +255,6 @@ function getNextStatus(status) {
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
-    statuses.mesh.geometry.attributes.position.needsUpdate = true;
-    statuses.mesh.geometry.attributes.index.needsUpdate = true;
-    statuses.mesh.geometry.attributes.uv.needsUpdate = true;
-    statuses.mesh.geometry.attributes.normal.needsUpdate = true;
-    statuses.mesh.geometry.attributes.color.needsUpdate = true;
-    statuses.mesh.geometry.attributes.tangent.needsUpdate = true;
     statuses.mesh.position.x = 0;
     statuses.mesh.position.y = 20;
     statuses.mesh.position.z = 0;
