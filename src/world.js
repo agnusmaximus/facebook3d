@@ -337,14 +337,20 @@ function updateStatusWall(t) {
 
 
 var userPhotos = null;
-var photoCascade = new Object();
-photoCascade.photos = new Array();
-photoCascade.curt = 0;
-photoCascade.interval = 3000;
-photoCascade.canRun = false;
+var photoCascade1 = new Object();
+var photoCascade2 = new Object();
+photoCascade1.photos = new Array();
+photoCascade1.curt = 0;
+photoCascade1.interval = 3000;
+photoCascade1.canRun = false;
+photoCascade2.photos = new Array();
+photoCascade2.curt = 0;
+photoCascade2.interval = 3000;
+photoCascade2.canRun = false;
+
 
 //PATRICK'S CODE
-function updatePhotoCascade(t) {
+function updatePhotoCascade(photoCascade, t, wall) {
 	var toRemove = new Array();
 
 	for(var i = 0; i < photoCascade.photos.length; i++) {
@@ -372,12 +378,12 @@ function updatePhotoCascade(t) {
 			var photoMaterial = new THREE.MeshBasicMaterial({
 				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
-	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
-		    photo.position.x = nearestHouse.xPos+94*nearestHouse.flipped;
+	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), photoMaterial);
+		    photo.position.z = nearestHouse.zPos+94*nearestHouse.flipped*wall;
 		    photo.position.y = 150;
-		    photo.position.z = nearestHouse.zPos-Math.random()*170+190/2;
+		    photo.position.x = nearestHouse.xPos-Math.random()*170+190/2;
 
-		    photo.rotation.y = -Math.PI/2 * nearestHouse.flipped;
+		    photo.rotation.y = (Math.PI * wall) * nearestHouse.flipped;
 
 		    photoCascade.photos.push(photo);
 
@@ -390,7 +396,8 @@ function updatePhotoCascade(t) {
 
 function setPhotosArray(photos) {
 	userPhotos = photos;
-	photoCascade.canRun = true;
+	photoCascade1.canRun = true;
+	photoCascade2.canRun = true;
 }
 
 function startPhotosForUser(user) {
@@ -617,7 +624,8 @@ function animate() {
 	}
 
 	updateStatusWall( Date.now() - time);
-	updatePhotoCascade(Date.now() - time);
+	updatePhotoCascade(photoCascade1, Date.now() - time, 1);
+	updatePhotoCascade(photoCascade2, Date.now() - time, -1);
 
 	controls.update( Date.now() - time );
 
