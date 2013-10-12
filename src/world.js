@@ -173,8 +173,8 @@ function loadProfilePic(picURL, position) {
 
 
 // called everytime you change houses
-function newStatusWall(id) {
-    statuses.id = id;
+function newStatusWall(user) {
+    statuses.user = user;
     statuses.interval = 2500;
     statuses.curt = 0;
     get_single_status(statuses.user, getNextStatus);
