@@ -360,9 +360,9 @@ function updatePhotoCascade(t) {
 				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
-		    photo.position.x = nearestHouse.xPos-90;
+		    photo.position.x = nearestHouse.xPos;
 		    photo.position.y = 150;
-		    photo.position.z = Math.random()*190;
+		    photo.position.z = nearestHouse.zPos-Math.random()*190;
 
 		    photo.rotation.y = -Math.PI/2;
 
