@@ -100,6 +100,7 @@ if ( havePointerLock ) {
 
 function House(x,y,z) {
 	this.fb_user = null;
+	console.log(z);
 	this.xPos = x;
 	this.yPos = y;
 	this.zPos = z;
