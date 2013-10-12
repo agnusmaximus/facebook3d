@@ -108,11 +108,12 @@ function House(x,y,z,height,flipped) {
 	this.yPos = y;
 	this.zPos = z;
 	this.height = height;
+	this.flipped = flipped;
 
 	this.create = function() {
 	    var backWall = new THREE.CubeGeometry( 195, height , 5);
 
-		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
+		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0x3b6099} ));
 		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos-100);
 
 		scene.add( backWallMesh );
@@ -270,7 +271,6 @@ function getNextStatus(status) {
 }
 
 function setPics(friendpics) {
-	console.log(friendpics[0]);
     pics = friendpics;
     getPic(0);
 }
@@ -316,6 +316,7 @@ function updateStatusWall(t) {
         nearestHouse = getNearestHouse();
         statuses.user = nearestHouse.fb_user;
         get_single_status(statuses.user, getNextStatus);
+        startPhotosForUser(nearestHouse.fb_user);
         //get_friend_photos(statuses.uer, getPic);
         //getPic(picind);
         //picind = (picind + 1) % (pics.length - 1);
@@ -331,7 +332,6 @@ photoCascade.interval = 3000;
 photoCascade.canRun = false;
 
 //PATRICK'S CODE
-var photosIndex = 0;
 function updatePhotoCascade(t) {
 	var toRemove = new Array();
 
@@ -350,26 +350,22 @@ function updatePhotoCascade(t) {
 		photoCascade.photos.splice(j,1);
 	}
 
+	toRemove = null;
+
 
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-		var image = 0
-	    	image.crossOrigin = '';
-			//image.src = pics[index];
-
-			var texture = new THREE.Texture( image );
-			texture.needsUpdate = true;
 	    	
 			var photoMaterial = new THREE.MeshBasicMaterial({
-				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
+				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
-		    photo.position.x = nearestHouse.xPos+90;
+		    photo.position.x = nearestHouse.xPos+90*nearestHouse.flipped;
 		    photo.position.y = 150;
 		    photo.position.z = nearestHouse.zPos-Math.random()*190+190/2;
 
-		    photo.rotation.y = -Math.PI/2;
+		    photo.rotation.y = -Math.PI/2 * nearestHouse.flipped;
 
 		    photosIndex+=1;
 		    if(photosIndex>=userPhotos.length) {
@@ -390,7 +386,7 @@ function setPhotosArray(photos) {
 	photoCascade.canRun = true;
 }
 
-function getCurrentUser(user) {
+function startPhotosForUser(user) {
 	get_friend_photos(user, setPhotosArray);
 }
 
@@ -452,7 +448,6 @@ HouseManager.prototype.init = function() {
 function getNearestHouse() {
 
     position = controls.getObject().position;
-    console.log(position)
 	var closestHouse = new Object();
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
@@ -460,10 +455,10 @@ function getNearestHouse() {
 		if(distance(position, new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			if(isNaN(h.xPos)) break;
-			console.log("H "+h.zPos + " " + h.xPos);
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user;
+			closestHouse.flipped = h.flipped;
 		}
 	}
 
@@ -475,9 +470,9 @@ function getNearestHouse() {
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user;
+			closestHouse.flipped = h.flipped;
 		}
 	}
-	console.log(closestHouse.xPos);
 	return closestHouse;
 }
 
@@ -548,7 +543,7 @@ function init() {
     scene.add( skyboxMesh );*/
 
 
-    get_self(getCurrentUser);
+    get_self(startPhotosForUser);
 
 
     initStatusWall();
