@@ -263,6 +263,10 @@ function setPics(friendpics) {
 
 function getPic(index) {
     //scene.remove(statuses.photo);
+    var img = 
+    img.crossOrigin = '';
+	img.src = 'http://other-domain.com/image.jpg';
+
     var photoMaterial = new THREE.MeshBasicMaterial({
 		map : THREE.ImageUtils.loadTexture(pics[index])
     });
@@ -287,17 +291,19 @@ function getPic(index) {
     
     //scene.add(statuses.photo);
 }
-var index = 1;
+
+var picind = 1;
 function updateStatusWall(t) {
     statuses.curt += t;
     if (statuses.curt > statuses.interval) {
+        statuses.curt = 0;
         //get_single_status(statuses.user, getNextStatus);
         //get_friend_photos(statuses.user, getPic);
-        getPic(index);
-        index = (index + 1) % pics.length;
-        statuses.curt = 0;
+        getPic(picind);
+        picind = (picind + 1) % (pics.length - 1);
     }
 }
+
 
 /*var userPhotos = null;
 var photoCascade = new Object();
