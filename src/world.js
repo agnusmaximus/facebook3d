@@ -513,7 +513,7 @@ function init() {
 
     initStatusWall();
 
-    //get_self(testingStatuses);
+    get_self(testingStatuses);
     
     //get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
@@ -522,7 +522,7 @@ function init() {
 
 function testingStatuses(user) {
 	newStatusWall(user);
-	statuses.photo.position = new THREE.Vector3(0,20,0);
+	//statuses.photo.position = new THREE.Vector3(0,20,0);
 }
 
 function onWindowResize() {
