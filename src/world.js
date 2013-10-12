@@ -108,6 +108,7 @@ function House(x,y,z,height,flipped) {
 	this.yPos = y;
 	this.zPos = z;
 	this.height = height;
+	this.flipped = flipped;
 
 	this.create = function() {
 	    var backWall = new THREE.CubeGeometry( 195, height , 5);
@@ -447,7 +448,6 @@ HouseManager.prototype.init = function() {
 function getNearestHouse() {
 
     position = controls.getObject().position;
-    console.log(position)
 	var closestHouse = new Object();
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
@@ -459,6 +459,7 @@ function getNearestHouse() {
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user;
+			closestHouse.flipped = h.flipped;
 		}
 	}
 
@@ -470,9 +471,9 @@ function getNearestHouse() {
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user;
+			closestHouse.flipped = h.flipped;
 		}
 	}
-	console.log(closestHouse.xPos);
 	return closestHouse;
 }
 
