@@ -3,6 +3,7 @@ var geometry, material, mesh;
 var controls,time = Date.now();
 
 var houseManager;
+var userManagerR, userManagerL;
 var statuses;
 
 var objects = [];
@@ -443,6 +444,7 @@ function getNearestHouse() {
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
 		h = houseManager.housesLeft[i];
+		console.log(h.xPos+" "+h.zPos);
 		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse = h;
