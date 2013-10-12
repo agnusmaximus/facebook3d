@@ -182,8 +182,9 @@ function newStatusWall(id) {
 
 // called at the very beginning
 function initStatusWall() {
+	statuses = new Object();
     statuses.mesh = new THREE.Mesh(); 
-    scene.add(mesh);
+    scene.add(statuses.mesh);
 }
 
 function getNextStatus(status) { 
