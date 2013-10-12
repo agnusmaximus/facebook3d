@@ -239,7 +239,7 @@ function initStatusWall() {
 }
 
 function getNextStatus(status) { 
-	//scene.remove(statuses.mesh);
+    scene.remove(statuses.mesh);
 	console.log("STATUS:"+status);
     var textGeo = new THREE.TextGeometry( status, {
         size: 15,
@@ -250,21 +250,21 @@ function getNextStatus(status) {
 
         bevelEnabled: false
     });
-    
+    statuses.mesh = new THREE.Mesh(); 
+    statuses.mesh.geometry.dynamic = true;
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
-    statuses.mesh.geometry.verticesNeedUpdate = true;
-    statuses.mesh.geometry.elementsNeedUpdate = true;
-    statuses.mesh.geometry.morphTargetsNeedUpdate = true;
-    statuses.mesh.geometry.uvsNeedUpdate = true;
-    statuses.mesh.geometry.normalsNeedUpdate = true;
-    statuses.mesh.geometry.colorsNeedUpdate = true;
-    statuses.mesh.geometry.tangentsNeedUpdate = true;
+    statuses.mesh.geometry.attributes.position.needsUpdate = true;
+    statuses.mesh.geometry.attributes.index.needsUpdate = true;
+    statuses.mesh.geometry.attributes.uv.needsUpdate = true;
+    statuses.mesh.geometry.attributes.normal.needsUpdate = true;
+    statuses.mesh.geometry.attributes.color.needsUpdate = true;
+    statuses.mesh.geometry.attributes.tangent.needsUpdate = true;
     statuses.mesh.position.x = 0;
     statuses.mesh.position.y = 20;
     statuses.mesh.position.z = 0;
-    //scene.add(statuses.mesh);
+    scene.add(statuses.mesh);
 }
 
 function setPics(friendpics) {
@@ -329,9 +329,21 @@ photoCascade.canRun = false;
 //PATRICK'S CODE
 var photosIndex = 0;
 function updatePhotoCascade(t) {
+	var toRemove = new Array();
+
 	for(var i = 0; i < photoCascade.photos.length; i++) {
 		var p = photoCascade.photos[i];
-		p.position.y -= t/10;
+		p.position.y -= t/4;
+
+		if(p.position.y<-50) {
+			toRemove.push(p);
+		}
+	}
+
+	for(var i = 0; i < toRemove.length; i++) {
+		scene.remove(toRemove[i]);
+		var j = photoCascade.photos.indexOf(toRemove[i]);
+		photoCascade.photos.splice(j,1);
 	}
 
 
@@ -351,8 +363,8 @@ function updatePhotoCascade(t) {
 				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
-		    photo.position.x = Math.random()*100;
-		    photo.position.y = Math.random()*100;
+		    photo.position.x = Math.random()*190;
+		    photo.position.y = 150;
 		    photo.position.z = -50;
 		    photosIndex+=1;
 		    if(photosIndex>=userPhotos.length) {
