@@ -335,7 +335,7 @@ function updateStatusWall(t) {
         get_single_status(statuses.user, getNextStatus);
         if (nearestHouse.fb_user != statuses.user) {
             startPhotosForUser(nearestHouse.fb_user);
-            statuses.user = nearestHouse.fb_user;
+            newStatusWall(nearestHouse.fb_user);
         }
         //get_friend_photos(statuses.uer, getPic);
         //getPic(picind);
@@ -382,10 +382,10 @@ function updatePhotoCascade(photoCascade, t, wall) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-                    /*if (userPhotos.length == 0) {
+                    if (userPhotos.length == 0) {
                         photoCascade.curt = 0;
-                        //return;
-                    }*/
+                        return;
+                    }
 			var photoMaterial = new THREE.MeshBasicMaterial({
 				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
@@ -413,6 +413,12 @@ function updatePhotoCascade(photoCascade, t, wall) {
 
 function setPhotosArray(photos) {
 	userPhotos = photos;
+        for (int i = 0; i < photoCascade1.photos.length; i++) {
+            scene.remove(photeoCascade1.photos[i]);
+        }
+        for (int i = 0; i < photoCascade2.photos.length; i++) {
+            scene.remove(photeoCascade2.photos[i]);
+        }
         photoCascade1.photos = new Array();
         photoCascade2.photos = new Array();
 	photoCascade1.canRun = true;
