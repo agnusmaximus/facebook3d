@@ -133,7 +133,7 @@ function House(x,y,z,height,flipped) {
 
 		var rightWallLeft = new THREE.CubeGeometry( 80, height , 5);
 
-		rightWallLeftMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
+		rightWallLeftMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 		rightWallLeftMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos-45/2-40);
 		rightWallLeftMesh.rotation.y = -Math.PI/2;
 
@@ -141,7 +141,7 @@ function House(x,y,z,height,flipped) {
 
 		var rightWallMiddle = new THREE.CubeGeometry( 80, height/2 , 5);
 
-		rightWallMiddleMesh = new THREE.Mesh(rightWallMiddle, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
+		rightWallMiddleMesh = new THREE.Mesh(rightWallMiddle, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 		rightWallMiddleMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height*3/4,this.zPos);
 		rightWallMiddleMesh.rotation.y = -Math.PI/2;
 
@@ -149,7 +149,7 @@ function House(x,y,z,height,flipped) {
 
 		var rightWallRight = new THREE.CubeGeometry( 80, height , 5);
 
-		rightWallRightMesh = new THREE.Mesh(rightWallRight, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
+		rightWallRightMesh = new THREE.Mesh(rightWallRight, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 		rightWallRightMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos + 45/2+40);
 		rightWallRightMesh.rotation.y = -Math.PI/2;
 
@@ -158,7 +158,7 @@ function House(x,y,z,height,flipped) {
 
 		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
 
-		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0xBBBBBB} ));
 		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+2.5,this.zPos);
 		ceilingMesh.rotation.x = Math.PI/2;
 
@@ -173,7 +173,7 @@ function loadProfilePic(picURL, position) {
 
     
     // plane
-    var photo = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), photoMaterial);
+    var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
     photo.position.x = position.x - 102.6*position.y;
     photo.position.y = 30;
     photo.position.z = position.z + (50 * position.y);
@@ -331,13 +331,13 @@ function init() {
 	scene = new THREE.Scene();
 	scene.fog = new THREE.Fog( 0x00dfff, 0, 2000 );
 
-	/*var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
+	var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	light.position.set( 1, 1, 1 );
 	scene.add( light );
 
 	var light = new THREE.DirectionalLight( 0xffffff, 0.75 );
 	light.position.set( -1, - 0.5, -1 );
-	scene.add( light );*/
+	scene.add( light );
 
 	controls = new THREE.PointerLockControls( camera );
 	scene.add( controls.getObject() );
