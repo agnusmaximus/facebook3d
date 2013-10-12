@@ -421,13 +421,12 @@ function allFriendsReceived(friends) {
 	index = 0;
 
         houseManager.housesLeft[0].fb_user = user_id;
-        loadName(get_self_name(), new THREE.Vector3(house.xPos, -1, house.zPos));
-        get_friend_profile_pic(user_id, loadProfilePic, new THREE.Vector3(house.xPos, -1, house.zPos));
-        index += 1;
+        loadName(get_self_name(), new THREE.Vector3(houseManager.housesLeft[0].xPos, -1, houseManager.housesLeft[0].zPos));
+        get_friend_profile_pic(user_id, loadProfilePic, new THREE.Vector3(houseManager.housesLeft[0].xPos, -1, houseManager.housesLeft[0].zPos));
+
         houseManager.housesRight[0].fb_user = 'zuck';
-        loadName("Mark Zuckerberg", new THREE.Vector3(house.xPos, -1, house.zPos));
-        get_friend_profile_pic('zuck', loadProfilePic, new THREE.Vector3(house.xPos, -1, house.zPos));
-        index += 1;
+        loadName("Mark Zuckerberg", new THREE.Vector3(houseManager.housesRight[0].xPos, 1, houseManager.housesRight[0].zPos));
+        get_friend_profile_pic('zuck', loadProfilePic, new THREE.Vector3(houseManager.housesRight[0].xPos, 1, houseManager.housesRight[0].zPos));
 
 	for(var i = 1; i < houseManager.housesLeft.length; i++) {
 		house = houseManager.housesLeft[i];
