@@ -20,6 +20,8 @@ function init() {
     FB.api('/me', function(response) {
 	console.log(response);
 	user_id = response.id;
+	
+	console.log(response);
 
 	// Do a test and get the logged in user's picture
 	get_user_picture(function(val) {
