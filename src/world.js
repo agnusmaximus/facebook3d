@@ -104,74 +104,74 @@ function House() {
 	self.xPos = 0;
 	self.yPos = 0;
 	self.zPos = 0;
-}
 
-House.prototype.create = function(x, y, z) {
-	self.xPos = x;
-	self.yPos = y;
-	self.zPos = z;
-    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
+	self.create = function(x, y, z) {
+		self.xPos = x;
+		self.yPos = y;
+		self.zPos = z;
+	    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
 
-	backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-	backWallMesh.position = new THREE.Vector3(x,y+30,z-100);
-	backWallMesh.material.side = THREE.DoubleSide;
+		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		backWallMesh.position = new THREE.Vector3(x,y+30,z-100);
+		backWallMesh.material.side = THREE.DoubleSide;
 
-	scene.add( backWallMesh );
-
-
-	var frontWall = new THREE.CubeGeometry( 195, 60 , 5);
-
-	frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
-	frontWallMesh.position = new THREE.Vector3(x,y+30,z+100);
-	frontWallMesh.rotation.x = Math.PI;
-	frontWallMesh.material.side = THREE.DoubleSide;
-
-	scene.add( frontWallMesh );
+		scene.add( backWallMesh );
 
 
-	var leftWall = new THREE.CubeGeometry( 205, 60 , 5);
+		var frontWall = new THREE.CubeGeometry( 195, 60 , 5);
 
-	leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAA00AA} ));
-	leftWallMesh.position = new THREE.Vector3(x-100,y+30,z);
-	leftWallMesh.rotation.y = Math.PI/2;
-	leftWallMesh.material.side = THREE.DoubleSide;
+		frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
+		frontWallMesh.position = new THREE.Vector3(x,y+30,z+100);
+		frontWallMesh.rotation.x = Math.PI;
+		frontWallMesh.material.side = THREE.DoubleSide;
 
-	scene.add( leftWallMesh );
-
-
-	var rightWall = new THREE.CubeGeometry( 205, 60 , 5);
-
-	rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0x00AAAA} ));
-	rightWallMesh.position = new THREE.Vector3(x+100,y+30,z);
-	rightWallMesh.rotation.y = -Math.PI/2;
-	rightWallMesh.material.side = THREE.DoubleSide;
-
-	scene.add( rightWallMesh );
+		scene.add( frontWallMesh );
 
 
-	var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
+		var leftWall = new THREE.CubeGeometry( 205, 60 , 5);
 
-	ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x555555} ));
-	ceilingMesh.position = new THREE.Vector3(x,y+62.5,z);
-	ceilingMesh.rotation.x = Math.PI/2;
+		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAA00AA} ));
+		leftWallMesh.position = new THREE.Vector3(x-100,y+30,z);
+		leftWallMesh.rotation.y = Math.PI/2;
+		leftWallMesh.material.side = THREE.DoubleSide;
 
-	scene.add( ceilingMesh );
-};
-
-House.prototype.loadProfilePic = function(picURL) {
-	var photoMaterial = new THREE.MeshBasicMaterial({
-		map : THREE.ImageUtils.loadTexture(picURL)
-    });
+		scene.add( leftWallMesh );
 
 
-    // plane
-    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
-    console.log(self.xPos + " " + self.zPos);
-    photo.position.x = self.xPos;
-    photo.position.y = 30;
-    photo.position.z = self.zPos;
+		var rightWall = new THREE.CubeGeometry( 205, 60 , 5);
 
-    scene.add(photo);
+		rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0x00AAAA} ));
+		rightWallMesh.position = new THREE.Vector3(x+100,y+30,z);
+		rightWallMesh.rotation.y = -Math.PI/2;
+		rightWallMesh.material.side = THREE.DoubleSide;
+
+		scene.add( rightWallMesh );
+
+
+		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
+
+		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x555555} ));
+		ceilingMesh.position = new THREE.Vector3(x,y+62.5,z);
+		ceilingMesh.rotation.x = Math.PI/2;
+
+		scene.add( ceilingMesh );
+	};
+
+	House.prototype.loadProfilePic = function(picURL) {
+		var photoMaterial = new THREE.MeshBasicMaterial({
+			map : THREE.ImageUtils.loadTexture(picURL)
+	    });
+
+
+	    // plane
+	    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
+	    console.log(self.xPos + " " + self.zPos);
+	    photo.position.x = self.xPos;
+	    photo.position.y = 30;
+	    photo.position.z = self.zPos;
+
+	    scene.add(photo);
+	};
 }
 
 function Status(x, y, text) {
