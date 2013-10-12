@@ -41,11 +41,15 @@ function get_friend_photos(user, callback) {
 	}
     });
 }
-
+	
 function post_on_wall(user, message){
-	friend_id = user.id
-	FB.api('/me/feed', 'post', {message: message}, function(tester){
-		console.log(arguments)
+	var body = 'Reading JS SDK documentation';
+	FB.api('/me/feed', 'post', { message: body }, function(response) {
+  		if (!response || response.error) {
+    		alert('Error occured');
+  		} else {
+    		alert('Post ID: ' + response.id);
+  		}
 	});
 
 }
