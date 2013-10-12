@@ -25,7 +25,7 @@ function init() {
 	scene = new THREE.Scene();
 
 	//get_self(selfIDReceived);
-	//get_all_friends(findFriends);
+	get_all_friends(findFriends);
 
 
 	makeCubeWall(10,6,70,new THREE.Vector3(100,0,-50));
@@ -43,18 +43,23 @@ function makeCubeWall(width, height, cubeSize, offset) {
 			var materials = [];
 
 			for (var k=0; k<6; k++) {
-				/*var img = new Image();
-				img.src = i + '.png';
+				var img = new Image();
+				img.src = friend_profile_pics[Math.floor(Math.random()*friend_profile_pics.length)];
 				var tex = new THREE.Texture(img);
 				img.tex = tex;
 
 				img.onload = function() {
 			    	this.tex.needsUpdate = true;
-				};*/
+				};
 				//var mat = new THREE.MeshBasicMaterial({color: 0xffffff, map: tex});
-				var mat = new THREE.MeshBasicMaterial({color: 0xAAAAAA});
+				/*var mat = new THREE.MeshBasicMaterial({color: 0xAAAAAA});
 				if(k==5 || k==4) {
 					mat = new THREE.MeshBasicMaterial({color: 0xffff00});
+				}*/
+
+				var mat = new THREE.MeshBasicMaterial({color: 0xAAAAAA});
+				if(k==4) {
+					mat = new THREE.MeshBasicMaterial({map: tex});
 				}
 				materials.push(mat);
 			}
@@ -127,7 +132,15 @@ function updateCubeWall(t) {
 						cube = cubesArr[cubeChoice];
 						cube.userData.initialRotation+=Math.PI;
 						cube.userData.isBeingFlipped = false;
-						cube.material.materials[cube.userData.sideShowing] = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff});
+						var img = new Image();
+						img.src = friend_profile_pics[Math.floor(Math.random()*friend_profile_pics.length)];
+						var tex = new THREE.Texture(img);
+						img.tex = tex;
+
+						img.onload = function() {
+					    	this.tex.needsUpdate = true;
+						};
+						cube.material.materials[cube.userData.sideShowing] = new THREE.MeshBasicMaterial({map: tex});
 						cube.userData.sideShowing = cube.userData.sideShowing==4 ? 5 : 4;
 					})
 					.start();
