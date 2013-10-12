@@ -245,6 +245,8 @@ HouseManager.prototype.init = function() {
     	h.create();
         this.housesRight[i] = h;
         h2 = new House(300, 0, -400 * i);
+        console.log("boy");
+        console.log(h2.xPos);
         h2.create();
         this.housesLeft[i] = h2;
     }
