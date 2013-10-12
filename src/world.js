@@ -343,16 +343,16 @@ function getNearestHouse() {
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
 		h = houseManager.housesLeft[i];
-		if(distance(camera.position,new Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
-			lowestDistance = distance(camera.position,new Vector3(h.xPos, 0, h.zPos));
+		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
+			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse = h;
 		}
 	}
 
 	for(i in houseManager.housesRight) {
 		h = houseManager.housesRight[i];
-		if(distance(camera.position,new Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
-			lowestDistance = distance(camera.position,new Vector3(h.xPos, 0, h.zPos));
+		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
+			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse = h;
 		}
 	}
