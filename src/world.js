@@ -190,8 +190,8 @@ function initStatusWall() {
 function getNextStatus(status) { 
 	console.log(status);
     var textGeo = new THREE.TextGeometry( status, {
-        size: 70,
-        height: 20,
+        size: 100,
+        height: 50,
         curveSegments: 0,
 
         font: "helvetiker",
@@ -364,7 +364,7 @@ function init() {
 
 function testingStatuses(user) {
 	newStatusWall(user);
-	statuses.mesh.position = new THREE.Vector3(40,20,0);
+	statuses.mesh.position = new THREE.Vector3(0,0,0);
 }
 
 function onWindowResize() {
