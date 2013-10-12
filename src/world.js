@@ -3,7 +3,6 @@ var geometry, material, mesh;
 var controls,time = Date.now();
 
 var houseManager;
-var userManagerR, userManagerL;
 var statuses;
 
 var objects = [];
@@ -447,7 +446,9 @@ function getNearestHouse() {
 		console.log(h.xPos+" "+h.zPos+" "+h.fb_user.name);
 		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
-			closestHouse = h;
+			closestHouse.zPos = h.zPos;
+			closestHouse.xPos = h.xPos;
+			closestHouse.fb_user = h.fb_user;
 		}
 	}
 
@@ -455,7 +456,9 @@ function getNearestHouse() {
 		h = houseManager.housesRight[i];
 		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
-			closestHouse = h;
+			closestHouse.zPos = h.zPos;
+			closestHouse.xPos = h.xPos;
+			closestHouse.fb_user = h.fb_user;
 		}
 	}
 	console.log(closestHouse.fb_user.name);
