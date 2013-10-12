@@ -233,7 +233,8 @@ function ProfilePicReceived(picURL) {
 
 
 function HouseManager() {
-    var this.housesLeft, this.housesRight;
+    this.housesLeft = null;
+    this.housesRight = null;
 }
 
 HouseManager.prototype.init = function() {
