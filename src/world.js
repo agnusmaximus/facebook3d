@@ -448,6 +448,7 @@ function ProfilePicReceived(picURL) {
 function HouseManager() {
     this.housesLeft = null;
     this.housesRight = null;
+    this.yourhouse = null;
 }
 
 HouseManager.prototype.init = function() {
@@ -462,6 +463,9 @@ HouseManager.prototype.init = function() {
         h2.create();
         this.housesLeft[i] = h2;
     }
+
+    this.yourhouse = new House(0, 0, -400);
+    this.yourhouse.create();
 };
 
 function getNearestHouse() {
