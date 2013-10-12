@@ -6,7 +6,7 @@ var houseManager;
 var statuses;
 
 var objects = [];
-var pics;
+var pics = new Array();
 
 var ray;
 
@@ -322,9 +322,11 @@ function updatePhotoCascade(t) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-	    	var image = document.createElement( 'img' );
+		console.log("HI");
+		console.log(pics);
+		var image = 0
 	    	image.crossOrigin = '';
-			image.src = pics[index];
+			//image.src = pics[index];
 
 			var texture = new THREE.Texture( image );
 			texture.needsUpdate = true;

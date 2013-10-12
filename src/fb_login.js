@@ -56,13 +56,18 @@ function get_friend_albums(user, callback) {
 }
 
 function get_friend_photos(user, callback) {
+    console.log("USER");
+    console.log(user);
     get_friend_albums(user, function(albums) {
+	console.log(albums);
 	if (albums.length > 0) {
 	    album_id = albums[0].id;
 	    FB.api(album_id + '/photos', function(response) {
+		console.log(response);
 		results = new Array();
 		for (i = 0; i < response.data.length; i++) {
-		    results[i] = response.data[i].picture;
+		    //results[i] = response.data[i].picture;
+		    results[i] = "https://scontent-a-pao.xx.fbcdn.net/hphotos-prn1/67688_539080522787299_979200007_n.jpg";
 		}
 		console.log(results);
 		callback(results);
