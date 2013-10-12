@@ -65,8 +65,8 @@ THREE.PointerLockControls = function ( camera ) {
 				break;
 
 			case 32: // space
-				if ( canJump === true ) velocity.y += 10;
-				canJump = false;
+				//if ( canJump === true ) velocity.y += 10;
+				//canJump = false;
 				break;
 
 		}
