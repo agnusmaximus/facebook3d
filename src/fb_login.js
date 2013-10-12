@@ -14,9 +14,9 @@ Array.prototype.shuffle = function() {
 friends = new Array();
 
 function get_single_status(user_id, callback) {
-    if (user_id == 4) {
+    if (user_id == 'zuck') {
         var str = new Array();
-        str[0] = "I'm trying to make the world a more open place.");
+        str[0] = "I'm trying to make the world a more open place.";
         callback(str);
         return;
     }
@@ -64,6 +64,11 @@ function get_friend_profile_pic(user_id, callback, data) {
     });
 }
 
+self_name = "";
+function get_self_name() {
+    return self_name;
+}
+
 function get_self(callback) {
     FB.api('/me', function(response) {
 	console.log(response);
@@ -79,6 +84,10 @@ function get_friend_albums(user_id, callback) {
 }
 
 function get_friend_photos(user_id, callback) {
+    if (user_id == "zuck") {
+	callback([]);
+	return;
+    }
     console.log("USER");
     console.log(user_id);
     get_friend_albums(user_id, function(albums) {
@@ -139,6 +148,7 @@ function initialize() {
     console.log("Initializing...");
     FB.api('/me', function(response) {
 	user_id = response.id;
+	self_name = response.name;
 
 	//GETTING THEIR PROFILE PICS
 	get_all_friends(function(friends) {
