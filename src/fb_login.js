@@ -38,7 +38,7 @@ function get_friend_photos(user, callback) {
 }
 	
 function post_on_wall(user, message){
-	var body = 'Reading JS SDK documentation';
+	var body = message;
 	FB.api('/me/feed', 'post', { message: body }, function(response) {
   		if (!response || response.error) {
     		alert('Error occured');
