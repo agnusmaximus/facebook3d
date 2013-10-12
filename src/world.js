@@ -99,6 +99,7 @@ if ( havePointerLock ) {
 }
 
 function House() {
+	this.fb_user = null;
 }
 
 House.prototype.create = function(x, y, z) {
@@ -208,10 +209,10 @@ function allFriendsReceived(friends) {
 
 	index = 0;
 
-	for(house in houseManager.housesLeft) {
+	for(i in houseManager.housesLeft) {
 		console.log(index);
-		house.fb_user = friends[index];
-		get_friend_profile_pic(friends[index],house.loadProfilePic)
+		houseManager.housesLeft[i].fb_user = friends[index];
+		get_friend_profile_pic(friends[index],houseManager.housesLeft[i].loadProfilePic)
 		index+=1;
 	}
 }
