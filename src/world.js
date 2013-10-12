@@ -184,7 +184,24 @@ function initStatusWall() {
 	statuses = new Object();
     statuses.mesh = new THREE.Mesh(); 
     statuses.mesh.geometry.dynamic = true;
+
+    var textGeo = new THREE.TextGeometry( "HELLO WORLD", {
+        size: 100,
+        height: 50,
+        curveSegments: 0,
+
+        font: "helvetiker",
+
+        bevelEnabled: false
+    });
+    
+    var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
+    statuses.mesh.material = material;
+    statuses.mesh.geometry = textGeo;
+
     scene.add(statuses.mesh);
+
+
 }
 
 function getNextStatus(status) { 
