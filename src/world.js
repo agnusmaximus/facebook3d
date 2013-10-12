@@ -209,7 +209,7 @@ function loadName(name, position) {
     mesh.position.y = 30;
     mesh.position.z = position.z + (50 * position.y);
 
-    photo.rotation.y = Math.PI/2 * -1*position.y;
+    mesh.rotation.y = Math.PI/2 * -1*position.y;
 
     scene.add(mesh);
 }
