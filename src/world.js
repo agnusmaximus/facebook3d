@@ -394,7 +394,7 @@ function updatePhotoCascade(photoCascade, t, wall) {
 				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(42, 42), photoMaterial);
-		    photo.position.z = nearestHouse.zPos+94*nearestHouse.flipped*wall;
+		    photo.position.z = nearestHouse.zPos+96*nearestHouse.flipped*wall;
 		    photo.position.y = 150;
 
 		    if (position.x < 0) {
