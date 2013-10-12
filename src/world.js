@@ -447,6 +447,7 @@ function getNearestHouse() {
 	var closestHouse = new Object();
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
+		if(i==houseManager.housesLeft.length) break;
 		h = houseManager.housesLeft[i];
 		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
@@ -459,6 +460,7 @@ function getNearestHouse() {
 	}
 
 	for(i in houseManager.housesRight) {
+		if(i==houseManager.housesRight.length) break;
 		h = houseManager.housesRight[i];
 		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
