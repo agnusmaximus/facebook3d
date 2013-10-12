@@ -168,6 +168,15 @@ function House(x,y,z,height,flipped) {
 
 		scene.add( ceilingMesh );
 
+	        var bottomWall = new THREE.CubeGeometry( 195, 205 , 1);
+    
+	    bottomMesh = new THREE.Mesh(bottomWall, new THREE.MeshBasicMaterial( {color : 0xc0c0c0} ));
+	    bottomMesh.position = new THREE.Vector3(this.xPos,this.yPos,this.zPos);
+	    bottomMesh.rotation.x = Math.PI/2;
+
+	    scene.add(bottomMesh );
+
+
 		/*var light = new THREE.PointLight( 0xff0000, 1, 100 );
 		light.position.set(	x, 30, z );
 		scene.add( light );*/
@@ -484,7 +493,7 @@ function init() {
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog( 0xFFFFFF, 0, 3000 );
+	scene.fog = new THREE.Fog( 0xB6D3EF, 0, 3000 );
 
 	/*var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	light.position.set( 1, 1, 1 );
@@ -502,7 +511,7 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer({antialias: true});
 	renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setClearColor(0xFFFFFF, 1);
+    renderer.setClearColor(0xB6D3EF, 1);
 
 
 	document.body.appendChild( renderer.domElement );
@@ -510,7 +519,7 @@ function init() {
 	geometry = new THREE.PlaneGeometry( 20000000, 20000000, 100, 100 );
 	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-	material = new THREE.MeshBasicMaterial( {color : 0xD8DFEA} );
+	material = new THREE.MeshBasicMaterial( {color : 0x7BBF6A} );
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
@@ -543,9 +552,16 @@ function init() {
 
     get_self(startPhotosForUser);
 
+    var bottomWall = new THREE.CubeGeometry( 195, 10005 , 1);
+    
+    bottomMesh = new THREE.Mesh(bottomWall, new THREE.MeshBasicMaterial( {color : 0xc0c0c0} ));
+    bottomMesh.position = new THREE.Vector3(this.xPos,this.yPos,this.zPos);
+    bottomMesh.rotation.x = Math.PI/2;
+
+    scene.add(bottomMesh );
 
     initStatusWall();
-
+    
     get_self(testingStatuses);
     
     //get_user_picture(ProfilePicReceived);
