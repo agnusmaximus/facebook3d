@@ -166,9 +166,9 @@ function House() {
 	    // plane
 	    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
 	    console.log(xPos + " " + zPos);
-	    photo.position.x = xPos;
+	    photo.position.x = Math.random()*10;
 	    photo.position.y = 30;
-	    photo.position.z = zPos;
+	    photo.position.z = Math.random()*10;
 
 	    scene.add(photo);
 	};
