@@ -192,7 +192,7 @@ function loadName(name, position) {
     var mesh = new THREE.Mesh();
 
     var textGeo = new THREE.TextGeometry( name, {
-        size: 20,
+        size: 6,
         height: 10,
         curveSegments: 0,
 
@@ -206,8 +206,8 @@ function loadName(name, position) {
     mesh.geometry = textGeo;
 
     mesh.position.x = position.x - 102.6*position.y;
-    mesh.position.y = 30;
-    mesh.position.z = position.z + (50 * position.y);
+    mesh.position.y = 15;
+    mesh.position.z = position.z + (50 * position.y)-40;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
@@ -280,7 +280,7 @@ function allFriendsReceived(friends) {
 	index = 0;
 
 	for(i in houseManager.housesLeft) {
-		if(i!=0) {
+		if(i!=houseManager.housesLeft.length-1) {
 			house = houseManager.housesLeft[i];
 			house.fb_user = friends[index];
 			loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
@@ -290,7 +290,7 @@ function allFriendsReceived(friends) {
 	}
 
 	for(i in houseManager.housesRight) {
-		if(i!=0) {
+		if(i!=houseManager.housesRight.length-1) {
 			house = houseManager.housesRight[i];
 			house.fb_user = friends[index];
 			loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
