@@ -166,7 +166,7 @@ function House(x,y,z,height,flipped) {
 
 		ceilingMesh = new THREE.Mesh(pyramidGeometry, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
 		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+2.5,this.zPos);
-		ceilingMesh.rotation.x = Math.PI/2;
+		//ceilingMesh.rotation.x = Math.PI/2;
 
 		scene.add( ceilingMesh );
 
