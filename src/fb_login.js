@@ -40,8 +40,8 @@ function get_single_status(user_id, callback) {
 	    c_i = 0;
 	    new_c_i = 0;
 	    for (i = 0; i < 4; i++) {
-		new_c_i += Math.min(chosen.length - c_i, 40);
-		partial = chosen.substr(c_i, new_c_i);
+		new_c_i += 40;
+		partial = chosen.substring(c_i, new_c_i);
 		results[i] = partial;
 		c_i = new_c_i;
 	    }

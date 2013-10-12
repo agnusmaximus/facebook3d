@@ -231,7 +231,7 @@ function loadName(name, position) {
 // called everytime you change houses
 function newStatusWall(user) {
     statuses.user = user;
-    statuses.interval = 2500;
+    statuses.interval = 3500;
     statuses.curt = 0;
     get_single_status(statuses.user, getNextStatus);
     //get_friend_photos(statuses.user, setPics);
@@ -242,7 +242,7 @@ function newStatusWall(user) {
 function initStatusWall() {
     statuses = new Object();
     statuses.meshes = new Array();
-
+    statuses.meshes[0] = new THREE.Mesh();
     statuses.meshes[0].geometry.dynamic = true;
 
     scene.add(statuses.meshes[0]);
@@ -254,7 +254,7 @@ function initStatusWall() {
 
 function getNextStatus(status) {
     for (var i = 0; i < status.length; i++)
-        scene.remove(statuses.mesh);
+        scene.remove(statuses.meshes[i]);
     console.log("STATUS:"+status);
 
     for (var i = 0; i < status.length; i++) {
@@ -267,24 +267,24 @@ function getNextStatus(status) {
 
             bevelEnabled: false
         });
-        statuses.mesh[i] = new THREE.Mesh();
-        statuses.mesh[i].geometry.dynamic = true;
+        statuses.meshes[i] = new THREE.Mesh();
+        statuses.meshes[i].geometry.dynamic = true;
         var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
-        statuses.mesh[i].material = material;
-        statuses.mesh[i].geometry = textGeo;
+        statuses.meshes[i].material = material;
+        statuses.meshes[i].geometry = textGeo;
         if (controls.getObject().position.x < 0) {
-        statuses.mesh[i].rotation.y += Math.PI/2;
-        statuses.mesh[i].position.z = nearestHouse.zPos + 100;
+        statuses.meshes[i].rotation.y += Math.PI/2;
+        statuses.meshes[i].position.z = nearestHouse.zPos + 40;
         }
         else {
-        statuses.mesh[i].rotation.y -= Math.PI/2;
-        statuses.mesh[i].position.z = nearestHouse.zPos - 100;
+        statuses.meshes[i].rotation.y -= Math.PI/2;
+        statuses.meshes[i].position.z = nearestHouse.zPos - 40;
         }
 
-        statuses.mesh[i].position.x = nearestHouse.xPos ;
-        statuses.mesh[i].position.y = 50 - i*10;
+        statuses.meshes[i].position.x = nearestHouse.xPos ;
+        statuses.meshes[i].position.y = 50 - i*10;
 
-        scene.add(statuses.mesh[i]);
+        scene.add(statuses.meshes[i]);
     }
 }
 
@@ -383,12 +383,18 @@ function updatePhotoCascade(photoCascade, t, wall) {
 			var photoMaterial = new THREE.MeshBasicMaterial({
 				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
-	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), photoMaterial);
+	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(42, 42), photoMaterial);
 		    photo.position.z = nearestHouse.zPos+94*nearestHouse.flipped*wall;
 		    photo.position.y = 150;
-		    photo.position.x = nearestHouse.xPos-Math.random()*170+190/2;
-
-		    photo.rotation.y = (Math.PI * ((wall+1)/2)) * nearestHouse.flipped;
+		
+		    if (position.x < 0) {
+			photo.rotation.y = (Math.PI * ((wall+1)/2)) + Math.PI;
+			photo.position.x = nearestHouse.xPos-Math.random()*170+150/2;
+		    }
+		    else {
+			photo.rotation.y = (Math.PI * ((wall+1)/2));
+			photo.position.x = nearestHouse.xPos-Math.random()*170+180/2;
+		    }
 
 		    photoCascade.photos.push(photo);
 
@@ -455,7 +461,7 @@ HouseManager.prototype.init = function() {
     this.housesLeft = new Array();
     this.housesRight = new Array();
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 50; i++) {
     	h = new House(300, 0, -400 * i,100,1);
     	h.create();
         this.housesRight[i] = h;
