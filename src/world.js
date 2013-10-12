@@ -373,7 +373,7 @@ function updatePhotoCascade(t) {
 				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
-		    photo.position.x = nearestHouse.xPos+90*nearestHouse.flipped;
+		    photo.position.x = nearestHouse.xPos+94*nearestHouse.flipped;
 		    photo.position.y = 150;
 		    photo.position.z = nearestHouse.zPos-Math.random()*170+190/2;
 
@@ -529,25 +529,33 @@ function init() {
     
     // skybox
     
-   /* var urlPrefix = "../data/";
-    var urls = [ urlPrefix + "1.png", urlPrefix + "2.png",
-        urlPrefix + "5.png", urlPrefix + "6.png",
-        urlPrefix + "3.png", urlPrefix + "4.png" ];
-    var textureCube = THREE.ImageUtils.loadTextureCube( urls );
-    
-    var shader = THREE.ShaderLib["cube"];
-    //var uniforms = THREE.UniformsUtils.clone( shader.uniforms );
-    shader.uniforms['tCube'].texture= textureCube;   // textureCube has been init before
-    var material = new THREE.ShaderMaterial({
-        fragmentShader    : shader.fragmentShader,
-        vertexShader  : shader.vertexShader,
-        uniforms  : shader.uniforms
-    });
-    
-    // build the skybox Mesh 
-    skyboxMesh    = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000, 1, 1, 1, null, true ), material );
-    // add it to the scene
-    scene.add( skyboxMesh );*/
+    var path = "../data/";
+    var urls = [ path + '1.png',
+                 path + '2.png',
+                 path + '3.png',
+                 path + '4.png',
+                 path + '5.png', 
+                 path + '6.png'
+                 ];
+
+    var cubeTexture = THREE.ImageUtils.loadTextureCube( urls );
+
+    var shader = THREE.ShaderUtils.lib["cube"];
+    shader.uniforms["tCube"].texture = cubeTexture;
+
+    var skyboxMaterial = new THREE.ShaderMaterial( {
+        uniforms        : shader.uniforms,
+        fragmentShader  : shader.fragmentShader,
+        vertexShader    : shader.vertexShader,
+        depthWrite      : false
+    } );
+
+    var skyboxGeom = new THREE.CubeGeometry( 10000, 10000, 10000 );
+
+    skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
+    skybox.material = THREE.BackSide;
+
+    scene.add(skybox);
 
 
     get_self(startPhotosForUser);

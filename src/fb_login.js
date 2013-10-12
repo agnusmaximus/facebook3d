@@ -24,7 +24,7 @@ function get_single_status(user_id, callback) {
 	    chosen = "   ";
 	    for (i = 0; i < response.data.length; i++) {
 		    if (response.data[i].message) {
-			story = response.data[i].message.toLowerCase();
+			story = response.data[i].message.toLowerCase().substr(0, Math.min(50, response.data[i].message.length));
 			story = '"' + story + '"';
 			if (Math.floor(Math.random() * 100) % (c + 1) == 0)
 			    chosen = story;
