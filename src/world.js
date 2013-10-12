@@ -112,7 +112,7 @@ function House(x,y,z,height,flipped) {
 	this.create = function() {
 	    var backWall = new THREE.CubeGeometry( 195, height , 5);
 
-		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
+		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0x3b6099} ));
 		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos-100);
 
 		scene.add( backWallMesh );
