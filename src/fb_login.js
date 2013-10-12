@@ -7,7 +7,9 @@ function get_friend_profile_pic(user, callback) {
     });
 }
 
-function get_
+function get_friend_photos(user, callback) {
+
+}
 
 function get_all_friends(callback){
     FB.api('/me/friends', function(response) {
