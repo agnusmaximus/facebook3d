@@ -208,7 +208,7 @@ function loadName(name, position) {
     mesh.position.x = position.x - 102.6*position.y;
     mesh.position.y = 90;
     mesh.geometry.computeBoundingBox();
-    mesh.position.z = position.z - (mesh.geometry.boundingBox.max.x-mesh.geometry.boundingBox.min.x)/2;
+    mesh.position.z = position.z + (mesh.geometry.boundingBox.max.x-mesh.geometry.boundingBox.min.x*position.y)/2;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
@@ -281,23 +281,19 @@ function allFriendsReceived(friends) {
 	index = 0;
 
 	for(i in houseManager.housesLeft) {
-		if(i!=houseManager.housesLeft.length-1) {
-			house = houseManager.housesLeft[i];
-			house.fb_user = friends[index];
-			loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
-			get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
-			index+=1;
-		}
+		house = houseManager.housesLeft[i];
+		house.fb_user = friends[index];
+		loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
+		index+=1;
 	}
 
 	for(i in houseManager.housesRight) {
-		if(i!=houseManager.housesRight.length-1) {
-			house = houseManager.housesRight[i];
-			house.fb_user = friends[index];
-			loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
-			get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
-			index+=1;
-		}
+		house = houseManager.housesRight[i];
+		house.fb_user = friends[index];
+		loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
+		index+=1;
 	}
 }
 
@@ -470,7 +466,7 @@ function animate() {
 
 	}
 
-	//updateStatusWall( Date.now() - time);
+	updateStatusWall( Date.now() - time);
 
 	controls.update( Date.now() - time );
 
