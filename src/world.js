@@ -444,13 +444,15 @@ HouseManager.prototype.init = function() {
 };
 
 function getNearestHouse() {
-    console.log(camera.position);
+
+    position = controls.getObject().position;
+    console.log(position)
 	var closestHouse = new Object();
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
 		h = houseManager.housesLeft[i];
-		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
-			lowestDistance = distance(controls.position,new THREE.Vector3(h.xPos, 0, h.zPos));
+		if(distance(position, new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
+			lowestDistance = distance(position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			if(isNaN(h.xPos)) break;
 			console.log("H "+h.zPos + " " + h.xPos);
 			closestHouse.zPos = h.zPos;
@@ -461,8 +463,8 @@ function getNearestHouse() {
 
 	for(i in houseManager.housesRight) {
 		h = houseManager.housesRight[i];
-		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
-			lowestDistance = distance(controls.position,new THREE.Vector3(h.xPos, 0, h.zPos));
+		if(distance(position, new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
+			lowestDistance = distance(position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			if(isNaN(h.xPos)) break;
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
