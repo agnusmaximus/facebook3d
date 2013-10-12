@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>three.js - pointerlock controls</title>
+		<title>Facebook 3D!!!</title>
 		<style>
 			html, body {
 				width: 100%;
@@ -58,7 +58,7 @@
 		</style>
 	</head>
 	<body>
-		<script src="../build/three.min.js"></script>
+		<script src="js/three.min.js"></script>
 		<script src="js/controls/PointerLockControls.js"></script>
 
 		<div id="blocker">
@@ -200,59 +200,65 @@
 				geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
 				geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-				for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {
-
-					var vertex = geometry.vertices[ i ];
-					vertex.x += Math.random() * 20 - 10;
-					vertex.y += Math.random() * 2;
-					vertex.z += Math.random() * 20 - 10;
-
-				}
-
-				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-
-					var face = geometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-
-				}
-
-				material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
+				material = new THREE.MeshBasicMaterial( {color : 0xC0C0C0} );
 
 				mesh = new THREE.Mesh( geometry, material );
 				scene.add( mesh );
 
 				// objects
 
-				geometry = new THREE.CubeGeometry( 20, 20, 20 );
+				var backWall = new THREE.PlaneGeometry( 201, 60 );
 
-				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
+				backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+				backWallMesh.position = new THREE.Vector3(0,30,-100);
 
-					var face = geometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+				scene.add( backWallMesh );
 
-				}
 
-				for ( var i = 0; i < 500; i ++ ) {
+				var frontWall = new THREE.PlaneGeometry( 201, 60 );
 
-					material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+				frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
+				frontWallMesh.position = new THREE.Vector3(0,30,100);
+				frontWallMesh.rotation.x = 3.14;
 
-					var mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-					mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
-					mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
-					scene.add( mesh );
+				scene.add( frontWallMesh );
 
-					material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
 
-					objects.push( mesh );
+				var leftWall = new THREE.PlaneGeometry( 201, 60 );
 
-				}
+				leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAA00AA} ));
+				leftWallMesh.position = new THREE.Vector3(-100,30,0);
+				leftWallMesh.rotation.y = 1.57;
 
-				//
+				scene.add( leftWallMesh );
+
+
+				var rightWall = new THREE.PlaneGeometry( 201, 60 );
+
+				rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0x00AAAA} ));
+				rightWallMesh.position = new THREE.Vector3(100,30,0);
+				rightWallMesh.rotation.y = -1.57;
+
+				scene.add( rightWallMesh );
+
+
+				var ceiling = new THREE.PlaneGeometry( 201, 201 );
+
+				ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x555555} ));
+				ceilingMesh.position = new THREE.Vector3(0,60,0);
+				ceilingMesh.rotation.x = 1.57;
+
+				scene.add( ceilingMesh );
+
+				/**var geometry = new THREE.CubeGeometry( 10, 10, 10 );
+				var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, opacity: 0.5 } ) );
+
+				object.position.x = 10;
+				object.position.y = 10;
+				object.position.z = 10;
+
+				scene.add( object );**/
+
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
