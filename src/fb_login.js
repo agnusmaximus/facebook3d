@@ -16,18 +16,19 @@ friends = new Array();
 function get_single_status(user, callback) {
     //if (!user) return;
     friend_id = user.id;
-    FB.api('/'+friend_id+'/feed', function(response) {
-	if (response && response.data.length > 0) {
+
+    FB.api('/'+friend_id+'/posts', function(response) {
+	console.log(response);
+	if (response && response.data && response.data.length && response.data.length > 0) {
+	    chosen = ""
 	    for (i = 0; i < response.data.length; i++) {
-		//console.log(response.data[i]);
-		//if (response.data[i].status_type == "post") {
-		    story = response.data[i].story.toLowerCase();
-		    story = '"' + story + '"';
-		    callback(story);
-		//console.log(story + " " + response.data[i].story_type);
-		return;
-	    //}
+		story = response.data[i].story.toLowerCase();
+		story = '"' + story + '"';
+		if (Math.random() % (i + 1) == 0)
+		    chosen = story;
+		break;
 	    }
+	    callback(chosen);
 	}
     });
 }
@@ -98,6 +99,7 @@ function initialize() {
 	
 	//GETTING THEIR PROFILE PICS
 	get_all_friends(function(friends) {
+	    console.log(friends);
 	    get_single_status(friends[20], function(){});
 	    //get_friend_photos(friends[20], function(){});
 	});
@@ -150,14 +152,14 @@ window.fbAsyncInit = function() {
 	    // (1) JavaScript created popup windows are blocked by most browsers unless they 
 	    // result from direct interaction from people using the app (such as a mouse click)
 	    // (2) it is a bad experience to be continually prompted to login upon page load.
-	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos,publish_actions,publish_stream'});
+	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos,publish_actions,publish_stream,read_stream'});
 	} else {
 	    // In this case, the person is not logged into Facebook, so we call the login() 
 	    // function to prompt them to do so. Note that at this stage there is no indication
 	    // of whether they are logged into the app. If they aren't then they'll see the Login
 	    // dialog right after they log in to Facebook. 
 	    // The same caveats as above apply to the FB.login() call here.
-	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos,publish_actions,publish_stream'});
+	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos,publish_actions,publish_stream,read_stream'});
 	}
     });
 };
