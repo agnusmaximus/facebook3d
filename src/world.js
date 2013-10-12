@@ -192,8 +192,8 @@ function loadName(name, position) {
     var mesh = new THREE.Mesh();
 
     var textGeo = new THREE.TextGeometry( name, {
-        size: 6,
-        height: 10,
+        size: 10,
+        height: 5,
         curveSegments: 0,
 
         font: "helvetiker",
@@ -207,7 +207,7 @@ function loadName(name, position) {
 
     mesh.position.x = position.x - 102.6*position.y;
     mesh.position.y = 15;
-    mesh.position.z = position.z + (50 * position.y)-40;
+    mesh.position.z = position.z + (50 * position.y)+40;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
