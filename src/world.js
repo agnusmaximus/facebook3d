@@ -195,10 +195,9 @@ function getNextStatus(status) {
         curveSegments: 0,
 
         font: "optimer",
-        weight: "bold",
         style: "normal",
 
-        bevelEnabled: false,
+        bevelEnabled: false
     });
     
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
