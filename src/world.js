@@ -180,7 +180,7 @@ function loadProfilePic(picURL, position) {
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
     photo.position.x = position.x - 102.6*position.y;
     photo.position.y = 30;
-    photo.position.z = position.z + (50 * position.y);
+    photo.position.z = position.z + (45/2+40 * position.y);
 
     photo.rotation.y = Math.PI/2 * -1*position.y;
 
@@ -208,7 +208,7 @@ function loadName(name, position) {
     mesh.position.x = position.x - 102.6*position.y;
     mesh.position.y = 90;
     mesh.geometry.computeBoundingBox();
-    mesh.position.z = position.z + (mesh.geometry.boundingBox.max.x-mesh.geometry.boundingBox.min.x)/2*position.y;
+    mesh.position.z = position.z + (mesh.geometry.boundingBox.max.x-mesh.geometry.boundingBox.min.x)/2*-position.y;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
