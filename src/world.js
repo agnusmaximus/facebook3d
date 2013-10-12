@@ -132,7 +132,7 @@ function House(x,y,z,height,flipped) {
 
 
 		var rightWallLeft = new THREE.CubeGeometry( 80, height , 5);
-
+	    
 		rightWallLeftMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
 		rightWallLeftMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos-45/2-40);
 		rightWallLeftMesh.rotation.y = -Math.PI/2;
@@ -229,7 +229,7 @@ function initStatusWall() {
     statuses.mesh = new THREE.Mesh(); 
     statuses.mesh.geometry.dynamic = true;
 
-    var textGeo = new THREE.TextGeometry( "HELLO WORLD", {
+    /*var textGeo = new THREE.TextGeometry( "HELLO WORLD", {
         size: 100,
         height: 50,
         curveSegments: 0,
@@ -244,7 +244,7 @@ function initStatusWall() {
     statuses.mesh.geometry = textGeo;
 
     scene.add(statuses.mesh);
-
+    */
 
 }
 
