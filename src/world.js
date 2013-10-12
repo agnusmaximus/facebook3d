@@ -259,7 +259,7 @@ function initStatusWall() {
 function getNextStatus(status) {
     for (var i = 0; i < status.length; i++)
         scene.remove(statuses.meshes[i]);
-    console.log("STATUS:"+status);
+    //console.log("STATUS:"+status);
 
     for (var i = 0; i < status.length; i++) {
         var textGeo = new THREE.TextGeometry( status[i], {

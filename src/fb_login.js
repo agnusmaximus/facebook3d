@@ -25,7 +25,7 @@ function get_single_status(user_id, callback) {
     index = 0;
 
     FB.api('/'+friend_id+'/statuses', function(response) {
-	console.log(response);
+	//console.log(response);
 	if (response && response.data && response.data.length && response.data.length > 0) {
 	    chosen = "   ";
 	    for (i = 0; i < response.data.length; i++) {
@@ -50,8 +50,8 @@ function get_single_status(user_id, callback) {
 		results[i] = partial;
 		c_i = new_c_i;
 	    }
-	    console.log("HELEL");
-	    console.log(results);
+	    //console.log("HELEL");
+	    //console.log(results);
 	    callback(results);
 	}
     });
@@ -71,7 +71,7 @@ function get_self_name() {
 
 function get_self(callback) {
     FB.api('/me', function(response) {
-	console.log(response);
+	//console.log(response);
 	callback(response.id);
     });
 }
@@ -88,14 +88,14 @@ function get_friend_photos(user_id, callback) {
 	callback([]);
 	return;
     }
-    console.log("USER");
-    console.log(user_id);
+    //console.log("USER");
+    //console.log(user_id);
     get_friend_albums(user_id, function(albums) {
-	console.log(albums);
+	//console.log(albums);
 	if (albums.length > 0) {
 	    album_id = albums[0].id;
 	    FB.api(album_id + '/photos', function(response) {
-		console.log(response);
+		//console.log(response);
 		results = new Array();
 		for (i = 0; i < response.data.length; i++) {
 		    //results[i] = "https://scontent-a-pao.xx.fbcdn.net/hphotos-prn1/67688_539080522787299_979200007_n.jpg";
@@ -114,7 +114,7 @@ function get_friend_photos(user_id, callback) {
 		    better = "https://scontent-a-pao.xx.fbcdn.net/hphotos-prn1/" + str.substring(end, str.length);
 		    results[i] = better;
 		}
-		console.log(results);
+		//console.log(results);
 		callback(results);
 	    });
 	}
@@ -126,7 +126,7 @@ function post_on_wall(user_id, message){
         id = user_id
 	FB.api('/'+id+'/feed', 'post', { message: body }, function(response) {
   		if (!response || response.error) {
-		    console.log(response.error);
+		    //console.log(response.error);
     		    alert('Error occured');
   		} else {
     		    alert('Post ID: ' + response.id);
@@ -145,14 +145,14 @@ user_id = 0
 
 // Init function which is called when user logs in.
 function initialize() {
-    console.log("Initializing...");
+    //console.log("Initializing...");
     FB.api('/me', function(response) {
 	user_id = response.id;
 	self_name = response.name;
 
 	//GETTING THEIR PROFILE PICS
 	get_all_friends(function(friends) {
-	    console.log(friends);
+	    //console.log(friends);
 	    get_single_status(friends[20], function(){});
 	    //get_friend_photos(friends[20], function(){});
 	});
