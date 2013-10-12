@@ -280,19 +280,23 @@ function allFriendsReceived(friends) {
 	index = 0;
 
 	for(i in houseManager.housesLeft) {
-		house = houseManager.housesLeft[i];
-		house.fb_user = friends[index];
-		loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
-		index+=1;
+		if(i!=0) {
+			house = houseManager.housesLeft[i];
+			house.fb_user = friends[index];
+			loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
+			get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
+			index+=1;
+		}
 	}
 
 	for(i in houseManager.housesRight) {
-		house = houseManager.housesRight[i];
-		house.fb_user = friends[index];
-		loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
-		index+=1;
+		if(i!=0) {
+			house = houseManager.housesRight[i];
+			house.fb_user = friends[index];
+			loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
+			get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
+			index+=1;
+		}
 	}
 }
 
