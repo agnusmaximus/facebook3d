@@ -157,10 +157,10 @@ function animate() {
 
 	time = Date.now();
 
-	TWEEN.update();
+    TWEEN.update();
     //console.log(cubesArr.length);
 	for(num = 0; num < cubesArr.length; num++) {
-		console.log(num + " USERDATA: " + cubesArr[num].userData.isBeingFlipped);
+	    //console.log(num + " USERDATA: " + cubesArr[num].userData.isBeingFlipped);
 		if(!cubesArr[num].userData.isBeingFlipped) {
 			cubesArr[num].rotation.z = Math.sin(totalTime/100 + cubesArr[num].userData.timeOffset)/10;
 		}
