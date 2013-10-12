@@ -64,6 +64,7 @@ function get_friend_photos(user, callback) {
 		for (i = 0; i < response.data.length; i++) {
 		    results[i] = response.data[i].picture;
 		}
+		console.log(results);
 		callback(results);
 	    });
 	}
