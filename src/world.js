@@ -223,7 +223,7 @@ function newStatusWall(user) {
     statuses.curt = 0;
     //get_single_status(statuses.user, getNextStatus);
     get_friend_photos(statuses.user, setPics);
-    getPic(0);
+    
 }
 
 // called at the very beginning
@@ -259,6 +259,7 @@ function getNextStatus(status, picurl) {
 
 function setPics(friendpics) {
     pics = friendpics;
+    getPic(0);
 }
 
 function getPic(index) {
