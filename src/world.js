@@ -98,20 +98,17 @@ if ( havePointerLock ) {
 
 }
 
-function House() {
+function House(x,y,z) {
 	this.fb_user = null;
-	this.xPos = 0;
-	this.yPos = 0;
-	this.zPos = 0;
+	this.xPos = x;
+	this.yPos = y;
+	this.zPos = z;
 
-	this.create = function(x, y, z) {
-		this.xPos = x;
-		this.yPos = y;
-		this.zPos = z;
+	this.create = function() {
 	    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
 
 		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-		backWallMesh.position = new THREE.Vector3(x,y+30,z-100);
+		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+30,this.zPos-100);
 		backWallMesh.material.side = THREE.DoubleSide;
 
 		scene.add( backWallMesh );
@@ -120,7 +117,7 @@ function House() {
 		var frontWall = new THREE.CubeGeometry( 195, 60 , 5);
 
 		frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
-		frontWallMesh.position = new THREE.Vector3(x,y+30,z+100);
+		frontWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+30,this.zPos+100);
 		frontWallMesh.rotation.x = Math.PI;
 		frontWallMesh.material.side = THREE.DoubleSide;
 
@@ -130,7 +127,7 @@ function House() {
 		var leftWall = new THREE.CubeGeometry( 205, 60 , 5);
 
 		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAA00AA} ));
-		leftWallMesh.position = new THREE.Vector3(x-100,y+30,z);
+		leftWallMesh.position = new THREE.Vector3(this.xPos-100,this.yPos+30,this.zPos);
 		leftWallMesh.rotation.y = Math.PI/2;
 		leftWallMesh.material.side = THREE.DoubleSide;
 
@@ -140,7 +137,7 @@ function House() {
 		var rightWall = new THREE.CubeGeometry( 205, 60 , 5);
 
 		rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0x00AAAA} ));
-		rightWallMesh.position = new THREE.Vector3(x+100,y+30,z);
+		rightWallMesh.position = new THREE.Vector3(this.xPos+100,this.yPos+30,this.zPos);
 		rightWallMesh.rotation.y = -Math.PI/2;
 		rightWallMesh.material.side = THREE.DoubleSide;
 
@@ -150,7 +147,7 @@ function House() {
 		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
 
 		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x555555} ));
-		ceilingMesh.position = new THREE.Vector3(x,y+62.5,z);
+		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+62.5,this.zPos);
 		ceilingMesh.rotation.x = Math.PI/2;
 
 		scene.add( ceilingMesh );
@@ -242,10 +239,12 @@ HouseManager.prototype.init = function() {
     this.housesRight = new Array();
     
     for (var i = 0; i < 50; i++) {
-        this.housesRight[i] = new House();
-        this.housesRight[i].create(-300, 0, -400 * i);
-        this.housesLeft[i] = new House();
-        this.housesLeft[i].create(300, 0, -400 * i);
+    	h = new House(-300, 0, -400 * i);
+    	h.create();
+        this.housesRight[i] = h;
+        h2 = new House(300, 0, -400 * i);
+        h2.create();
+        this.housesLeft[i] = h2;
     }
 };
 
