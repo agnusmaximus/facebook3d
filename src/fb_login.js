@@ -16,7 +16,7 @@ function post_on_wall(id, message){
 user_id = 0
 
 // Init function which is called when user logs in.
-function init() {
+function initialize() {
     console.log("Initializing...");
     FB.api('/me', function(response) {
 	console.log(response);
@@ -48,6 +48,7 @@ function send_private_message(id, message){
 }
 
 window.fbAsyncInit = function() {
+
     FB.init({
 	appId      : '1424417874443748', // App ID
 	channelUrl : '', // Channel File
@@ -67,7 +68,7 @@ window.fbAsyncInit = function() {
 	    // The response object is returned with a status field that lets the app know the current
 	    // login status of the person. In this case, we're handling the situation where they 
 	    // have logged in to the app.
-	    init();
+	    initialize();
 	} else if (response.status === 'not_authorized') {
 	    // In this case, the person is logged into Facebook, but not into the app, so we call
 	    // FB.login() to prompt them to do so. 
