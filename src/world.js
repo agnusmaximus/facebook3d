@@ -263,9 +263,9 @@ function setPics(friendpics) {
 
 function getPic(index) {
     //scene.remove(statuses.photo);
-    var img = 
+    /*var img;
     img.crossOrigin = '';
-	img.src = 'http://other-domain.com/image.jpg';
+	img.src = 'http://other-domain.com/image.jpg';*/
 
     var photoMaterial = new THREE.MeshBasicMaterial({
 		map : THREE.ImageUtils.loadTexture(pics[index])
