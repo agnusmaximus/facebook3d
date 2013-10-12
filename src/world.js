@@ -260,11 +260,11 @@ function getNextStatus(status) {
     statuses.mesh.geometry = textGeo;
     if (controls.getObject().position.x < 0) {
 	statuses.mesh.rotation.y += 1.5;
-        statuses.mesh.position.z = nearestHouse.zPos - 20;
+        statuses.mesh.position.z = nearestHouse.zPos + 40;
     }
     else {
 	statuses.mesh.rotation.y -= 1.5;
-	statuses.mesh.position.z = nearestHouse.zPos + 20;
+	statuses.mesh.position.z = nearestHouse.zPos - 40;
     }
 	
     statuses.mesh.position.x = nearestHouse.xPos ;
