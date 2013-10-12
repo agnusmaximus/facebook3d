@@ -331,9 +331,12 @@ function updateStatusWall(t) {
     if (statuses.curt > statuses.interval) {
         statuses.curt = 0;
         nearestHouse = getNearestHouse();
-        statuses.user = nearestHouse.fb_user;
+        //statuses.user = nearestHouse.fb_user;
         get_single_status(statuses.user, getNextStatus);
-        startPhotosForUser(nearestHouse.fb_user);
+        if (nearestHouse.fb_user != statuses.user) {
+            startPhotosForUser(nearestHouse.fb_user);
+            statuses.user = nearestHouse.fb_user;
+        }
         //get_friend_photos(statuses.uer, getPic);
         //getPic(picind);
         //picind = (picind + 1) % (pics.length - 1);
