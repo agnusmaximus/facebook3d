@@ -60,6 +60,7 @@
 	<body>
 		<script src="js/three.min.js"></script>
 		<script src="js/controls/PointerLockControls.js"></script>
+		
 
 		<div id="blocker">
 
@@ -211,6 +212,7 @@
 
 				backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 				backWallMesh.position = new THREE.Vector3(0,30,-100);
+				backWallMesh.material.side = THREE.DoubleSide;
 
 				scene.add( backWallMesh );
 
@@ -249,6 +251,18 @@
 				ceilingMesh.rotation.x = 1.57;
 
 				scene.add( ceilingMesh );
+
+
+				var material = new THREE.MeshBasicMaterial({
+            		map : THREE.ImageUtils.loadTexture('sprite.jpg'),  // if I put only this, I see no mesh
+		            //color : 0x0000ff    // this draws blue mesh
+		        });
+
+
+		        // plane
+		        var plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), material);
+
+		        scene.add(plane);
 
 				/**var geometry = new THREE.CubeGeometry( 10, 10, 10 );
 				var object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff, opacity: 0.5 } ) );
