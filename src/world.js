@@ -210,9 +210,10 @@ function allFriendsReceived(friends) {
 	index = 0;
 
 	for(i in houseManager.housesLeft) {
-		console.log(index);
-		houseManager.housesLeft[i].fb_user = friends[index];
-		get_friend_profile_pic(friends[index],houseManager.housesLeft[i].loadProfilePic)
+		house = houseManager.housesLeft[i];
+		house.fb_user = friends[index];
+		console.log(house.zPos);
+		get_friend_profile_pic(house.fb_user,house.loadProfilePic)
 		index+=1;
 	}
 }
@@ -245,11 +246,7 @@ HouseManager.prototype.init = function() {
     	h.create();
         this.housesRight[i] = h;
         h2 = new House(300, 0, -400 * i);
-        console.log("boy");
-        console.log(h2.xPos);
         h2.create();
-        console.log("girl");
-        console.log(h2.xPos);
         this.housesLeft[i] = h2;
     }
 };
