@@ -387,7 +387,7 @@ function init() {
 	geometry = new THREE.PlaneGeometry( 20000000, 20000000, 100, 100 );
 	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-	material = new THREE.MeshBasicMaterial( {color : 0xD8DFEA} );
+	material = new THREE.MeshBasicMaterial( {color : 0x6D84BD} );
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
