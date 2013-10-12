@@ -413,10 +413,10 @@ function updatePhotoCascade(photoCascade, t, wall) {
 
 function setPhotosArray(photos) {
 	userPhotos = photos;
-        for (int i = 0; i < photoCascade1.photos.length; i++) {
+        for (var i = 0; i < photoCascade1.photos.length; i++) {
             scene.remove(photeoCascade1.photos[i]);
         }
-        for (int i = 0; i < photoCascade2.photos.length; i++) {
+        for (var i = 0; i < photoCascade2.photos.length; i++) {
             scene.remove(photeoCascade2.photos[i]);
         }
         photoCascade1.photos = new Array();
