@@ -365,7 +365,7 @@ function init() {
 
 function testingStatuses(user) {
 	newStatusWall(user);
-	statuses.mesh.position = new Vector3(0,20,0);
+	statuses.mesh.position = new THREE.Vector3(0,20,0);
 }
 
 function onWindowResize() {
