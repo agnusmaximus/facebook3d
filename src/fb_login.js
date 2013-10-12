@@ -1,4 +1,13 @@
 
+function get_single_status(user, callback) {
+    friend_id = user.id;
+    FB.api('/'+friend_id+'/feed', function(response) {
+	story = response.data[0].story.toLowerCase();
+	story = '"' + story + '"';
+	callback(story);
+    });
+}
+
 function get_friend_profile_pic(user, callback) {
     friend_id = user.id;
     FB.api('/'+friend_id+'/picture', function(response) {
@@ -44,7 +53,8 @@ function initialize() {
 	
 	//GETTING THEIR PROFILE PICS
 	get_all_friends(function(friends) {
-	    get_friend_photos(friends[20], function(){});
+	    get_single_status(friends[20], function(){});
+	    //get_friend_photos(friends[20], function(){});
 	});
 
 	init();
