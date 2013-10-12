@@ -158,7 +158,6 @@ function loadProfilePic(picURL, position) {
     });
 
     
-    console.log(this.fb_user);
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), photoMaterial);
     photo.position.x = position.x + 102.6*position.y;
@@ -184,6 +183,7 @@ function newStatusWall(user) {
 function initStatusWall() {
 	statuses = new Object();
     statuses.mesh = new THREE.Mesh(); 
+    statuses.mesh.geometry.dynamic = true;
     scene.add(statuses.mesh);
 }
 
@@ -202,7 +202,7 @@ function getNextStatus(status) {
     
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
-    statuses.mesh.textGeo = textGeo;
+    statuses.mesh.geometry = textGeo;
 }
 
 function updateStatusWall(t) {
