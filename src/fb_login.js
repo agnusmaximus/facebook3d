@@ -1,4 +1,16 @@
 
+Array.prototype.shuffle = function() {
+   var i = this.length;
+   while (--i) {
+      var j = Math.floor(Math.random() * (i + 1))
+      var temp = this[i];
+      this[i] = this[j];
+      this[j] = temp;
+   }
+
+   return this; // for convenience, in case we want a reference to the array
+};
+
 friends = new Array();
 
 function get_single_status(user, callback) {
@@ -55,7 +67,7 @@ function post_on_wall(user, message){
 
 function get_all_friends(callback){
     FB.api('/me/friends', function(response) {
-	callback(response.data);
+	callback(response.data.shuffle());
     });
 }
 
