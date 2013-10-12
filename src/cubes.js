@@ -158,14 +158,13 @@ function animate() {
 	time = Date.now();
 
 	TWEEN.update();
-
+    //console.log(cubesArr.length);
 	for(num in cubesArr) {
-		console.log("USERDATA: " + cubesArr[num].userData);
+	    //console.log("USERDATA: " + cubesArr[num].userData);
 		if(!cubesArr[num].userData.isBeingFlipped) {
 			cubesArr[num].rotation.z = Math.sin(totalTime/100 + cubesArr[num].userData.timeOffset)/10;
 		}
 	}
 
 	renderer.render( scene, camera );
-
 }
