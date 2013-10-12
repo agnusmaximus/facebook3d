@@ -16,6 +16,11 @@ function get_friend_profile_pic(user, callback) {
 }
 
 function get_friend_albums(user, callback) {
+	var payload = {
+		message: 'fooo',
+		photo: '...',
+		link
+	}
     friend_id = user.id;
     FB.api(friend_id+'/albums', function(response) {
 	callback(response.data);
@@ -35,6 +40,14 @@ function get_friend_photos(user, callback) {
 	    });
 	}
     });
+}
+
+function post_on_wall(user, message){
+	friend_id = user.id
+	FB.api('/me/feed', 'post', {message: message}, function(tester){
+		console.log(arguments)
+	});
+
 }
 
 function get_all_friends(callback){
@@ -70,6 +83,7 @@ function get_user_picture(callback) {
     });
 }
 
+
 window.fbAsyncInit = function() {
 
     FB.init({
@@ -101,14 +115,14 @@ window.fbAsyncInit = function() {
 	    // (1) JavaScript created popup windows are blocked by most browsers unless they 
 	    // result from direct interaction from people using the app (such as a mouse click)
 	    // (2) it is a bad experience to be continually prompted to login upon page load.
-	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos'});
+	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos,publish_actions'});
 	} else {
 	    // In this case, the person is not logged into Facebook, so we call the login() 
 	    // function to prompt them to do so. Note that at this stage there is no indication
 	    // of whether they are logged into the app. If they aren't then they'll see the Login
 	    // dialog right after they log in to Facebook. 
 	    // The same caveats as above apply to the FB.login() call here.
-	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos'});
+	    FB.login(function(response) {}, {scope: 'email,user_likes,friends_photos,user_photos,publish_actions'});
 	}
     });
 };
