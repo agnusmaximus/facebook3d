@@ -280,7 +280,7 @@ function allFriendsReceived(friends) {
 
 	index = 0;
 
-	for(i in houseManager.housesLeft) {
+	for(var i = 0; i < houseManager.housesLeft.length; i++) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
 		console.log(index+" " + friends[index].name);
@@ -289,7 +289,7 @@ function allFriendsReceived(friends) {
 		index+=1;
 	}
 
-	for(i in houseManager.housesRight) {
+	for(var i = 0; i < houseManager.housesRight.length; i++) {
 		house = houseManager.housesRight[i];
 		house.fb_user = friends[index];
 		loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
