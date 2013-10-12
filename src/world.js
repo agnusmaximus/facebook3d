@@ -205,7 +205,7 @@ function initStatusWall() {
 }
 
 function getNextStatus(status) { 
-	console.log(status);
+	console.log("STATUS:"+status);
     var textGeo = new THREE.TextGeometry( status, {
         size: 100,
         height: 50,
@@ -223,7 +223,6 @@ function getNextStatus(status) {
 
 function updateStatusWall(t) {
     statuses.curt += t;
-    console.log(statuses.interval + " " + statuses.curt);
     if (statuses.curt > statuses.interval) {
         get_single_status(statuses.user, getNextStatus);
         statuses.curt = 0;
