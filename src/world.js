@@ -194,8 +194,7 @@ function getNextStatus(status) {
         height: 20,
         curveSegments: 0,
 
-        font: "optimer",
-        style: "normal",
+        font: "helvetiker",
 
         bevelEnabled: false
     });
