@@ -142,7 +142,7 @@ function updateCubeWall(t) {
 						img.onload = function() {
 					    	this.tex.needsUpdate = true;
 						};
-						cube.material.materials[cube.userData.sideShowing] = new THREE.MeshBasicMaterial({map: tex});
+						cube.material.materials[cube.userData.sideShowing] = new THREE.MeshBasicMaterial({color : 0xffff00});
 						cube.userData.sideShowing = cube.userData.sideShowing==4 ? 5 : 4;
 					})
 					.start();
