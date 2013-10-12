@@ -13,20 +13,30 @@ Array.prototype.shuffle = function() {
 
 friends = new Array();
 
-function get_single_status(user, callback) {
+function get_single_status(user_id, callback) {
 
-    friend_id = user.id;
+    friend_id = user_id;
+    c = 0;
 
     FB.api('/'+friend_id+'/posts', function(response) {
 	console.log(response);
 	if (response && response.data && response.data.length && response.data.length > 0) {
-	    chosen = ""
+	    chosen = "   ";
 	    for (i = 0; i < response.data.length; i++) {
-		story = response.data[i].story.toLowerCase();
-		story = '"' + story + '"';
+		if (response.data[i].status_type == "wall_post") {
+		    if (response.data[i].story) {
+			story = response.data[i].story.toLowerCase();
+			story = '"' + story + '"';
+		    }
+		    else {
+			story = "    ";
+		    }
+		    
+		    if (Math.floor(Math.random() * 100) % (c + 1) == 0)
+			chosen = story;
 
-		if (Math.floor(Math.random() * 100) % (i + 1) == 0)
-		    chosen = story;
+		    c += 1;
+		}
 	    }
 	    console.log(chosen + " " + chosen);
 	    callback(chosen);
@@ -34,8 +44,8 @@ function get_single_status(user, callback) {
     });
 }
 
-function get_friend_profile_pic(user, callback, data) {
-    friend_id = user.id;
+function get_friend_profile_pic(user_id, callback, data) {
+    friend_id = user_id;
     FB.api('/'+friend_id+'/picture?type=large', function(response) {
 	callback(response.data.url, data);
     });
@@ -48,17 +58,17 @@ function get_self(callback) {
     });
 }
 
-function get_friend_albums(user, callback) {
-    friend_id = user.id;
+function get_friend_albums(user_id, callback) {
+    friend_id = user_id;
     FB.api(friend_id+'/albums', function(response) {
 	callback(response.data);
     });
 }
 
-function get_friend_photos(user, callback) {
+function get_friend_photos(user_id, callback) {
     console.log("USER");
     console.log(user);
-    get_friend_albums(user, function(albums) {
+    get_friend_albums(user_id, function(albums) {
 	console.log(albums);
 	if (albums.length > 0) {
 	    album_id = albums[0].id;
@@ -89,9 +99,9 @@ function get_friend_photos(user, callback) {
     });
 }
 	
-function post_on_wall(user, message){
+function post_on_wall(user_id, message){
 	var body = message;
-        id = user.id
+        id = user_id
 	FB.api('/'+id+'/feed', 'post', { message: body }, function(response) {
   		if (!response || response.error) {
 		    console.log(response.error);
