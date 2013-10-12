@@ -98,46 +98,47 @@ if ( havePointerLock ) {
 
 }
 
-function House(x,y,z) {
+function House(x,y,z,height) {
 	this.fb_user = null;
 	this.xPos = x;
 	this.yPos = y;
 	this.zPos = z;
+	this.height = height;
 
 	this.create = function() {
-	    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
+	    var backWall = new THREE.CubeGeometry( 195, height , 5);
 
 		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+30,this.zPos-100);
+		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos-100);
 		backWallMesh.material.side = THREE.DoubleSide;
 
 		scene.add( backWallMesh );
 
 
-		var frontWall = new THREE.CubeGeometry( 195, 60 , 5);
+		var frontWall = new THREE.CubeGeometry( 195, height , 5);
 
 		frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
-		frontWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+30,this.zPos+100);
+		frontWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos+100);
 		frontWallMesh.rotation.x = Math.PI;
 		frontWallMesh.material.side = THREE.DoubleSide;
 
 		scene.add( frontWallMesh );
 
 
-		var leftWall = new THREE.CubeGeometry( 205, 60 , 5);
+		var leftWall = new THREE.CubeGeometry( 205, height , 5);
 
 		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAA00AA} ));
-		leftWallMesh.position = new THREE.Vector3(this.xPos-100,this.yPos+30,this.zPos);
+		leftWallMesh.position = new THREE.Vector3(this.xPos-100,this.yPos+height/2,this.zPos);
 		leftWallMesh.rotation.y = Math.PI/2;
 		leftWallMesh.material.side = THREE.DoubleSide;
 
 		scene.add( leftWallMesh );
 
 
-		var rightWall = new THREE.CubeGeometry( 205, 60 , 5);
+		var rightWall = new THREE.CubeGeometry( 205, height , 5);
 
 		rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0x00AAAA} ));
-		rightWallMesh.position = new THREE.Vector3(this.xPos+100,this.yPos+30,this.zPos);
+		rightWallMesh.position = new THREE.Vector3(this.xPos+100,this.yPos+height/2,this.zPos);
 		rightWallMesh.rotation.y = -Math.PI/2;
 		rightWallMesh.material.side = THREE.DoubleSide;
 
@@ -147,7 +148,7 @@ function House(x,y,z) {
 		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
 
 		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x555555} ));
-		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+62.5,this.zPos);
+		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+2.5,this.zPos);
 		ceilingMesh.rotation.x = Math.PI/2;
 
 		scene.add( ceilingMesh );
@@ -162,8 +163,8 @@ function loadProfilePic(picURL, position) {
 
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
-    photo.position.x = position.x;
-    photo.position.y = 80;
+    photo.position.x = position.x + -110*position.y;
+    photo.rotation.y = Math.PI/2 * position.y;
     photo.position.z = position.z;
 
     scene.add(photo);
@@ -228,7 +229,14 @@ function allFriendsReceived(friends) {
 	for(i in houseManager.housesLeft) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 30, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
+		index+=1;
+	}
+
+	for(i in houseManager.housesRight) {
+		house = houseManager.housesRight[i];
+		house.fb_user = friends[index];
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
 		index+=1;
 	}
 }
@@ -257,10 +265,10 @@ HouseManager.prototype.init = function() {
     this.housesRight = new Array();
     
     for (var i = 0; i < 50; i++) {
-    	h = new House(-300, 0, -400 * i);
+    	h = new House(300, 0, -400 * i,110);
     	h.create();
         this.housesRight[i] = h;
-        h2 = new House(300, 0, -400 * i);
+        h2 = new House(-300, 0, -400 * i,110);
         h2.create();
         this.housesLeft[i] = h2;
     }
