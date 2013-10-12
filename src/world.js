@@ -258,7 +258,7 @@ function getNextStatus(status, picurl) {
 function getPic(pics) {
     scene.remove(statuses.photo);
     var photoMaterial = new THREE.MeshBasicMaterial({
-		map : THREE.ImageUtils.loadTexture(pics[Math.floor(Math.random()*pics.length)]);
+	map : THREE.ImageUtils.loadTexture(pics[Math.floor(Math.random()*pics.length)])
     });
 
     var photo = new THREE.Mesh();
