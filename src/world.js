@@ -399,11 +399,11 @@ function updatePhotoCascade(photoCascade, t, wall) {
 
 		    if (position.x < 0) {
 			photo.rotation.y = (Math.PI * ((wall+1)/2)) + Math.PI;
-			photo.position.x = nearestHouse.xPos-Math.random()*170+150/2;
+			photo.position.x = nearestHouse.xPos-Math.random()*150+90;
 		    }
 		    else {
 			photo.rotation.y = (Math.PI * ((wall+1)/2));
-			photo.position.x = nearestHouse.xPos-Math.random()*170+180/2;
+			photo.position.x = nearestHouse.xPos-Math.random()*150+90;
 		    }
 
 		    photoCascade.photos.push(photo);
