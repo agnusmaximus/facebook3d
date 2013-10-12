@@ -355,13 +355,16 @@ function init() {
 
     initStatusWall();
 
-    newStatusWall(get_self());
-
-    statuses.mesh.position = new Vector3(0,20,0);
+    get_self(testingStatuses);
     
     get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
     window.addEventListener( 'resize', onWindowResize, false );
+}
+
+function testingStatuses(user) {
+	newStatusWall(user);
+	statuses.mesh.position = new Vector3(0,20,0);
 }
 
 function onWindowResize() {
