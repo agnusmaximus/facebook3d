@@ -210,7 +210,7 @@ function allFriendsReceived(friends) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
 		console.log(house.zPos);
-		get_friend_profile_pic(house.fb_user,house.loadProfilePic,new THREE.Vector3(house.xPos, house.yPos, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, house.yPos, house.zPos));
 		index+=1;
 	}
 }
