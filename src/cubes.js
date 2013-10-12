@@ -2,6 +2,14 @@ var camera, scene, renderer;
 var self_id;
 var friend_profile_pics = new Array();
 var cubesArr = new Array();
+var time = Date.now();
+var totalTime = 0;
+
+var switchPicTimer = 0;
+var switchPicInterval = 1500;
+
+init();
+animate();
 
 function init() {
 
@@ -17,20 +25,53 @@ function init() {
 	scene = new THREE.Scene();
 
 	//get_self(selfIDReceived);
-	get_all_friends(findFriends);
+	//get_all_friends(findFriends);
 
-	var size = 4;
-	for(var i = 0; i < size; i++) {
-		for(var j = 0; j < size; j++) {
-			var cube = new THREE.CubeGeometry(50,50,50);
-			var mesh = new THREE.Mesh(cube, new THREE.MeshBasicMaterial());
-			mesh.position = new THREE.Vector3((i-(size/2)-1)*50,(j-(size/2)-1,0)*50);
-			scene.add(mesh);
-		}
-	}
+
+	makeCubeWall(10,6,70,new THREE.Vector3(100,0,-50));
 
 	window.addEventListener( 'resize', onWindowResize, false );
 
+}
+
+function makeCubeWall(width, height, cubeSize, offset) {
+	for(var i = 0; i < width; i++) {
+		for(var j = 0; j < height; j++) {
+			var cube = new THREE.CubeGeometry(cubeSize,cubeSize,20);
+
+
+			var materials = [];
+
+			for (var k=0; k<6; k++) {
+				/*var img = new Image();
+				img.src = i + '.png';
+				var tex = new THREE.Texture(img);
+				img.tex = tex;
+
+				img.onload = function() {
+			    	this.tex.needsUpdate = true;
+				};*/
+				//var mat = new THREE.MeshBasicMaterial({color: 0xffffff, map: tex});
+				var mat = new THREE.MeshBasicMaterial({color: 0xAAAAAA});
+				if(k==5 || k==4) {
+					mat = new THREE.MeshBasicMaterial({color: 0xffff00});
+				}
+				materials.push(mat);
+			}
+
+			// for ( var k = 0; k < cube.faces.length; k ++ ) {
+			//     cube.faces[ k ].color.setHex( Math.random() * 0xffffff );
+			// }
+
+			// var material = new THREE.MeshBasicMaterial( { color: 0xffffff, vertexColors: THREE.FaceColors } );
+
+			var mesh = new THREE.Mesh( cube, new THREE.MeshFaceMaterial( materials ));
+			mesh.position = new THREE.Vector3((i-(width/2)-1)*cubeSize*1.2 + offset.x,(j-(height/2)+1)*cubeSize*1.2 + offset.y,offset.z);
+			mesh.userData = { timeOffset: Math.random()*5, isBeingFlipped: false , initialRotation: 0, sideShowing: 4}
+			cubesArr.push(mesh);
+			scene.add(mesh);
+		}
+	}
 }
 
 function findFriends(friends) {
@@ -69,13 +110,44 @@ function onWindowResize() {
 
 }
 
-function animate() {
+function updateCubeWall(t) {
+	switchPicTimer+=t;
+	if(switchPicTimer>switchPicInterval) {
+		switchPicTimer=0;
 
+		cubeChoice = Math.floor(Math.random()*cubesArr.length);
+		var tween = new TWEEN.Tween( { rotation: 0 } )
+					.to( { rotation: Math.PI }, 1500 )
+					.easing( TWEEN.Easing.Elastic.InOut )
+					.onUpdate( function () {
+						cubesArr[cubeChoice].userData.isBeingFlipped = false;
+						cubesArr[cubeChoice].rotation.x = this.rotation+cubesArr[cubeChoice].userData.initialRotation;
+					} )
+					.onComplete( function() {
+						cube = cubesArr[cubeChoice];
+						cube.userData.initialRotation+=Math.PI;
+						cube.userData.isBeingFlipped = false;
+						cube.material.materials[cube.userData.sideShowing] = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff});
+						cube.userData.sideShowing = cube.userData.sideShowing==4 ? 5 : 4;
+					})
+					.start();
+	}
+}
+
+function animate() {
 	requestAnimationFrame( animate );
 
+	totalTime += Date.now() - time;
+	updateCubeWall(Date.now()-time);
+
+	time = Date.now();
+
+	TWEEN.update();
+
 	for(i in cubesArr) {
-		cubesArr[i].rotation.x += 0.005;
-		cubesArr[i].rotation.y += 0.01;
+		if(!cubesArr[i].userData.isBeingFlipped) {
+			cubesArr[i].rotation.z = Math.sin(totalTime/100 + cubesArr[i].userData.timeOffset)/10;
+		}
 	}
 
 	renderer.render( scene, camera );
