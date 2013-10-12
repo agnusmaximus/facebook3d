@@ -450,9 +450,11 @@ function getNearestHouse() {
 		h = houseManager.housesLeft[i];
 		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
+			console.log("H "+h.xPos);
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user;
+			console.log("CLOSEST"+closestHouse.xPos);
 		}
 	}
 
