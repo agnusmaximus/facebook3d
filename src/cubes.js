@@ -82,7 +82,7 @@ function makeCubeWall(width, height, cubeSize, offset) {
 function findFriends(friends) {
 	for(var i = 0; i < friends.length; i++) {
 		console.log(friends[i].name);
-		get_friend_profile_pic(friends[i], profilePictureForFriend, null);
+		get_friend_profile_pic(friends[i].id, profilePictureForFriend, null);
 	}
 }
 

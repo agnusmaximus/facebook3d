@@ -54,7 +54,7 @@ function get_single_status(user_id, callback) {
 
 function get_friend_profile_pic(user_id, callback, data) {
     friend_id = user_id;
-    FB.api('/'+user_id+'/picture?type=large', function(response) {
+    FB.api('/'+friend_id+'/picture?type=large', function(response) {
 	callback(response.data.url, data);
     });
 }
