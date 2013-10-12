@@ -244,12 +244,9 @@ function init() {
     skyboxMesh    = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000, 1, 1, 1, null, true ), material );
     // add it to the scene
     scene.add( skyboxMesh );*/
-        
-	window.addEventListener( 'resize', onWindowResize, false );
-}
-
-function facebookIsWorking() {
-	get_user_picture(ProfilePicReceived);
+    
+    get_user_picture(ProfilePicReceived);
+    window.addEventListener( 'resize', onWindowResize, false );
 }
 
 function onWindowResize() {
@@ -296,5 +293,5 @@ function animate() {
 
 
 
-init();
-animate();
+//init();
+//animate();

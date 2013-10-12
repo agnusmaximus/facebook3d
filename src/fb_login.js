@@ -1,32 +1,30 @@
 
-function get_profile_picture(){
-
+function get_photos(user, callback) {
+    console.log(user);
+    friend_id = user.id;
+    FB.api('/'+friend_id+'/photos/', function(response) {
+	console.log(response);
+    });
 }
 
-function get_all_friends(limit){
-
-}
-
-function get_all_photos(id, limit){
-
-}
-function post_on_wall(id, message){
+function get_all_friends(callback){
+    FB.api('/me/friends', function(response) {
+	callback(response.data);
+    });
 }
 
 user_id = 0
 
 // Init function which is called when user logs in.
 function initialize() {
+    init();
+    animate();
     console.log("Initializing...");
     FB.api('/me', function(response) {
-	console.log(response);
 	user_id = response.id;
 	
-	console.log(response);
-
-	// Do a test and get the logged in user's picture
-	get_user_picture(function(val) {
-	    console.log(val);
+	get_all_friends(function(friends) {
+	    get_photos(friends[20]);
 	});
     });
 }
@@ -34,17 +32,10 @@ function initialize() {
 // Get's the logged in user's picture and performs
 // callback on the picture's url. 
 function get_user_picture(callback) {
-    FB.api(user_id+'/picture', function(response) {
+    FB.api('/'+user_id+'/picture', function(response) {
+	console.log(response);
 	callback(response.data.url);
     });
-}
-
-function get_all_posts(user_id, limit) {
-    console.log("hello there");
-
-}
-function send_private_message(id, message){
-
 }
 
 window.fbAsyncInit = function() {
