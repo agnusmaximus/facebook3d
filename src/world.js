@@ -348,6 +348,7 @@ function updatePhotoCascade(t) {
 		    photo.position.x = Math.random()*100;
 		    photo.position.y = Math.random()*100;
 		    photo.position.z = -50;
+		    photosIndex+=1;
 
 	        photoCascade.curt = 0;
 
