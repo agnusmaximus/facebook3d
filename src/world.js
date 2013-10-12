@@ -100,10 +100,11 @@ if ( havePointerLock ) {
 
 function House(x,y,z) {
 	this.fb_user = null;
-	console.log(z);
+	//console.log(z);
 	this.xPos = x;
 	this.yPos = y;
 	this.zPos = z;
+	console.log(this.zPos);
 
 	this.create = function() {
 	    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
