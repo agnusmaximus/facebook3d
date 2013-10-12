@@ -390,7 +390,7 @@ function allFriendsReceived(friends) {
 
 	for(var i = 0; i < houseManager.housesLeft.length; i++) {
 		house = houseManager.housesLeft[i];
-		house.fb_user = friends[index];
+		house.fb_user = friends[index].id;
 		loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
 		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
 		index+=1;
@@ -398,7 +398,7 @@ function allFriendsReceived(friends) {
 
 	for(var i = 0; i < houseManager.housesRight.length; i++) {
 		house = houseManager.housesRight[i];
-		house.fb_user = friends[index];
+		house.fb_user = friends[index].id;
 		loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
 		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
 		index+=1;
@@ -448,7 +448,7 @@ function getNearestHouse() {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
-			closestHouse.fb_user = h.fb_user;
+			closestHouse.fb_user = h.fb_user.id;
 		}
 	}
 
@@ -458,10 +458,9 @@ function getNearestHouse() {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
-			closestHouse.fb_user = h.fb_user;
+			closestHouse.fb_user = h.fb_user.id;
 		}
 	}
-	console.log(closestHouse.fb_user.name);
 	return closestHouse;
 }
 
