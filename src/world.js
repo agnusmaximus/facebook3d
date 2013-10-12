@@ -207,7 +207,7 @@ function loadName(name, position) {
 
     mesh.position.x = position.x - 102.6*position.y;
     mesh.position.y = 90;
-    mesh.position.z = position.z - mesh.width/2;
+    mesh.position.z = position.z - mesh.geometry.width/2;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
