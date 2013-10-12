@@ -8,9 +8,6 @@ var totalTime = 0;
 var switchPicTimer = 0;
 var switchPicInterval = 1500;
 
-init();
-animate();
-
 function init() {
 
 	renderer = new THREE.WebGLRenderer();
