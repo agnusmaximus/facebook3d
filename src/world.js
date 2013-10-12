@@ -223,6 +223,7 @@ function getNextStatus(status) {
 
 function updateStatusWall(t) {
     statuses.curt += t;
+    console.log(statuses.interval + " " + statuses.curt);
     if (statuses.curt > statuses.interval) {
         get_single_status(statuses.user, getNextStatus);
         statuses.curt = 0;
