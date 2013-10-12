@@ -1,3 +1,8 @@
+function get_all_posts(user_id, limit) {
+    console.log("hello there");
+}
+
+
 window.fbAsyncInit = function() {
     FB.init({
 	appId      : '1424417874443748', // App ID
@@ -54,5 +59,12 @@ function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
 	console.log('Good to see you, ' + response.name + '.');
+    });
+    get_all_posts();
+}
+
+function logout() {
+    FB.logout(function(response) {
+	alert("Logging out");
     });
 }
