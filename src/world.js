@@ -98,11 +98,14 @@ if ( havePointerLock ) {
 
 }
 
-function House() {
-    
+function House(fb_user_id) {
+    this.fb_user = fb_user;
 }
 
 House.prototype.create = function(x, y, z) {
+	this.xPos = x;
+	this.yPos = y;
+	this.zPos = z;
     var backWall = new THREE.CubeGeometry( 195, 60 , 5);
 
 	backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
@@ -149,9 +152,67 @@ House.prototype.create = function(x, y, z) {
 	ceilingMesh.rotation.x = Math.PI/2;
 
 	scene.add( ceilingMesh );
-
-
 };
+
+House.prototype.loadProfilePic = function(picURl) {
+	var photoMaterial = new THREE.MeshBasicMaterial({
+		map : THREE.ImageUtils.loadTexture(picURL)
+    });
+
+
+    // plane
+    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
+    photo.position.x = this.xPos;
+    photo.position.y = 30;
+    photo.position.z = this.zPos;
+
+    console.log(picURL);
+
+    scene.add(photo);
+}
+
+function Status(x, y, text) {
+    this.x = x;
+    this.y = y;
+    this.text = text;
+}
+
+function StatusWall(id, x, y, z, sizex, sizez) {
+    this.id = id;
+    this.statuses = new Array();
+    this.maxstats = 5;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.sizex = sizex;
+    this.sizez = sizez;
+}
+
+StatusWall.prototype.init = function() {
+    
+};
+
+StatusWall.prototype.update = function() {
+    if (statuses.length < 5) {
+        var newstatus = getRandomStatus(this.id);
+        
+        var x = Math.floor(Math.random()*3);
+        var y = Math.floor(Math.random()*3);
+        
+        
+        statuses.push(new Status(x, y, newstatus));
+    }
+};
+
+function allFriendsReceived(friends) {
+	index = 0;
+
+	for(house in houseManager.housesLeft) {
+		house.fb_user = friends[index];
+		get_friend_profile_pic(house.fb_user,house.loadProfilePic)
+		index+=1;
+	}
+}
 
 function ProfilePicReceived(picURL) {
 	var photoMaterial = new THREE.MeshBasicMaterial({
@@ -191,7 +252,7 @@ function init() {
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog( 0xffffff, 0, 2000 );
+	scene.fog = new THREE.Fog( 0x00dfff, 0, 2000 );
 
 	/*var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	light.position.set( 1, 1, 1 );
@@ -209,6 +270,8 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setClearColor(0x00dfff, 1);
+
 
 	document.body.appendChild( renderer.domElement );
 
@@ -245,7 +308,8 @@ function init() {
     // add it to the scene
     scene.add( skyboxMesh );*/
     
-    get_user_picture(ProfilePicReceived);
+    //get_user_picture(ProfilePicReceived);
+    get_all_friends(allFriendsReceived);
     window.addEventListener( 'resize', onWindowResize, false );
 }
 
