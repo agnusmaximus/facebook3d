@@ -379,10 +379,10 @@ function updatePhotoCascade(photoCascade, t, wall) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-                    if (userPhotos.length == 0) {
+                    /*if (userPhotos.length == 0) {
                         photoCascade.curt = 0;
-                        break;
-                    }
+                        //return;
+                    }*/
 			var photoMaterial = new THREE.MeshBasicMaterial({
 				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
