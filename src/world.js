@@ -3,6 +3,7 @@ var geometry, material, mesh;
 var controls,time = Date.now();
 
 var houseManager;
+var statuses;
 
 var objects = [];
 
@@ -112,31 +113,13 @@ function House(x,y,z,height) {
 		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos-100);
 
 		scene.add( backWallMesh );
+		var frontWall = new THREE.CubeGeometry( 195, height , 5);
 
-		//total 195
-		var frontWallLeft = new THREE.CubeGeometry( 75, height , 5);
+		frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		frontWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos+100);
+		frontWallMesh.rotation.x = Math.PI;
 
-		frontWalLeftMesh = new THREE.Mesh(frontWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-		frontWalLeftMesh.position = new THREE.Vector3(this.xPos - frontWallLeft.width/2,this.yPos+height/2,this.zPos+100);
-		frontWalLeftMesh.rotation.x = Math.PI;
-
-		scene.add( frontWalLeftMesh );
-
-		var frontWallMiddle = new THREE.CubeGeometry( 45, height*3/4 , 5);
-
-		frontWalMiddleMesh = new THREE.Mesh(frontWallMiddle, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-		frontWalMiddleMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2+height/8,this.zPos+100);
-		frontWalMiddleMesh.rotation.x = Math.PI;
-
-		scene.add( frontWalMiddleMesh );
-
-		var frontWallRight = new THREE.CubeGeometry( 75, height, 5);
-
-		frontWalRightMesh = new THREE.Mesh(frontWallRight, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-		frontWalRightMesh.position = new THREE.Vector3(this.xPos + frontWallRight.width/2,this.yPos+height/2,this.zPos+100);
-		frontWalRightMesh.rotation.x = Math.PI;
-
-		scene.add( frontWalRightMesh );
+		scene.add( frontWallMesh );
 
 
 		var leftWall = new THREE.CubeGeometry( 205, height , 5);
@@ -148,13 +131,15 @@ function House(x,y,z,height) {
 		scene.add( leftWallMesh );
 
 
-		var rightWall = new THREE.CubeGeometry( 205, height , 5);
+		var rightWallLeft = new THREE.CubeGeometry( 205, height , 5);
 
-		rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		rightWallMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
 		rightWallMesh.position = new THREE.Vector3(this.xPos+100,this.yPos+height/2,this.zPos);
 		rightWallMesh.rotation.y = -Math.PI/2;
 
 		scene.add( rightWallMesh );
+
+
 
 
 		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
@@ -186,33 +171,23 @@ function loadProfilePic(picURL, position) {
 };
 
 
-function StatusWall(id, x, y, z) {
-    this.id = id;
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.interval = 2500;
-    this.curt = 0;
+
+// called everytime you change houses
+function newStatusWall(id) {
+    statuses.id = id;
+    statuses.interval = 2500;
+    statuses.curt = 0;
+    get_single_status(statuses.user, getNextStatus);
 }
 
-StatusWall.prototype.init = function() {
-    this.textGeoMesh = new THREE.Mesh(); 
-    this.getNextStatus();
-    scene.add(textGeoMesh);
-};
+// called at the very beginning
+function initStatusWall() {
+    statuses.mesh = new THREE.Mesh(); 
+    scene.add(mesh);
+}
 
-StatusWall.prototype.getNextStatus = function() { 
-    var newstatus = getRandomStatus(this.id);
-    while (true){
-        if (newstatus != this.status) {
-            this.status = newstatus;
-            break;
-        }
-        newstatus = getRandomStatus(this.id);
-    }
-    this.curt = 0;
-    
-    var textGeo = new THREE.TextGeometry( this.status, {
+function getNextStatus(status) { 
+    var textGeo = new THREE.TextGeometry( status, {
         size: 70,
         height: 20,
         curveSegments: 0,
@@ -225,16 +200,17 @@ StatusWall.prototype.getNextStatus = function() {
     });
     
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
-    this.textGeoMesh.material = material;
-    this.textGeoMesh.textGeo = textGeo;
+    statuses.mesh.material = material;
+    statuses.mesh.textGeo = textGeo;
 }
 
-StatusWall.prototype.update = function(t) {
-    this.curt += t;
-    if (this.curt > this.interval) {
-        this.getNextStatus();
+function updateStatusWall(t) {
+    statuses.curt += t;
+    if (statuses.curt > statuses.interval) {
+        get_single_status(statuses.user, getNextStatus);
+        statuses.curt = 0;
     }
-};
+}
 
 
 function allFriendsReceived(friends) {
@@ -289,6 +265,31 @@ HouseManager.prototype.init = function() {
     }
 };
 
+function getNearestHouse() {
+	var closestHouse = null;
+	var lowestDistance = 10000000;
+	for(i in houseManager.housesLeft) {
+		h = houseManager.housesLeft[i];
+		if(distance(camera.position,new Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
+			lowestDistance = distance(camera.position,new Vector3(h.xPos, 0, h.zPos));
+			closestHouse = h;
+		}
+	}
+
+	for(i in houseManager.housesRight) {
+		h = houseManager.housesRight[i];
+		if(distance(camera.position,new Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
+			lowestDistance = distance(camera.position,new Vector3(h.xPos, 0, h.zPos));
+			closestHouse = h;
+		}
+	}
+
+	return closestHouse;
+}
+
+function distance(vec1, vec2) {
+	return (vec2.x-vec1.x)*(vec2.x-vec1.x) + (vec2.z-vec1.z)*(vec2.z-vec1.z);
+}
 
 function init() {
 
@@ -350,6 +351,13 @@ function init() {
     skyboxMesh    = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000, 1, 1, 1, null, true ), material );
     // add it to the scene
     scene.add( skyboxMesh );*/
+
+
+    initStatusWall();
+
+    newStatusWall(get_self());
+
+    statuses.mesh.position = new Vector3(0,20,0);
     
     get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
@@ -389,6 +397,8 @@ function animate() {
 		}
 
 	}
+
+	updateStatusWall( Date.now() - time);
 
 	controls.update( Date.now() - time );
 
