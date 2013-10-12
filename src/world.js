@@ -260,7 +260,7 @@ function getNextStatus(status) {
     statuses.mesh.position.x = nearestHouse.xPos;
     statuses.mesh.position.y = 20;
     statuses.mesh.position.z = nearestHouse.zPos;
-    
+
     scene.add(statuses.mesh);
 }
 
@@ -444,7 +444,7 @@ HouseManager.prototype.init = function() {
 };
 
 function getNearestHouse() {
-	var closestHouse = houseManager.housesLeft[0];
+	var closestHouse = new Object();
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
 		h = houseManager.housesLeft[i];
@@ -465,7 +465,7 @@ function getNearestHouse() {
 			closestHouse.fb_user = h.fb_user;
 		}
 	}
-	console.log(closestHouse.fb_username);
+	console.log(closestHouse.xPos);
 	return closestHouse;
 }
 
