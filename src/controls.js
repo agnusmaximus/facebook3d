@@ -145,8 +145,8 @@ THREE.PointerLockControls = function ( camera ) {
 
 		delta *= 0.1;
 
-		velocity.x += ( - velocity.x ) * 0.08 * delta;
-		velocity.z += ( - velocity.z ) * 0.08 * delta;
+		velocity.x += ( - velocity.x ) * 0.16 * delta;
+		velocity.z += ( - velocity.z ) * 0.16 * delta;
 
 		velocity.y -= 0.25 * delta;
 
