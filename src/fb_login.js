@@ -17,6 +17,7 @@ function get_single_status(user_id, callback) {
 
     friend_id = user_id;
     c = 0;
+    index = 0;
 
     FB.api('/'+friend_id+'/statuses', function(response) {
 	console.log(response);
@@ -24,7 +25,7 @@ function get_single_status(user_id, callback) {
 	    chosen = "   ";
 	    for (i = 0; i < response.data.length; i++) {
 		    if (response.data[i].message) {
-			story = response.data[i].message.toLowerCase().substr(0, Math.min(50, response.data[i].message.length));
+			story = response.data[i].message.toLowerCase();
 			story = '"' + story + '"';
 			if (Math.floor(Math.random() * 100) % (c + 1) == 0)
 			    chosen = story;
@@ -34,8 +35,19 @@ function get_single_status(user_id, callback) {
 			story = "";
 		    }		   
 	    }
-	    console.log(chosen + " " + chosen);
-	    callback(chosen);
+	    
+	    results = new Array();
+	    c_i = 0;
+	    new_c_i = 0;
+	    for (i = 0; i < 4; i++) {
+		new_c_i += Math.min(chosen.length - c_i, 40);
+		partial = chosen.substr(c_i, new_c_i);
+		results[i] = partial;
+		c_i = new_c_i;
+	    }
+	    console.log("HELEL");
+	    console.log(results);
+	    callback(results);
 	}
     });
 }
