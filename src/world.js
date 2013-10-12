@@ -5,6 +5,8 @@ var controls,time = Date.now();
 var houseManager;
 var statuses;
 
+var nearestHouse;
+
 var objects = [];
 var pics = new Array();
 
@@ -255,9 +257,10 @@ function getNextStatus(status) {
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
-    statuses.mesh.position.x = 0;
+    statuses.mesh.position.x = nearestHouse.xPos;
     statuses.mesh.position.y = 20;
-    statuses.mesh.position.z = 0;
+    statuses.mesh.position.z = nearestHouse.zPos;
+    
     scene.add(statuses.mesh);
 }
 
@@ -305,8 +308,10 @@ function updateStatusWall(t) {
     statuses.curt += t;
     if (statuses.curt > statuses.interval) {
         statuses.curt = 0;
+        nearestHouse = getNearestHouse();
+        statuses.user = nearestHouse.fb_user;
         get_single_status(statuses.user, getNextStatus);
-        //get_friend_photos(statuses.user, getPic);
+        //get_friend_photos(statuses.uer, getPic);
         //getPic(picind);
         //picind = (picind + 1) % (pics.length - 1);
     }
@@ -447,8 +452,7 @@ function getNearestHouse() {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
-			closestHouse.fb_user = h.fb_user.id;
-			closestHouse.fb_username = h.fb_user.name;
+			closestHouse.fb_user = h.fb_user;
 		}
 	}
 
@@ -458,8 +462,7 @@ function getNearestHouse() {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
-			closestHouse.fb_user = h.fb_user.id;
-			closestHouse.fb_username = h.fb_user.name;
+			closestHouse.fb_user = h.fb_user;
 		}
 	}
 	console.log(closestHouse.fb_username);
