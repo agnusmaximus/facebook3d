@@ -362,11 +362,6 @@ function updatePhotoCascade(t) {
 
 		    photo.rotation.y = -Math.PI/2 * nearestHouse.flipped;
 
-		    photosIndex+=1;
-		    if(photosIndex>=userPhotos.length) {
-		    	photosIndex = 0;
-		    }
-
 		    photoCascade.photos.push(photo);
 
 	        photoCascade.curt = 0;
