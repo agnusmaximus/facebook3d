@@ -100,15 +100,15 @@ if ( havePointerLock ) {
 
 function House() {
 	self = this;
-	fb_user = null;
-	xPos = 0;
-	yPos = 0;
-	zPos = 0;
+	self.fb_user = null;
+	self.xPos = 0;
+	self.yPos = 0;
+	self.zPos = 0;
 
 	self.create = function(x, y, z) {
-		xPos = x;
-		yPos = y;
-		zPos = z;
+		self.xPos = x;
+		self.yPos = y;
+		self.zPos = z;
 	    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
 
 		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
@@ -165,10 +165,10 @@ function House() {
 
 	    // plane
 	    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
-	    console.log(xPos + " " + zPos);
-	    photo.position.x = Math.random()*10;
-	    photo.position.y = 30;
-	    photo.position.z = Math.random()*10;
+	    console.log(self.xPos + " " + self.zPos);
+	    photo.position.x = Math.random()*100;
+	    photo.position.y = 80;
+	    photo.position.z = -50;
 
 	    scene.add(photo);
 	};
@@ -243,10 +243,10 @@ HouseManager.prototype.init = function() {
     this.housesRight = new Array();
     
     for (var i = 0; i < 50; i++) {
-        this.housesLeft[i] = new House();
-        this.housesLeft[i].create(300, 0, -400 * i);
         this.housesRight[i] = new House();
         this.housesRight[i].create(-300, 0, -400 * i);
+        this.housesLeft[i] = new House();
+        this.housesLeft[i].create(300, 0, -400 * i);
     }
 };
 
