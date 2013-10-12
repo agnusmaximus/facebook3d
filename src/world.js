@@ -53,7 +53,7 @@ if ( havePointerLock ) {
 
 	// Hook pointer lock state change events
 	document.addEventListener( 'pointerlockchange', pointerlockchange, false );
-	document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
+	cument.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
 	document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
 
 	document.addEventListener( 'pointerlockerror', pointerlockerror, false );
@@ -386,7 +386,7 @@ function updatePhotoCascade(photoCascade, t, wall) {
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(42, 42), photoMaterial);
 		    photo.position.z = nearestHouse.zPos+94*nearestHouse.flipped*wall;
 		    photo.position.y = 150;
-		
+
 		    if (position.x < 0) {
 			photo.rotation.y = (Math.PI * ((wall+1)/2)) + Math.PI;
 			photo.position.x = nearestHouse.xPos-Math.random()*170+150/2;
@@ -420,7 +420,16 @@ function allFriendsReceived(friends) {
 
 	index = 0;
 
-	for(var i = 0; i < houseManager.housesLeft.length; i++) {
+        houseManager.housesLeft[0].fb_user = user_id;
+        loadName(get_self_name(), new THREE.Vector3(house.xPos, -1, house.zPos));
+        get_friend_profile_pic(user_id, loadProfilePic, new THREE.Vector3(house.xPos, -1, house.zPos));
+        index += 1;
+        houseManager.housesRight[0].fb_user = 'zuck';
+        loadName("Mark Zuckerberg", new THREE.Vector3(house.xPos, -1, house.zPos));
+        get_friend_profile_pic('zuck', loadProfilePic, new THREE.Vector3(house.xPos, -1, house.zPos));
+        index += 1;
+
+	for(var i = 1; i < houseManager.housesLeft.length; i++) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index].id;
 		loadName(friends[index].name, new THREE.Vector3(house.xPos, -1, house.zPos));
@@ -428,7 +437,7 @@ function allFriendsReceived(friends) {
 		index+=1;
 	}
 
-	for(var i = 0; i < houseManager.housesRight.length; i++) {
+	for(var i = 1; i < houseManager.housesRight.length; i++) {
 		house = houseManager.housesRight[i];
 		house.fb_user = friends[index].id;
 		loadName(friends[index].name, new THREE.Vector3(house.xPos, 1, house.zPos));
@@ -454,7 +463,6 @@ function ProfilePicReceived(picURL) {
 function HouseManager() {
     this.housesLeft = null;
     this.housesRight = null;
-    this.yourhouse = null;
 }
 
 HouseManager.prototype.init = function() {
@@ -469,9 +477,6 @@ HouseManager.prototype.init = function() {
         h2.create();
         this.housesLeft[i] = h2;
     }
-
-    this.yourhouse = new House(0, 0, -400);
-    this.yourhouse.create();
 };
 
 function getNearestHouse() {
