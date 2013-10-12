@@ -323,7 +323,7 @@ HouseManager.prototype.init = function() {
     this.housesLeft = new Array();
     this.housesRight = new Array();
     
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < 20; i++) {
     	h = new House(300, 0, -400 * i,100,1);
     	h.create();
         this.housesRight[i] = h;
