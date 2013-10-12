@@ -207,7 +207,8 @@ function loadName(name, position) {
 
     mesh.position.x = position.x - 102.6*position.y;
     mesh.position.y = 90;
-    mesh.position.z = position.z - mesh.geometry.width/2;
+    mesh.geometry.computeBoundingBox();
+    mesh.position.z = position.z - (mesh.geometry.boundingBox.x[1]-mesh.geometry.boundingBox.x[0])/2;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
@@ -323,7 +324,7 @@ HouseManager.prototype.init = function() {
     this.housesLeft = new Array();
     this.housesRight = new Array();
     
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 5; i++) {
     	h = new House(300, 0, -400 * i,100,1);
     	h.create();
         this.housesRight[i] = h;
