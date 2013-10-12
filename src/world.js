@@ -53,7 +53,7 @@ if ( havePointerLock ) {
 
 	// Hook pointer lock state change events
 	document.addEventListener( 'pointerlockchange', pointerlockchange, false );
-	cument.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
+	document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
 	document.addEventListener( 'webkitpointerlockchange', pointerlockchange, false );
 
 	document.addEventListener( 'pointerlockerror', pointerlockerror, false );
