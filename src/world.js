@@ -275,7 +275,8 @@ function getPic(index) {
     statuses.photo.geometry  = new THREE.PlaneGeometry(80, 80);
     statuses.photo.material = photoMaterial;
     
-    var house = getNearestHouse();
+    //var house = getNearestHouse();
+    var house = new THREE.Vector3(0,20,0);
     
     statuses.photo.position.x = house.xPos;
     statuses.photo.position.y = house.yPos + 10;
