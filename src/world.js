@@ -349,8 +349,6 @@ function updatePhotoCascade(t) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-		console.log("HI");
-		console.log(pics);
 		var image = 0
 	    	image.crossOrigin = '';
 			//image.src = pics[index];
@@ -362,9 +360,12 @@ function updatePhotoCascade(t) {
 				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
-		    photo.position.x = Math.random()*190;
+		    photo.position.x = closestHouse.xPos-90;
 		    photo.position.y = 150;
-		    photo.position.z = -50;
+		    photo.position.z = Math.random()*190;
+
+		    photo.rotation.y = -Math.PI/2;
+
 		    photosIndex+=1;
 		    if(photosIndex>=userPhotos.length) {
 		    	photosIndex = 0;
