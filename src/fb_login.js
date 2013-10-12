@@ -27,15 +27,13 @@ function get_single_status(user_id, callback) {
 		    if (response.data[i].story) {
 			story = response.data[i].story.toLowerCase();
 			story = '"' + story + '"';
+			if (Math.floor(Math.random() * 100) % (c + 1) == 0)
+			    chosen = story;
+			c += 1;
 		    }
 		    else {
-			story = "    ";
-		    }
-		    
-		    if (Math.floor(Math.random() * 100) % (c + 1) == 0)
-			chosen = story;
-
-		    c += 1;
+			story = "";
+		    }		   
 	    //}
 	    }
 	    console.log(chosen + " " + chosen);
