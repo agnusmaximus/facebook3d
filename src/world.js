@@ -242,8 +242,8 @@ function getNextStatus(status) {
     scene.remove(statuses.mesh);
 	console.log("STATUS:"+status);
     var textGeo = new THREE.TextGeometry( status, {
-        size: 15,
-        height: 50,
+        size: 12,
+        height: 1,
         curveSegments: 0,
 
         font: "helvetiker",
@@ -327,7 +327,7 @@ function updatePhotoCascade(t) {
 
 	for(var i = 0; i < photoCascade.photos.length; i++) {
 		var p = photoCascade.photos[i];
-		p.position.y -= t/4;
+		p.position.y -= t/50;
 
 		if(p.position.y<-50) {
 			toRemove.push(p);
