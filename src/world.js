@@ -249,7 +249,7 @@ HouseManager.prototype.init = function() {
         console.log(h2.xPos);
         h2.create();
         console.log("girl");
-        console.log(hw.xPos);
+        console.log(h2.xPos);
         this.housesLeft[i] = h2;
     }
 };
