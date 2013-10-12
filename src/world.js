@@ -109,13 +109,13 @@ function House(x,y,z,height,flipped) {
 	this.create = function() {
 	    var backWall = new THREE.CubeGeometry( 195, height , 5);
 
-		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshPhongMaterial( {color : 0xAAAAAA} ));
 		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos-100);
 
 		scene.add( backWallMesh );
 		var frontWall = new THREE.CubeGeometry( 195, height , 5);
 
-		frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshPhongMaterial( {color : 0xAAAAAA} ));
 		frontWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos+100);
 		frontWallMesh.rotation.x = Math.PI;
 
@@ -124,7 +124,7 @@ function House(x,y,z,height,flipped) {
 
 		var leftWall = new THREE.CubeGeometry( 205, height , 5);
 
-		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshPhongMaterial( {color : 0xAAAAAA} ));
 		leftWallMesh.position = new THREE.Vector3(this.xPos+flipped*100,this.yPos+height/2,this.zPos);
 		leftWallMesh.rotation.y = Math.PI/2;
 
@@ -133,7 +133,7 @@ function House(x,y,z,height,flipped) {
 
 		var rightWallLeft = new THREE.CubeGeometry( 80, height , 5);
 
-		rightWallLeftMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		rightWallLeftMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshPhongMaterial( {color : 0xAAAAAA} ));
 		rightWallLeftMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos-45/2-40);
 		rightWallLeftMesh.rotation.y = -Math.PI/2;
 
@@ -141,7 +141,7 @@ function House(x,y,z,height,flipped) {
 
 		var rightWallMiddle = new THREE.CubeGeometry( 80, height/2 , 5);
 
-		rightWallMiddleMesh = new THREE.Mesh(rightWallMiddle, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		rightWallMiddleMesh = new THREE.Mesh(rightWallMiddle, new THREE.MeshPhongMaterial( {color : 0xAAAAAA} ));
 		rightWallMiddleMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height*3/4,this.zPos);
 		rightWallMiddleMesh.rotation.y = -Math.PI/2;
 
@@ -149,7 +149,7 @@ function House(x,y,z,height,flipped) {
 
 		var rightWallRight = new THREE.CubeGeometry( 80, height , 5);
 
-		rightWallRightMesh = new THREE.Mesh(rightWallRight, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		rightWallRightMesh = new THREE.Mesh(rightWallRight, new THREE.MeshPhongMaterial( {color : 0xAAAAAA} ));
 		rightWallRightMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos + 45/2+40);
 		rightWallRightMesh.rotation.y = -Math.PI/2;
 
@@ -158,7 +158,7 @@ function House(x,y,z,height,flipped) {
 
 		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
 
-		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0xBBBBBB} ));
+		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshPhongMaterial( {color : 0xBBBBBB} ));
 		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+2.5,this.zPos);
 		ceilingMesh.rotation.x = Math.PI/2;
 
@@ -171,7 +171,7 @@ function House(x,y,z,height,flipped) {
 }
 
 function loadProfilePic(picURL, position) {
-	var photoMaterial = new THREE.MeshBasicMaterial({
+	var photoMaterial = new THREE.MeshPhongMaterial({
 		map : THREE.ImageUtils.loadTexture(picURL)
     });
 
@@ -213,7 +213,7 @@ function initStatusWall() {
         bevelEnabled: false
     });
     
-    var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
+    var material = new THREE.MeshPhongMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
 
@@ -235,7 +235,7 @@ function getNextStatus(status) {
         bevelEnabled: false
     });
     
-    var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
+    var material = new THREE.MeshPhongMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
     scene.add(statuses.mesh);
@@ -270,7 +270,7 @@ function allFriendsReceived(friends) {
 }
 
 function ProfilePicReceived(picURL) {
-	var photoMaterial = new THREE.MeshBasicMaterial({
+	var photoMaterial = new THREE.MeshPhongMaterial({
 		map : THREE.ImageUtils.loadTexture(picURL)
     });
 
@@ -359,7 +359,7 @@ function init() {
 	geometry = new THREE.PlaneGeometry( 20000000, 20000000, 100, 100 );
 	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-	material = new THREE.MeshBasicMaterial( {color : 0x006400} );
+	material = new THREE.MeshPhongMaterial( {color : 0x006400} );
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
