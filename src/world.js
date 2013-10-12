@@ -208,7 +208,7 @@ function loadName(name, position) {
     mesh.position.x = position.x - 102.6*position.y;
     mesh.position.y = 90;
     mesh.geometry.computeBoundingBox();
-    mesh.position.z = position.z + (mesh.geometry.boundingBox.max.x-mesh.geometry.boundingBox.min.x*position.y)/2;
+    mesh.position.z = position.z + (mesh.geometry.boundingBox.max.x-mesh.geometry.boundingBox.min.x)/2*position.y;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
