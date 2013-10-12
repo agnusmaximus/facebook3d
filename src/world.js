@@ -179,8 +179,8 @@ function loadProfilePic(picURL, position) {
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
     photo.position.x = position.x - 102.6*position.y;
-    photo.position.y = 70;
-    photo.position.z = position.z;
+    photo.position.y = 30;
+    photo.position.z = position.z + (50 * position.y);
 
     photo.rotation.y = Math.PI/2 * -1*position.y;
 
@@ -206,8 +206,8 @@ function loadName(name, position) {
     mesh.geometry = textGeo;
 
     mesh.position.x = position.x - 102.6*position.y;
-    mesh.position.y = 40;
-    mesh.position.z = position.z;
+    mesh.position.y = 90;
+    mesh.position.z = position.z - mesh.width/2;
 
     mesh.rotation.y = Math.PI/2 * -1*position.y;
 
