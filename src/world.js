@@ -164,7 +164,7 @@ function loadProfilePic(picURL, position) {
     console.log(this.fb_user);
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
-    photo.position.x = position.x + -110*position.y;
+    photo.position.x = position.x + 105*position.y;
     photo.rotation.y = Math.PI/2 * position.y;
     photo.position.y = 30;
     photo.position.z = position.z;
@@ -231,14 +231,14 @@ function allFriendsReceived(friends) {
 	for(i in houseManager.housesLeft) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
 		index+=1;
 	}
 
 	for(i in houseManager.housesRight) {
 		house = houseManager.housesRight[i];
 		house.fb_user = friends[index];
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
 		index+=1;
 	}
 }
@@ -267,10 +267,10 @@ HouseManager.prototype.init = function() {
     this.housesRight = new Array();
     
     for (var i = 0; i < 50; i++) {
-    	h = new House(300, 0, -400 * i,5);
+    	h = new House(300, 0, -400 * i,100);
     	h.create();
         this.housesRight[i] = h;
-        h2 = new House(-300, 0, -400 * i,5);
+        h2 = new House(-300, 0, -400 * i,100);
         h2.create();
         this.housesLeft[i] = h2;
     }
