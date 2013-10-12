@@ -100,15 +100,15 @@ if ( havePointerLock ) {
 
 function House() {
 	self = this;
-	self.fb_user = null;
-	self.xPos = 0;
-	self.yPos = 0;
-	self.zPos = 0;
+	fb_user = null;
+	xPos = 0;
+	yPos = 0;
+	zPos = 0;
 
-	self.create = function(x, y, z) {
-		self.xPos = x;
-		self.yPos = y;
-		self.zPos = z;
+	create = function(x, y, z) {
+		xPos = x;
+		yPos = y;
+		zPos = z;
 	    var backWall = new THREE.CubeGeometry( 195, 60 , 5);
 
 		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
@@ -157,7 +157,7 @@ function House() {
 		scene.add( ceilingMesh );
 	};
 
-	House.prototype.loadProfilePic = function(picURL) {
+	loadProfilePic = function(picURL) {
 		var photoMaterial = new THREE.MeshBasicMaterial({
 			map : THREE.ImageUtils.loadTexture(picURL)
 	    });
@@ -165,10 +165,10 @@ function House() {
 
 	    // plane
 	    var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
-	    console.log(self.xPos + " " + self.zPos);
-	    photo.position.x = self.xPos;
+	    console.log(xPos + " " + zPos);
+	    photo.position.x = xPos;
 	    photo.position.y = 30;
-	    photo.position.z = self.zPos;
+	    photo.position.z = zPos;
 
 	    scene.add(photo);
 	};
