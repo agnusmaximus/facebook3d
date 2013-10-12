@@ -14,7 +14,7 @@ Array.prototype.shuffle = function() {
 friends = new Array();
 
 function get_single_status(user, callback) {
-    return;
+
     friend_id = user.id;
 
     FB.api('/'+friend_id+'/posts', function(response) {
@@ -68,12 +68,19 @@ function get_friend_photos(user, callback) {
 		for (i = 0; i < response.data.length; i++) {
 		    //results[i] = "https://scontent-a-pao.xx.fbcdn.net/hphotos-prn1/67688_539080522787299_979200007_n.jpg";
 		    //results[i] = response.data[i].picture;
-		    str = results[i].response.data[i].picture;
+		    str = response.data[i].picture;
 		    end = 0;
 		    n_b = 0;
 		    for (j = 0; j < str.length; j++) {
 			if (j == '/') n_b++;
+			if (n_b >= 4) {
+			    end = j;
+			    break;
+			}			
 		    }
+
+		    better = "https://scontent-a-pao.xx.fbcdn.net/hphotos-prn1/" + str.substring(end, str.length);
+		    results[i] = better;
 		}
 		console.log(results);
 		callback(results);
@@ -157,6 +164,7 @@ window.fbAsyncInit = function() {
 	    // have logged in to the app.
 	    
 	    initialize();
+
 	} else if (response.status === 'not_authorized') {
 	    // In this case, the person is logged into Facebook, but not into the app, so we call
 	    // FB.login() to prompt them to do so. 
