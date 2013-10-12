@@ -42,21 +42,23 @@ function makeCubeWall(width, height, cubeSize, offset) {
 			for (var k=0; k<6; k++) {
 				var img = new Image();
 				img.src = friend_profile_pics[Math.floor(Math.random()*friend_profile_pics.length)];
-				var tex = new THREE.Texture(img);
+			    var tex = new THREE.Texture(img);
+			      console.log("TES");
+			       console.log(tex);
 				img.tex = tex;
 
 				img.onload = function() {
 			    	this.tex.needsUpdate = true;
 				};
 				//var mat = new THREE.MeshBasicMaterial({color: 0xffffff, map: tex});
-				/*var mat = new THREE.MeshBasicMaterial({color: 0xAAAAAA});
+				var mat = new THREE.MeshBasicMaterial({color: 0xAAAAAA});
 				if(k==5 || k==4) {
 					mat = new THREE.MeshBasicMaterial({color: 0xffff00});
-				}*/
+				}
 
 				var mat = new THREE.MeshBasicMaterial({color: 0xAAAAAA});
 				if(k==4) {
-					mat = new THREE.MeshBasicMaterial({map: tex});
+				    //mat = new THREE.MeshBasicMaterial({map: tex});
 				}
 				materials.push(mat);
 			}
