@@ -296,13 +296,12 @@ function getPic(index) {
     statuses.photo.position.y = house.yPos + 10;
     statuses.photo.position.z = house.zPos;
     
-    statuses.photo.geometry.verticesNeedUpdate = true;
-    statuses.photo.geometry.elementsNeedUpdate = true;
-    statuses.photo.geometry.morphTargetsNeedUpdate = true;
-    statuses.photo.geometry.uvsNeedUpdate = true;
-    statuses.photo.geometry.normalsNeedUpdate = true;
-    statuses.photo.geometry.colorsNeedUpdate = true;
-    statuses.photo.geometry.tangentsNeedUpdate = true;
+    statuses.mesh.geometry.attributes.position.needsUpdate = true;
+    statuses.mesh.geometry.attributes.index.needsUpdate = true;
+    statuses.mesh.geometry.attributes.uv.needsUpdate = true;
+    statuses.mesh.geometry.attributes.normal.needsUpdate = true;
+    statuses.mesh.geometry.attributes.color.needsUpdate = true;
+    statuses.mesh.geometry.attributes.tangent.needsUpdate = true;
     
     //scene.add(statuses.photo);
 }
@@ -322,6 +321,7 @@ function updateStatusWall(t) {
 
 var userPhotos = null;
 var photoCascade = new Object();
+photoCascade.photos = new Array();
 photoCascade.curt = 0;
 photoCascade.interval = 3000;
 photoCascade.canRun = false;
@@ -329,6 +329,12 @@ photoCascade.canRun = false;
 //PATRICK'S CODE
 var photosIndex = 0;
 function updatePhotoCascade(t) {
+	for(var i = 0; i < photoCascade.photos.length; i++) {
+		var p = photoCascade.photos[i];
+		p.position.y -= t/10;
+	}
+
+
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
@@ -352,6 +358,8 @@ function updatePhotoCascade(t) {
 		    if(photosIndex>=userPhotos.length) {
 		    	photosIndex = 0;
 		    }
+
+		    photoCascade.photos.push(photo);
 
 	        photoCascade.curt = 0;
 
