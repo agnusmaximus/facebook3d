@@ -101,8 +101,6 @@ if ( havePointerLock ) {
 function House() {
 }
 
-House.prototype.fb_user = null;
-
 House.prototype.create = function(x, y, z) {
 	this.xPos = x;
 	this.yPos = y;
@@ -163,6 +161,7 @@ House.prototype.loadProfilePic = function(picURl) {
 
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
+    console.log(this.xPos + " " + this.zPos);
     photo.position.x = this.xPos;
     photo.position.y = 30;
     photo.position.z = this.zPos;
@@ -212,7 +211,7 @@ function allFriendsReceived(friends) {
 	for(house in houseManager.housesLeft) {
 		console.log(index);
 		house.fb_user = friends[index];
-		get_friend_profile_pic(house.fb_user,house.loadProfilePic)
+		get_friend_profile_pic(friends[index],house.loadProfilePic)
 		index+=1;
 	}
 }
