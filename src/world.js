@@ -105,7 +105,7 @@ function House() {
 	yPos = 0;
 	zPos = 0;
 
-	create = function(x, y, z) {
+	self.create = function(x, y, z) {
 		xPos = x;
 		yPos = y;
 		zPos = z;
@@ -157,7 +157,7 @@ function House() {
 		scene.add( ceilingMesh );
 	};
 
-	loadProfilePic = function(picURL) {
+	self.loadProfilePic = function(picURL) {
 		var photoMaterial = new THREE.MeshBasicMaterial({
 			map : THREE.ImageUtils.loadTexture(picURL)
 	    });
