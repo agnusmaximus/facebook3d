@@ -1,9 +1,9 @@
 
-function get_photos(user, callback) {
+function get_profile_pic(user, callback) {
     console.log(user);
     friend_id = user.id;
-    FB.api('/'+friend_id+'/photos/', function(response) {
-	console.log(response);
+    FB.api('/'+friend_id+'/picture', function(response) {
+	console.log(response.data.url);
     });
 }
 
@@ -21,8 +21,10 @@ function initialize() {
     FB.api('/me', function(response) {
 	user_id = response.id;
 	
+	//EXAMPLE OF USING GET_ALL_FRIENDS AND THEN
+	//GETTING THEIR PROFILE PICS
 	get_all_friends(function(friends) {
-	    get_photos(friends[20]);
+	    get_profile_pic(friends[20]);
 	});
 
 	init();
