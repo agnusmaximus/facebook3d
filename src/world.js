@@ -163,6 +163,10 @@ function House(x,y,z,height,flipped) {
 		ceilingMesh.rotation.x = Math.PI/2;
 
 		scene.add( ceilingMesh );
+
+		var light = new THREE.PointLight( 0xff0000, 1, 100 );
+		light.position.set(	x, 30, z );
+		scene.add( light );
 	};
 }
 
@@ -331,13 +335,13 @@ function init() {
 	scene = new THREE.Scene();
 	scene.fog = new THREE.Fog( 0x00dfff, 0, 2000 );
 
-	var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
+	/*var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	light.position.set( 1, 1, 1 );
 	scene.add( light );
 
 	var light = new THREE.DirectionalLight( 0xffffff, 0.75 );
 	light.position.set( -1, - 0.5, -1 );
-	scene.add( light );
+	scene.add( light );*/
 
 	controls = new THREE.PointerLockControls( camera );
 	scene.add( controls.getObject() );
