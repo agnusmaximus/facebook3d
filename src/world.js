@@ -266,7 +266,6 @@ function getNextStatus(status) {
 }
 
 function setPics(friendpics) {
-	console.log(friendpics[0]);
     pics = friendpics;
     getPic(0);
 }
@@ -312,6 +311,7 @@ function updateStatusWall(t) {
         nearestHouse = getNearestHouse();
         statuses.user = nearestHouse.fb_user;
         get_single_status(statuses.user, getNextStatus);
+        startPhotosForUser(nearestHouse.fb_user);
         //get_friend_photos(statuses.uer, getPic);
         //getPic(picind);
         //picind = (picind + 1) % (pics.length - 1);
@@ -327,7 +327,6 @@ photoCascade.interval = 3000;
 photoCascade.canRun = false;
 
 //PATRICK'S CODE
-var photosIndex = 0;
 function updatePhotoCascade(t) {
 	var toRemove = new Array();
 
@@ -346,26 +345,22 @@ function updatePhotoCascade(t) {
 		photoCascade.photos.splice(j,1);
 	}
 
+	toRemove = null;
+
 
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-		var image = 0
-	    	image.crossOrigin = '';
-			//image.src = pics[index];
-
-			var texture = new THREE.Texture( image );
-			texture.needsUpdate = true;
 	    	
 			var photoMaterial = new THREE.MeshBasicMaterial({
-				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
+				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
 	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
-		    photo.position.x = nearestHouse.xPos+90;
+		    photo.position.x = nearestHouse.xPos+90*nearestHouse.flipped;
 		    photo.position.y = 150;
 		    photo.position.z = nearestHouse.zPos-Math.random()*190+190/2;
 
-		    photo.rotation.y = -Math.PI/2;
+		    photo.rotation.y = -Math.PI/2 * nearestHouse.flipped;
 
 		    photosIndex+=1;
 		    if(photosIndex>=userPhotos.length) {
@@ -386,7 +381,7 @@ function setPhotosArray(photos) {
 	photoCascade.canRun = true;
 }
 
-function getCurrentUser(user) {
+function startPhotosForUser(user) {
 	get_friend_photos(user, setPhotosArray);
 }
 
@@ -455,7 +450,6 @@ function getNearestHouse() {
 		if(distance(position, new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			if(isNaN(h.xPos)) break;
-			console.log("H "+h.zPos + " " + h.xPos);
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user;
@@ -544,7 +538,7 @@ function init() {
     scene.add( skyboxMesh );*/
 
 
-    get_self(getCurrentUser);
+    get_self(startPhotosForUser);
 
 
     initStatusWall();
