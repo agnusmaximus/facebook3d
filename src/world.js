@@ -125,7 +125,7 @@ function House(x,y,z,height,flipped) {
 		var leftWall = new THREE.CubeGeometry( 205, height , 5);
 
 		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-		leftWallMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos);
+		leftWallMesh.position = new THREE.Vector3(this.xPos+flipped*100,this.yPos+height/2,this.zPos);
 		leftWallMesh.rotation.y = Math.PI/2;
 
 		scene.add( leftWallMesh );
@@ -134,7 +134,7 @@ function House(x,y,z,height,flipped) {
 		var rightWallLeft = new THREE.CubeGeometry( 205, height , 5);
 
 		rightWallMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
-		rightWallMesh.position = new THREE.Vector3(this.xPos+flipped*100,this.yPos+height/2,this.zPos);
+		rightWallMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos);
 		rightWallMesh.rotation.y = -Math.PI/2;
 
 		scene.add( rightWallMesh );
