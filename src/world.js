@@ -370,7 +370,7 @@ function init() {
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog( 0xD8DFEA, 0, 3000 );
+	scene.fog = new THREE.Fog( 0xFFFFFF, 0, 3000 );
 
 	/*var light = new THREE.DirectionalLight( 0xffffff, 1.5 );
 	light.position.set( 1, 1, 1 );
@@ -386,9 +386,9 @@ function init() {
 	ray = new THREE.Raycaster();
 	ray.ray.direction.set( 0, -1, 0 );
 
-	renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.WebGLRenderer({antialias: true});
 	renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setClearColor(0xD8DFEA, 1);
+    renderer.setClearColor(0xFFFFFF, 1);
 
 
 	document.body.appendChild( renderer.domElement );
@@ -396,7 +396,7 @@ function init() {
 	geometry = new THREE.PlaneGeometry( 20000000, 20000000, 100, 100 );
 	geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
-	material = new THREE.MeshBasicMaterial( {color : 0xC0C0C0} );
+	material = new THREE.MeshBasicMaterial( {color : 0xD8DFEA} );
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
