@@ -54,7 +54,7 @@ function get_friend_profile_pic(user_id, callback, data) {
 function get_self(callback) {
     FB.api('/me', function(response) {
 	console.log(response);
-	callback(response);
+	callback(response.id);
     });
 }
 
