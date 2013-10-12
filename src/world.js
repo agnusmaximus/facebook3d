@@ -160,14 +160,16 @@ function House(x,y,z,height,flipped) {
 		scene.add( rightWallRightMesh );
 
 
-		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
+		//var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
 
-		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
+		var pyramidGeometry = new THREE.CylinderGeometry(0, 205/2, height/2, 4, false); 
+
+		ceilingMesh = new THREE.Mesh(pyramidGeometry, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
 		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+2.5,this.zPos);
 		ceilingMesh.rotation.x = Math.PI/2;
 
 		scene.add( ceilingMesh );
-		
+
 
 	    var bottomWall = new THREE.CubeGeometry( 195, 205 , 1);
 
