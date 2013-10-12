@@ -81,15 +81,17 @@ function makeCubeWall(width, height, cubeSize, offset) {
 
 function findFriends(friends) {
 	for(var i = 0; i < friends.length; i++) {
-		get_friend_profile_pic(friends[i], profilePictureForFriend);
+		console.log(friends[i].name);
+		get_friend_profile_pic(friends[i].id, profilePictureForFriend, null);
 	}
 }
 
 function profilePictureForFriend(picURL,data) {
+	console.log("Added photo!");
 	friend_profile_pics.push(picURL);
 }
 
-function selfIDReceived(id) {
+/*function selfIDReceived(id) {
 	self_id = id;
 	get_friend_profile_pic(id,profilePicReceived,null);
 }
@@ -104,7 +106,7 @@ function profilePicReceived(picURL,data)  {
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
-}
+}*/
 
 function onWindowResize() {
 
@@ -158,9 +160,9 @@ function animate() {
 	TWEEN.update();
 
 	for(i in cubesArr) {
-		if(!cubesArr[i].userData.isBeingFlipped) {
+		//if(!cubesArr[i].userData.isBeingFlipped) {
 			cubesArr[i].rotation.z = Math.sin(totalTime/100 + cubesArr[i].userData.timeOffset)/10;
-		}
+		//}
 	}
 
 	renderer.render( scene, camera );
