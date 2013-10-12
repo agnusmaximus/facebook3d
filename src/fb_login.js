@@ -66,8 +66,14 @@ function get_friend_photos(user, callback) {
 		console.log(response);
 		results = new Array();
 		for (i = 0; i < response.data.length; i++) {
+		    //results[i] = "https://scontent-a-pao.xx.fbcdn.net/hphotos-prn1/67688_539080522787299_979200007_n.jpg";
 		    //results[i] = response.data[i].picture;
-		    results[i] = "https://scontent-a-pao.xx.fbcdn.net/hphotos-prn1/67688_539080522787299_979200007_n.jpg";
+		    str = results[i].response.data[i].picture;
+		    end = 0;
+		    n_b = 0;
+		    for (j = 0; j < str.length; j++) {
+			if (j == '/') n_b++;
+		    }
 		}
 		console.log(results);
 		callback(results);
