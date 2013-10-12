@@ -169,38 +169,57 @@ function loadProfilePic(picURL, position) {
     scene.add(photo);
 };
 
-function Status(x, y, text) {
-    this.x = x;
-    this.y = y;
-    this.text = text;
-}
 
-function StatusWall(id, x, y, z, sizex, sizez) {
+function StatusWall(id, x, y, z) {
     this.id = id;
-    this.statuses = new Array();
-    this.maxstats = 5;
     this.x = x;
     this.y = y;
     this.z = z;
-    this.sizex = sizex;
-    this.sizez = sizez;
+    this.interval = 2500;
+    this.curt = 0;
 }
 
 StatusWall.prototype.init = function() {
-    
+    this.textGeoMesh = new THREE.Mesh(); 
+    this.getNextStatus();
+    scene.add(textGeoMesh);
 };
 
-StatusWall.prototype.update = function() {
-    if (statuses.length < 5) {
-        var newstatus = getRandomStatus(this.id);
-        
-        var x = Math.floor(Math.random()*3);
-        var y = Math.floor(Math.random()*3);
-        
-        
-        statuses.push(new Status(x, y, newstatus));
+StatusWall.prototype.getNextStatus = function() { 
+    var newstatus = getRandomStatus(this.id);
+    while (true){
+        if (newstatus != this.status) {
+            this.status = newstatus;
+            break;
+        }
+        newstatus = getRandomStatus(this.id);
+    }
+    this.curt = 0;
+    
+    var textGeo = new THREE.TextGeometry( this.status, {
+        size: 70,
+        height: 20,
+        curveSegments: 0,
+
+        font: "optimer",
+        weight: "bold",
+        style: "normal",
+
+        bevelEnabled: false,
+    });
+    
+    var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
+    this.textGeoMesh.material = material;
+    this.textGeoMesh.textGeo = textGeo;
+}
+
+StatusWall.prototype.update = function(t) {
+    this.curt += t;
+    if (this.curt > this.interval) {
+        this.getNextStatus();
     }
 };
+
 
 function allFriendsReceived(friends) {
 
@@ -209,8 +228,7 @@ function allFriendsReceived(friends) {
 	for(i in houseManager.housesLeft) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
-		console.log(house.zPos);
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, house.yPos, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 30, house.zPos));
 		index+=1;
 	}
 }
