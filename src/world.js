@@ -6,6 +6,7 @@ var houseManager;
 var statuses;
 
 var objects = [];
+var pics;
 
 var ray;
 
@@ -221,7 +222,8 @@ function newStatusWall(user) {
     statuses.interval = 2500;
     statuses.curt = 0;
     //get_single_status(statuses.user, getNextStatus);
-    get_friend_photos(statuses.user, getPic);
+    get_friend_photos(statuses.user, setPics);
+    getPic(0);
 }
 
 // called at the very beginning
@@ -237,7 +239,7 @@ function initStatusWall() {
 }
 
 function getNextStatus(status, picurl) { 
-	scene.remove(statuses.mesh);
+	//scene.remove(statuses.mesh);
 	console.log("STATUS:"+status);
     var textGeo = new THREE.TextGeometry( status, {
         size: 15,
@@ -252,37 +254,73 @@ function getNextStatus(status, picurl) {
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
-    scene.add(statuses.mesh);
+    //scene.add(statuses.mesh);
 }
 
-function getPic(pics) {
-    scene.remove(statuses.photo);
+function setPics(friendpics) {
+    pics = friendpics;
+}
+
+function getPic(index) {
+    //scene.remove(statuses.photo);
     var photoMaterial = new THREE.MeshBasicMaterial({
-	map : THREE.ImageUtils.loadTexture(pics[Math.floor(Math.random()*pics.length)])
+		map : THREE.ImageUtils.loadTexture(pics[index])
     });
 
     var photo = new THREE.Mesh();
     statuses.photo.geometry  = new THREE.PlaneGeometry(80, 80);
     statuses.photo.material = photoMaterial;
     
-    //var house = getNearestHouse();
-    var house = new THREE.Vector3(0,20,0);
+    var house = getNearestHouse();
     
     statuses.photo.position.x = house.xPos;
     statuses.photo.position.y = house.yPos + 10;
     statuses.photo.position.z = house.zPos;
     
-    scene.add(statuses.photo);
+    statuses.photo.geometry.verticesNeedUpdate = true;
+    statuses.photo.geometry.elementsNeedUpdate = true;
+    statuses.photo.geometry.morphTargetsNeedUpdate = true;
+    statuses.photo.geometry.uvsNeedUpdate = true;
+    statuses.photo.geometry.normalsNeedUpdate = true;
+    statuses.photo.geometry.colorsNeedUpdate = true;
+    statuses.photo.geometry.tangentsNeedUpdate = true;
+    
+    //scene.add(statuses.photo);
 }
-
+var index = 1;
 function updateStatusWall(t) {
     statuses.curt += t;
     if (statuses.curt > statuses.interval) {
         //get_single_status(statuses.user, getNextStatus);
-        get_friend_photos(statuses.user, getPic);
+        //get_friend_photos(statuses.user, getPic);
+        getPic(index);
+        index = (index + 1) % pics.length;
         statuses.curt = 0;
     }
 }
+
+/*var userPhotos = null;
+var photoCascade = new Object();
+photoCascade.user = get_self;
+photoCascade.curt = 0;
+photoCascade.interval = 3000;
+photoCascade.photos = new Array();
+photoCascade.canRun = false;
+
+//PATRICK'S CODE
+function updatePhotoCascated(t) {
+	if(photoCascade.canRun) {
+	    photoCascade.curt += t;
+	    if (photoCascade.curt > photoCascade.interval) {
+	        photoCascade.curt = 0;
+	    }
+	}
+}
+
+function setPhotosArray(photos) {
+	photoCascade.photos = photos;
+	photoCascade.canRun = true;
+}*/
 
 
 function allFriendsReceived(friends) {
@@ -340,7 +378,7 @@ HouseManager.prototype.init = function() {
 };
 
 function getNearestHouse() {
-	var closestHouse = null;
+	var closestHouse = houseManager.housesLeft[0];
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
 		h = houseManager.housesLeft[i];
@@ -425,6 +463,9 @@ function init() {
     skyboxMesh    = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000, 1, 1, 1, null, true ), material );
     // add it to the scene
     scene.add( skyboxMesh );*/
+
+
+    //get_friend_photos(photoCascade.user, setPhotosArray);
 
 
     initStatusWall();
