@@ -528,7 +528,7 @@ function init() {
     houseManager.init();
     
     // skybox
-    
+    /*
     var path = "../data/";
     var urls = [ path + '1.png',
                  path + '2.png',
@@ -540,8 +540,8 @@ function init() {
 
     var cubeTexture = THREE.ImageUtils.loadTextureCube( urls );
 
-    var shader = THREE.ShaderUtils.lib["cube"];
-    shader.uniforms["tCube"].texture = cubeTexture;
+    var shader = THREE.ShaderLib["cube"];
+    shader.uniforms["tCube"].value = cubeTexture;
 
     var skyboxMaterial = new THREE.ShaderMaterial( {
         uniforms        : shader.uniforms,
@@ -556,11 +556,11 @@ function init() {
     skybox.material = THREE.BackSide;
 
     scene.add(skybox);
-
+    */
 
     get_self(startPhotosForUser);
 
-    var bottomWall = new THREE.CubeGeometry( 400, 40005 , 1);
+    var bottomWall = new THREE.CubeGeometry( 420, 40005 , 1);
     
     bottomMesh = new THREE.Mesh(bottomWall, new THREE.MeshBasicMaterial( {color : 0xc0c0c0} ));
     bottomMesh.position = new THREE.Vector3(this.xPos,this.yPos,this.zPos);
