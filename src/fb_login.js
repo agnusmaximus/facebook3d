@@ -28,7 +28,7 @@ function initialize() {
 	//EXAMPLE OF USING GET_ALL_FRIENDS AND THEN
 	//GETTING THEIR PROFILE PICS
 	get_all_friends(function(friends) {
-	    get_friend_profile_pic(friends[20]);
+	    get_friend_profile_pic(friends[20], function(){});
 	});
 
 	init();
