@@ -136,7 +136,7 @@ function House(x,y,z,height,flipped) {
 
 
 		var rightWallLeft = new THREE.CubeGeometry( 80, height , 5);
-	    
+
 		rightWallLeftMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0x3B5998} ));
 		rightWallLeftMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos-45/2-40);
 		rightWallLeftMesh.rotation.y = -Math.PI/2;
@@ -179,7 +179,7 @@ function loadProfilePic(picURL, position) {
 		map : THREE.ImageUtils.loadTexture(picURL)
     });
 
-    
+
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
     photo.position.x = position.x - 102.6*position.y;
@@ -204,13 +204,13 @@ function loadName(name, position) {
 
         bevelEnabled: false
     });
-    
+
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     mesh.material = material;
     mesh.geometry = textGeo;
 
     mesh.position.x = position.x - 102.6*position.y;
-    mesh.position.y = 90;
+    mesh.position.y = 76;
     mesh.geometry.computeBoundingBox();
     mesh.position.z = position.z + (mesh.geometry.boundingBox.max.x-mesh.geometry.boundingBox.min.x)/2*-position.y;
 
@@ -226,51 +226,57 @@ function newStatusWall(user) {
     statuses.curt = 0;
     get_single_status(statuses.user, getNextStatus);
     //get_friend_photos(statuses.user, setPics);
-    
+
 }
 
 // called at the very beginning
 function initStatusWall() {
     statuses = new Object();
-    statuses.mesh = new THREE.Mesh(); 
-    statuses.mesh.geometry.dynamic = true;
-    scene.add(statuses.mesh);
-    
+    statuses.meshes = new Array();
+
+    statuses.meshes[0].geometry.dynamic = true;
+
+    scene.add(statuses.meshes[0]);
+
     //statuses.photo = new THREE.Mesh();
     //statuses.photo.geometry.dynamic = true;
     //scene.add(statuses.photo);
 }
 
-function getNextStatus(status) { 
-    scene.remove(statuses.mesh);
-	console.log("STATUS:"+status);
-    var textGeo = new THREE.TextGeometry( status, {
-        size: 4,
-        height: -1,
-        curveSegments: 0,
+function getNextStatus(status) {
+    for (var i = 0; i < status.length; i++)
+        scene.remove(statuses.mesh);
+    console.log("STATUS:"+status);
 
-        font: "helvetiker",
+    for (var i = 0; i < status.length; i++) {
+        var textGeo = new THREE.TextGeometry( status[i], {
+            size: 4,
+            height: -1,
+            curveSegments: 0,
 
-        bevelEnabled: false
-    });
-    statuses.mesh = new THREE.Mesh(); 
-    statuses.mesh.geometry.dynamic = true;
-    var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
-    statuses.mesh.material = material;
-    statuses.mesh.geometry = textGeo;
-    if (controls.getObject().position.x < 0) {
-	statuses.mesh.rotation.y += 1.5;
-        statuses.mesh.position.z = nearestHouse.zPos + 40;
+            font: "helvetiker",
+
+            bevelEnabled: false
+        });
+        statuses.mesh[i] = new THREE.Mesh();
+        statuses.mesh[i].geometry.dynamic = true;
+        var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
+        statuses.mesh[i].material = material;
+        statuses.mesh[i].geometry = textGeo;
+        if (controls.getObject().position.x < 0) {
+        statuses.mesh[i].rotation.y += Math.PI/2;
+        statuses.mesh[i].position.z = nearestHouse.zPos + 100;
+        }
+        else {
+        statuses.mesh[i].rotation.y -= Math.PI/2;
+        statuses.mesh[i].position.z = nearestHouse.zPos - 100;
+        }
+
+        statuses.mesh[i].position.x = nearestHouse.xPos ;
+        statuses.mesh[i].position.y = 50 - i*10;
+
+        scene.add(statuses.mesh[i]);
     }
-    else {
-	statuses.mesh.rotation.y -= 1.5;
-	statuses.mesh.position.z = nearestHouse.zPos - 40;
-    }
-	
-    statuses.mesh.position.x = nearestHouse.xPos ;
-    statuses.mesh.position.y = 20;
-
-    scene.add(statuses.mesh);
 }
 
 function setPics(friendpics) {
@@ -293,25 +299,24 @@ function getPic(index) {
     var photo = new THREE.Mesh();
     statuses.photo.geometry  = new THREE.PlaneGeometry(80, 80);
     statuses.photo.material = photoMaterial;
-    
+
     //var house = getNearestHouse();
     var house = new THREE.Vector3(0,20,0);
-    
+
     statuses.photo.position.x = house.xPos;
     statuses.photo.position.y = house.yPos + 10;
     statuses.photo.position.z = house.zPos;
-    
+
     statuses.mesh.geometry.attributes.position.needsUpdate = true;
     statuses.mesh.geometry.attributes.index.needsUpdate = true;
     statuses.mesh.geometry.attributes.uv.needsUpdate = true;
     statuses.mesh.geometry.attributes.normal.needsUpdate = true;
     statuses.mesh.geometry.attributes.color.needsUpdate = true;
     statuses.mesh.geometry.attributes.tangent.needsUpdate = true;
-    
+
     //scene.add(statuses.photo);
 }
 
-var picind = 1;
 function updateStatusWall(t) {
     statuses.curt += t;
     if (statuses.curt > statuses.interval) {
@@ -365,7 +370,7 @@ function updatePhotoCascade(photoCascade, t, wall) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
-	    	
+
 			var photoMaterial = new THREE.MeshBasicMaterial({
 				map : THREE.ImageUtils.loadTexture(userPhotos[Math.floor(Math.random()*userPhotos.length)])
 			});
@@ -374,7 +379,7 @@ function updatePhotoCascade(photoCascade, t, wall) {
 		    photo.position.y = 150;
 		    photo.position.x = nearestHouse.xPos-Math.random()*170+190/2;
 
-		    photo.rotation.y = (Math.PI * wall) * nearestHouse.flipped;
+		    photo.rotation.y = (Math.PI * ((wall+1)/2)) * nearestHouse.flipped;
 
 		    photoCascade.photos.push(photo);
 
@@ -439,7 +444,7 @@ function HouseManager() {
 HouseManager.prototype.init = function() {
     this.housesLeft = new Array();
     this.housesRight = new Array();
-    
+
     for (var i = 0; i < 5; i++) {
     	h = new House(300, 0, -400 * i,100,1);
     	h.create();
@@ -521,18 +526,18 @@ function init() {
 
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
-    
+
     houseManager = new HouseManager();
     houseManager.init();
-    
+
     // skybox
-    
+
     var path = "../data/";
     var urls = [ path + '1.png',
                  path + '2.png',
                  path + '3.png',
                  path + '4.png',
-                 path + '5.png', 
+                 path + '5.png',
                  path + '6.png'
                  ];
 
@@ -562,7 +567,7 @@ function init() {
     initStatusWall();
 
     get_self(testingStatuses);
-    
+
     //get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
     window.addEventListener( 'resize', onWindowResize, false );
