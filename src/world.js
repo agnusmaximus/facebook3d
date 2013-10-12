@@ -559,7 +559,7 @@ function animate() {
 
 	}
 
-	//updateStatusWall( Date.now() - time);
+	updateStatusWall( Date.now() - time);
 	updatePhotoCascade(Date.now() - time);
 
 	controls.update( Date.now() - time );
