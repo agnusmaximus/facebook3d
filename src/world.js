@@ -98,7 +98,7 @@ if ( havePointerLock ) {
 
 }
 
-function House(fb_user_id) {
+function House(fb_user) {
     this.fb_user = fb_user;
 }
 
