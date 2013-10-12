@@ -310,7 +310,7 @@ function updateStatusWall(t) {
 }
 
 
-/*var userPhotos = null;
+var userPhotos = null;
 var photoCascade = new Object();
 photoCascade.user = get_self;
 photoCascade.curt = 0;
@@ -319,11 +319,22 @@ photoCascade.photos = new Array();
 photoCascade.canRun = false;
 
 //PATRICK'S CODE
-function updatePhotoCascated(t) {
+var photosIndex = 0;
+function updatePhotoCascade(t) {
 	if(photoCascade.canRun) {
 	    photoCascade.curt += t;
 	    if (photoCascade.curt > photoCascade.interval) {
+			var photoMaterial = new THREE.MeshBasicMaterial({
+				map : THREE.ImageUtils.loadTexture(userPhotos[photosIndex])
+			});
+	        var photo = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), photoMaterial);
+		    photo.position.x = Math.random()*100;
+		    photo.position.y = Math.random()*100;
+		    photo.position.z = -50;
+
 	        photoCascade.curt = 0;
+
+		    scene.add(photo);
 	    }
 	}
 }
@@ -331,7 +342,7 @@ function updatePhotoCascated(t) {
 function setPhotosArray(photos) {
 	photoCascade.photos = photos;
 	photoCascade.canRun = true;
-}*/
+}
 
 
 function allFriendsReceived(friends) {
@@ -476,12 +487,12 @@ function init() {
     scene.add( skyboxMesh );*/
 
 
-    //get_friend_photos(photoCascade.user, setPhotosArray);
+    get_friend_photos(photoCascade.user, setPhotosArray);
 
 
-    initStatusWall();
+    /*initStatusWall();
 
-    get_self(testingStatuses);
+    get_self(testingStatuses);*/
     
     //get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
@@ -527,7 +538,8 @@ function animate() {
 
 	}
 
-	updateStatusWall( Date.now() - time);
+	//updateStatusWall( Date.now() - time);
+	updatePhotoCascade(Date.now() - time);
 
 	controls.update( Date.now() - time );
 
