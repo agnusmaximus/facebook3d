@@ -110,44 +110,56 @@ function House(x,y,z,height) {
 
 		backWallMesh = new THREE.Mesh(backWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 		backWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos-100);
-		backWallMesh.material.side = THREE.DoubleSide;
 
 		scene.add( backWallMesh );
 
+		//total 195
+		var frontWallLeft = new THREE.CubeGeometry( 75, height , 5);
 
-		var frontWall = new THREE.CubeGeometry( 195, height , 5);
+		frontWalLeftMesh = new THREE.Mesh(frontWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		frontWalLeftMesh.position = new THREE.Vector3(this.xPos - frontWallLeft.width/2,this.yPos+height/2,this.zPos+100);
+		frontWalLeftMesh.rotation.x = Math.PI;
 
-		frontWallMesh = new THREE.Mesh(frontWall, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
-		frontWallMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2,this.zPos+100);
-		frontWallMesh.rotation.x = Math.PI;
-		frontWallMesh.material.side = THREE.DoubleSide;
+		scene.add( frontWalLeftMesh );
 
-		scene.add( frontWallMesh );
+		var frontWallMiddle = new THREE.CubeGeometry( 45, height*3/4 , 5);
+
+		frontWalMiddleMesh = new THREE.Mesh(frontWallMiddle, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		frontWalMiddleMesh.position = new THREE.Vector3(this.xPos,this.yPos+height/2+height/8,this.zPos+100);
+		frontWalMiddleMesh.rotation.x = Math.PI;
+
+		scene.add( frontWalMiddleMesh );
+
+		var frontWallRight = new THREE.CubeGeometry( 75, height, 5);
+
+		frontWalRightMesh = new THREE.Mesh(frontWallRight, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
+		frontWalRightMesh.position = new THREE.Vector3(this.xPos + frontWallRight.width/2,this.yPos+height/2,this.zPos+100);
+		frontWalRightMesh.rotation.x = Math.PI;
+
+		scene.add( frontWalRightMesh );
 
 
 		var leftWall = new THREE.CubeGeometry( 205, height , 5);
 
-		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAA00AA} ));
+		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 		leftWallMesh.position = new THREE.Vector3(this.xPos-100,this.yPos+height/2,this.zPos);
 		leftWallMesh.rotation.y = Math.PI/2;
-		leftWallMesh.material.side = THREE.DoubleSide;
 
 		scene.add( leftWallMesh );
 
 
 		var rightWall = new THREE.CubeGeometry( 205, height , 5);
 
-		rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0x00AAAA} ));
+		rightWallMesh = new THREE.Mesh(rightWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 		rightWallMesh.position = new THREE.Vector3(this.xPos+100,this.yPos+height/2,this.zPos);
 		rightWallMesh.rotation.y = -Math.PI/2;
-		rightWallMesh.material.side = THREE.DoubleSide;
 
 		scene.add( rightWallMesh );
 
 
 		var ceiling = new THREE.CubeGeometry( 205, 205 , 5);
 
-		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0x555555} ));
+		ceilingMesh = new THREE.Mesh(ceiling, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
 		ceilingMesh.position = new THREE.Vector3(this.xPos,this.yPos+height+2.5,this.zPos);
 		ceilingMesh.rotation.x = Math.PI/2;
 
@@ -165,9 +177,10 @@ function loadProfilePic(picURL, position) {
     // plane
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), photoMaterial);
     photo.position.x = position.x + 102.6*position.y;
-    photo.rotation.y = Math.PI/2 * position.y;
     photo.position.y = 30;
-    photo.position.z = position.z;
+    photo.position.z = position.z - (50 * position.y);
+
+    photo.rotation.y = Math.PI/2 * position.y;
 
     scene.add(photo);
 };
