@@ -1,28 +1,11 @@
-
-function get_profile_picture(){
-
-}
-
-function get_all_friends(limit){
-
-}
-
-function get_all_photos(id, limit){
-
-}
-function post_on_wall(id, message){
-}
-
 user_id = 0
 
 // Init function which is called when user logs in.
-function initialize() {
+function init() {
     console.log("Initializing...");
     FB.api('/me', function(response) {
 	console.log(response);
 	user_id = response.id;
-	
-	console.log(response);
 
 	// Do a test and get the logged in user's picture
 	get_user_picture(function(val) {
@@ -41,17 +24,13 @@ function get_user_picture(callback) {
 
 function get_all_posts(user_id, limit) {
     console.log("hello there");
-
 }
-function send_private_message(id, message){
 
-}
 
 window.fbAsyncInit = function() {
-
     FB.init({
 	appId      : '1424417874443748', // App ID
-	channelUrl : '', // Channel File
+	channelUrl : 'localhost', // Channel File
 	read_friendlists : true,
 	status     : true, // check login status
 	cookie     : true, // enable cookies to allow the server to access the session
@@ -68,7 +47,7 @@ window.fbAsyncInit = function() {
 	    // The response object is returned with a status field that lets the app know the current
 	    // login status of the person. In this case, we're handling the situation where they 
 	    // have logged in to the app.
-	    initialize();
+	    init();
 	} else if (response.status === 'not_authorized') {
 	    // In this case, the person is logged into Facebook, but not into the app, so we call
 	    // FB.login() to prompt them to do so. 
