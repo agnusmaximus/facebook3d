@@ -257,9 +257,11 @@ function initStatusWall() {
 }
 
 function getNextStatus(status) {
-    for (var i = 0; i < status.length; i++)
+    for (var i = 0; i < statuses.meshes.length; i++)
         scene.remove(statuses.meshes[i]);
     //console.log("STATUS:"+status);
+
+    statuses.meshes = new Array();
 
     for (var i = 0; i < status.length; i++) {
         var textGeo = new THREE.TextGeometry( status[i], {
@@ -399,11 +401,11 @@ function updatePhotoCascade(photoCascade, t, wall) {
 
 		    if (position.x < 0) {
 			photo.rotation.y = (Math.PI * ((wall+1)/2)) + Math.PI;
-			photo.position.x = nearestHouse.xPos-Math.random()*150+90;
+			photo.position.x = nearestHouse.xPos-Math.random()*135+72.5;
 		    }
 		    else {
 			photo.rotation.y = (Math.PI * ((wall+1)/2));
-			photo.position.x = nearestHouse.xPos-Math.random()*150+90;
+			photo.position.x = nearestHouse.xPos-Math.random()*135+72.5;
 		    }
 
 		    photoCascade.photos.push(photo);
