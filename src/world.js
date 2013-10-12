@@ -163,6 +163,8 @@ function ProfilePicReceived(picURL) {
     var photo = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), photoMaterial);
     photo.position.y = 30;
 
+    console.log(picURL);
+
     scene.add(photo);
 }
 
@@ -242,10 +244,12 @@ function init() {
     skyboxMesh    = new THREE.Mesh( new THREE.CubeGeometry( 1000, 1000, 1000, 1, 1, 1, null, true ), material );
     // add it to the scene
     scene.add( skyboxMesh );*/
-
-    get_user_picture(ProfilePicReceived);
         
 	window.addEventListener( 'resize', onWindowResize, false );
+}
+
+function facebookIsWorking() {
+	get_user_picture(ProfilePicReceived);
 }
 
 function onWindowResize() {
