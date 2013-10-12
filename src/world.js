@@ -205,9 +205,11 @@ StatusWall.prototype.update = function() {
 };
 
 function allFriendsReceived(friends) {
+
 	index = 0;
 
 	for(house in houseManager.housesLeft) {
+		console.log(index);
 		house.fb_user = friends[index];
 		get_friend_profile_pic(house.fb_user,house.loadProfilePic)
 		index+=1;
@@ -308,7 +310,7 @@ function init() {
     // add it to the scene
     scene.add( skyboxMesh );*/
     
-    //get_user_picture(ProfilePicReceived);
+    get_user_picture(ProfilePicReceived);
     get_all_friends(allFriendsReceived);
     window.addEventListener( 'resize', onWindowResize, false );
 }
