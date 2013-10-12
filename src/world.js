@@ -263,13 +263,15 @@ function setPics(friendpics) {
 }
 
 function getPic(index) {
-    //scene.remove(statuses.photo);
-    /*var img;
-    img.crossOrigin = '';
-	img.src = 'http://other-domain.com/image.jpg';*/
+    var image = document.createElement( 'img' );
+    image.crossOrigin = '';
+	image.src = pics[index];
+
+	var texture = new THREE.Texture( image );
+	texture.needsUpdate = true;
 
     var photoMaterial = new THREE.MeshBasicMaterial({
-		map : THREE.ImageUtils.loadTexture(pics[index])
+		map : THREE.ImageUtils.loadTexture(texture)
     });
 
     var photo = new THREE.Mesh();
