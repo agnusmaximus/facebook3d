@@ -443,12 +443,12 @@ function getNearestHouse() {
 	var lowestDistance = 10000000;
 	for(i in houseManager.housesLeft) {
 		h = houseManager.housesLeft[i];
-		console.log(h.xPos+" "+h.zPos+" "+h.fb_user.name);
 		if(distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos)) < lowestDistance) {
 			lowestDistance = distance(camera.position,new THREE.Vector3(h.xPos, 0, h.zPos));
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user.id;
+			closestHouse.fb_username = h.fb_user.name;
 		}
 	}
 
@@ -459,8 +459,10 @@ function getNearestHouse() {
 			closestHouse.zPos = h.zPos;
 			closestHouse.xPos = h.xPos;
 			closestHouse.fb_user = h.fb_user.id;
+			closestHouse.fb_username = h.fb_user.name;
 		}
 	}
+	console.log(closestHouse.fb_username);
 	return closestHouse;
 }
 
