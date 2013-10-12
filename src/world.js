@@ -258,14 +258,17 @@ function getNextStatus(status) {
     var material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
     statuses.mesh.material = material;
     statuses.mesh.geometry = textGeo;
-    if (controls.getObject().position.x < 0)
+    if (controls.getObject().position.x < 0) {
 	statuses.mesh.rotation.y += 1.5;
-    else
+        statuses.mesh.position.z = nearestHouse.zPos - 20;
+    }
+    else {
 	statuses.mesh.rotation.y -= 1.5;
+	statuses.mesh.position.z = nearestHouse.zPos + 20;
+    }
 	
     statuses.mesh.position.x = nearestHouse.xPos ;
     statuses.mesh.position.y = 20;
-    statuses.mesh.position.z = nearestHouse.zPos - 20;
 
     scene.add(statuses.mesh);
 }
