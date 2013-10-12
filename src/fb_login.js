@@ -14,7 +14,7 @@ Array.prototype.shuffle = function() {
 friends = new Array();
 
 function get_single_status(user, callback) {
-    //if (!user) return;
+    return;
     friend_id = user.id;
 
     FB.api('/'+friend_id+'/posts', function(response) {
@@ -24,10 +24,11 @@ function get_single_status(user, callback) {
 	    for (i = 0; i < response.data.length; i++) {
 		story = response.data[i].story.toLowerCase();
 		story = '"' + story + '"';
-		if (Math.random() % (i + 1) == 0)
+
+		if (Math.floor(Math.random() * 100) % (i + 1) == 0)
 		    chosen = story;
-		break;
 	    }
+	    console.log(chosen + " " + chosen);
 	    callback(chosen);
 	}
     });
