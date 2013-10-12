@@ -29,6 +29,12 @@ function get_friend_profile_pic(user, callback, data) {
     });
 }
 
+function get_self(user, callback) {
+    FB.api('/me', function(response) {
+	callback(response);
+    });
+}
+
 function get_friend_albums(user, callback) {
     friend_id = user.id;
     FB.api(friend_id+'/albums', function(response) {
