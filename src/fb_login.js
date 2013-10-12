@@ -17,8 +17,6 @@ user_id = 0
 
 // Init function which is called when user logs in.
 function initialize() {
-    init();
-    animate();
     console.log("Initializing...");
     FB.api('/me', function(response) {
 	user_id = response.id;
@@ -26,13 +24,17 @@ function initialize() {
 	get_all_friends(function(friends) {
 	    get_photos(friends[20]);
 	});
+
+	init();
+	animate();
     });
 }
 
 // Get's the logged in user's picture and performs
 // callback on the picture's url. 
 function get_user_picture(callback) {
-    FB.api('/'+user_id+'/picture', function(response) {
+    FB.api(user_id + '/picture', function(response) {
+	console.log(user_id);
 	console.log(response);
 	callback(response.data.url);
     });
