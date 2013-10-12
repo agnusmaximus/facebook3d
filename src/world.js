@@ -99,7 +99,7 @@ if ( havePointerLock ) {
 
 }
 
-function House(x,y,z,height) {
+function House(x,y,z,height,flipped) {
 	this.fb_user = null;
 	this.xPos = x;
 	this.yPos = y;
@@ -125,7 +125,7 @@ function House(x,y,z,height) {
 		var leftWall = new THREE.CubeGeometry( 205, height , 5);
 
 		leftWallMesh = new THREE.Mesh(leftWall, new THREE.MeshBasicMaterial( {color : 0xAAAAAA} ));
-		leftWallMesh.position = new THREE.Vector3(this.xPos-100,this.yPos+height/2,this.zPos);
+		leftWallMesh.position = new THREE.Vector3(this.xPos-flipped*100,this.yPos+height/2,this.zPos);
 		leftWallMesh.rotation.y = Math.PI/2;
 
 		scene.add( leftWallMesh );
@@ -134,7 +134,7 @@ function House(x,y,z,height) {
 		var rightWallLeft = new THREE.CubeGeometry( 205, height , 5);
 
 		rightWallMesh = new THREE.Mesh(rightWallLeft, new THREE.MeshBasicMaterial( {color : 0xAAAA00} ));
-		rightWallMesh.position = new THREE.Vector3(this.xPos+100,this.yPos+height/2,this.zPos);
+		rightWallMesh.position = new THREE.Vector3(this.xPos+flipped*100,this.yPos+height/2,this.zPos);
 		rightWallMesh.rotation.y = -Math.PI/2;
 
 		scene.add( rightWallMesh );
@@ -237,14 +237,14 @@ function allFriendsReceived(friends) {
 	for(i in houseManager.housesLeft) {
 		house = houseManager.housesLeft[i];
 		house.fb_user = friends[index];
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
 		index+=1;
 	}
 
 	for(i in houseManager.housesRight) {
 		house = houseManager.housesRight[i];
 		house.fb_user = friends[index];
-		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, -1, house.zPos));
+		get_friend_profile_pic(house.fb_user,loadProfilePic,new THREE.Vector3(house.xPos, 1, house.zPos));
 		index+=1;
 	}
 }
@@ -273,10 +273,10 @@ HouseManager.prototype.init = function() {
     this.housesRight = new Array();
     
     for (var i = 0; i < 50; i++) {
-    	h = new House(300, 0, -400 * i,100);
+    	h = new House(300, 0, -400 * i,100,1);
     	h.create();
         this.housesRight[i] = h;
-        h2 = new House(-300, 0, -400 * i,100);
+        h2 = new House(-300, 0, -400 * i,100,-1);
         h2.create();
         this.housesLeft[i] = h2;
     }
@@ -418,7 +418,7 @@ function animate() {
 
 	}
 
-	updateStatusWall( Date.now() - time);
+	//updateStatusWall( Date.now() - time);
 
 	controls.update( Date.now() - time );
 
