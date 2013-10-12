@@ -1,3 +1,4 @@
+
 function get_profile_picture(){
 
 }
@@ -49,7 +50,7 @@ function send_private_message(id, message){
 window.fbAsyncInit = function() {
     FB.init({
 	appId      : '1424417874443748', // App ID
-	channelUrl : 'localhost', // Channel File
+	channelUrl : '', // Channel File
 	read_friendlists : true,
 	status     : true, // check login status
 	cookie     : true, // enable cookies to allow the server to access the session
