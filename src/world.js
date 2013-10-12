@@ -258,6 +258,7 @@ function getNextStatus(status, picurl) {
 }
 
 function setPics(friendpics) {
+	console.log(friendpics[0]);
     pics = friendpics;
     getPic(0);
 }
