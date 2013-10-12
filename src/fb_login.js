@@ -1,3 +1,27 @@
+user_id = 0
+
+// Init function which is called when user logs in.
+function init() {
+    console.log("Initializing...");
+    FB.api('/me', function(response) {
+	console.log(response);
+	user_id = response.id;
+
+	// Do a test and get the logged in user's picture
+	get_user_picture(function(val) {
+	    console.log(val);
+	});
+    });
+}
+
+// Get's the logged in user's picture and performs
+// callback on the picture's url. 
+function get_user_picture(callback) {
+    FB.api(user_id+'/picture', function(response) {
+	callback(response.data.url);
+    });
+}
+
 function get_all_posts(user_id, limit) {
     console.log("hello there");
 }
@@ -23,7 +47,7 @@ window.fbAsyncInit = function() {
 	    // The response object is returned with a status field that lets the app know the current
 	    // login status of the person. In this case, we're handling the situation where they 
 	    // have logged in to the app.
-	    testAPI();
+	    init();
 	} else if (response.status === 'not_authorized') {
 	    // In this case, the person is logged into Facebook, but not into the app, so we call
 	    // FB.login() to prompt them to do so. 
@@ -52,16 +76,6 @@ window.fbAsyncInit = function() {
     js.src = "//connect.facebook.net/en_US/all.js";
     ref.parentNode.insertBefore(js, ref);
 }(document));
-
-// Here we run a very simple test of the Graph API after login is successful. 
-// This testAPI() function is only called in those cases. 
-function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-	console.log('Good to see you, ' + response.name + '.');
-    });
-    get_all_posts();
-}
 
 function logout() {
     FB.logout(function(response) {
